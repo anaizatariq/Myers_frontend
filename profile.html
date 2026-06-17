@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Profile — Myer's College</title>
+  <meta name="description" content="Institutional profile of Myer's College, Cambridge-affiliated school in Chakwal, Pakistan." />
+  <link rel="icon" href="assets/images/myers-logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <style>
+    /* ── PDF PRINT STYLING ── */
+    @media print {
+      body { background: white; }
+      .section-padding { page-break-inside: avoid; }
+      .info-card { page-break-inside: avoid; }
+      .topbar { display: none; }
+    }
+
+    /* ── PROFILE PAGE DESIGN ── */
+    .profile-intro-box {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 50px 45px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 50px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .info-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 35px 30px;
+      height: 100%;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      border-color: var(--gold);
+    }
+
+    .info-card:hover::before {
+      opacity: 1;
+    }
+
+    .info-card h4 {
+      color: var(--black);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    .info-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    .info-icon {
+      color: var(--gold);
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    @media print {
+      .profile-intro-box {
+        border: 1px solid #d4af37;
+        background: #fafaf8;
+      }
+      .info-card {
+        border: 1px solid #e0e0e0;
+        page-break-inside: avoid;
+      }
+    }
+
+    /* ── OFFICIAL DOCUMENT SHOWCASE SECTION ── */
+    .doc-showcase-section {
+      background: transparent;
+      border-radius: 32px;
+      padding: 50px 50px;
+      margin-bottom: 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-showcase-section::after {
+      display: none;
+    }
+
+    .doc-showcase-section::before {
+      display: none;
+    }
+
+    .doc-showcase-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 50px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .doc-showcase-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .doc-badge {
+      background: transparent;
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      padding: 12px 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 35px;
+      font-size: 0.82rem;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: var(--font-heading);
+    }
+
+    .doc-badge i {
+      font-size: 1.05rem;
+    }
+
+    .doc-logo-container {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 45px 35px;
+      margin-bottom: 35px;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      box-shadow: var(--card-shadow);
+    }
+
+    .doc-logo-container img {
+      max-width: 80px;
+      margin-bottom: 20px;
+    }
+
+    .doc-logo-label {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      font-family: var(--font-heading);
+    }
+
+    .doc-icon {
+      width: 100px;
+      height: 130px;
+      background: #f5f5f5;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--gold);
+      position: relative;
+    }
+
+    .doc-icon::after {
+      display: none;
+    }
+
+    .pdf-label {
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-top: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .doc-showcase-right {
+      color: var(--text-dark);
+      position: relative;
+      z-index: 2;
+    }
+
+    .doc-showcase-title {
+      font-family: var(--font-heading);
+      font-size: 3.4rem;
+      font-weight: 900;
+      margin-bottom: 24px;
+      line-height: 1.18;
+      letter-spacing: -0.8px;
+      color: var(--black);
+    }
+
+    .doc-showcase-title .gold-text {
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .doc-showcase-desc {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+
+    .doc-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 45px;
+      margin-bottom: 35px;
+      padding: 40px;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      position: relative;
+      z-index: 2;
+      box-shadow: var(--card-shadow);
+    }
+
+    .doc-info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doc-info-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.25em;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-family: var(--font-heading);
+    }
+
+    .doc-info-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--black);
+      line-height: 1.5;
+      letter-spacing: -0.3px;
+    }
+
+    .doc-info-value.gold {
+      color: var(--gold);
+    }
+
+    .doc-showcase-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-top: 15px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-view-online {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--black);
+      border: none;
+      border-radius: 18px;
+      padding: 20px 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      box-shadow: 0 12px 35px rgba(196,151,58, 0.5);
+      letter-spacing: 0.4px;
+      font-family: var(--font-heading);
+    }
+
+    .btn-view-online:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 55px rgba(196,151,58, 0.8);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    }
+
+    .btn-view-online i {
+      font-size: 1.15rem;
+    }
+
+    .doc-showcase-footer-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 24px;
+      font-style: italic;
+      letter-spacing: 0.2px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .doc-showcase-footer-text i {
+      color: var(--gold);
+      margin-right: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .doc-showcase-section {
+        padding: 35px 25px;
+        margin-bottom: 40px;
+      }
+
+      .doc-showcase-content {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .doc-showcase-title {
+        font-size: 2.2rem;
+      }
+
+      .doc-info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 30px;
+        margin-bottom: 25px;
+      }
+
+      .btn-view-online {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topbar">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-4">
+          <span class="d-flex align-items-center gap-2"><i class="bi bi-telephone-fill topbar-icon"></i> +92-543-541610</span>
+          <span class="d-flex align-items-center gap-2"><i class="bi bi-envelope-fill topbar-icon"></i> principal@myers.edu.pk</span>
+        </div>
+        <span class="d-none d-md-inline" style="color:rgba(255,255,255,0.50);font-size:0.75rem;letter-spacing:0.1em;">Welcome to Myer's College — Cambridge Affiliated</span>
+      </div>
+    </div>
+  </div>
+
+   <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="assets/images/myers-logo.png" alt="Myer's College Logo" height="48" width="48" style="object-fit:contain;" /><div class="d-none d-sm-block"><span class="brand-name">Myer's</span><span class="brand-suffix"> College</span></div></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link active" href="profile.html">PROFILE</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">ABOUT US</a></li>
+          <li class="nav-item"><a class="nav-link" href="faculty.html">FACULTY</a></li>
+          <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
+          <li class="nav-item"><a class="nav-link" href="facilities.html">FACILITIES</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
+          <li class="nav-item"><a class="nav-link" href="guidance.html">GUIDANCE</a></li>
+          <li class="nav-item"><a class="nav-link" href="life.html">LIFE AT MYERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="page-hero">
+    <h1 class="page-hero-title">College Profile</h1>
+    <p class="page-hero-subtitle">Myer's College — A legacy of academic excellence</p>
+    <div class="page-hero-divider"></div>
+  </div>
+
+  <section class="section-padding" style="background: #ffffff;">
+    <div class="container-fluid px-4 px-md-5">
+      
+      <!-- Official Document Showcase -->
+      <div class="doc-showcase-section">
+        <div class="doc-showcase-content">
+          
+          <!-- Left Side: Document Preview -->
+          <div class="doc-showcase-left">
+            <div class="doc-badge">
+              <i class="bi bi-file-pdf"></i> Official Document
+            </div>
+            <div class="doc-logo-container">
+              <img src="assets/images/myers-logo.png" alt="Myer's College Logo" height="80" />
+              <div class="doc-logo-label">Myer's College</div>
+              <div class="doc-logo-label">Institutional Profile</div>
+            </div>
+            <div class="doc-icon">
+              📄
+              <div style="position:absolute;top:15px;left:12px;right:12px;height:2px;background:var(--gold);"></div>
+              <div style="position:absolute;top:24px;left:12px;right:12px;height:1px;background:var(--gold);"></div>
+              <div style="position:absolute;top:30px;left:12px;right:12px;height:1px;background:var(--gold);"></div>
+            </div>
+            <div class="pdf-label"><i class="bi bi-lock-fill" style="font-size:0.8rem;margin-right:4px;"></i> PDF Document</div>
+          </div>
+
+          <!-- Right Side: Profile Information -->
+          <div class="doc-showcase-right">
+            <h2 class="doc-showcase-title">Myer's College <span class="gold-text">Institutional Profile</span></h2>
+            <p class="doc-showcase-desc">
+              A comprehensive document covering the college's history, academic structure, faculty expertise, world-class facilities, gold medal achievements and global university placements — the complete picture of what Myer's College stands for.
+            </p>
+
+            <!-- Key Information Grid -->
+            <div class="doc-info-grid">
+              <div class="doc-info-item">
+                <div class="doc-info-label">Institution</div>
+                <div class="doc-info-value">University-Preparatory School, Chakwal</div>
+              </div>
+              <div class="doc-info-item">
+                <div class="doc-info-label">Cambridge Affiliation</div>
+                <div class="doc-info-value gold">CIE · PK 035</div>
+              </div>
+              <div class="doc-info-item">
+                <div class="doc-info-label">Programs</div>
+                <div class="doc-info-value">O-Levels · A-Levels</div>
+              </div>
+              <div class="doc-info-item">
+                <div class="doc-info-label">Founded · First CIE</div>
+                <div class="doc-info-value">1999 · 2005</div>
+              </div>
+              <div class="doc-info-item">
+                <div class="doc-info-label">Enrolment</div>
+                <div class="doc-info-value">~1,000 Pupils · 4 Schools</div>
+              </div>
+              <div class="doc-info-item">
+                <div class="doc-info-label">Campus</div>
+                <div class="doc-info-value">100+ Acres · Chakwal</div>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="doc-showcase-buttons">
+              <a href="assets/profile.pdf" target="_blank" class="btn-view-online">
+                <i class="bi bi-eye"></i> View Profile Online
+              </a>
+            </div>
+
+            <div class="doc-showcase-footer-text">
+              <i class="bi bi-info-circle"></i> Opens in your browser for easy viewing and sharing
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer pt-5 pb-0">
+    <div class="container py-4">
+      <div class="row g-5">
+        <div class="col-md-6 col-lg-3">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="assets/images/myers-logo.png" alt="Myer's College" height="44" width="44" style="object-fit:contain;" />
+            <div><span class="gradient-text" style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;">Myer's</span><span style="color:rgba(255,255,255,0.95);font-family:var(--font-heading);font-size:1.1rem;font-weight:700;"> College</span></div>
+          </div>
+          <p style="font-size:0.85rem;line-height:1.8;color:rgba(255,255,255,0.52);">A university-preparatory school affiliated with Cambridge International Examinations, providing quality education since 1999.</p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="footer-social"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <h4 class="footer-heading mb-4">Quick Links</h4>
+          <ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:10px;">
+            <li><a href="index.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Home</a></li>
+            <li><a href="about.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> About Us</a></li>
+            <li><a href="academics.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Academics</a></li>
+            <li><a href="admissions.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Admissions</a></li>
+            <li><a href="life.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Life at Myers</a></li>
+            <li><a href="contact.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <h4 class="footer-heading mb-4">Contact Info</h4>
+          <ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:16px;font-size:0.85rem;color:rgba(255,255,255,0.52);">
+            <li class="d-flex align-items-start gap-3"><i class="bi bi-geo-alt-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Myers College, Kot Sarfraz Khan, Chakwal-48800, Punjab, Pakistan</li>
+            <li class="d-flex align-items-start gap-3"><i class="bi bi-telephone-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">+92-543-541610</p><p class="mb-0">+92-321-2960044</p></div></li>
+            <li class="d-flex align-items-start gap-3"><i class="bi bi-envelope-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">principal@myers.edu.pk</p><p class="mb-0">counselor@myers.edu.pk</p></div></li>
+          </ul>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <h4 class="footer-heading mb-4">Stay Connected</h4>
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.52);">Subscribe to get updates on admissions, events and more.</p>
+          <form class="newsletter-form d-flex mt-3" onsubmit="return false;">
+            <input type="email" class="form-control footer-input" placeholder="Your email" required />
+            <button type="submit" class="btn-gold" style="border-radius:0 10px 10px 0;padding:10px 16px;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+        <p class="mb-0">&copy; <span id="year"></span> Myer's College. All rights reserved.</p>
+        <p class="mb-0">Cambridge International Examinations — PK 035</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

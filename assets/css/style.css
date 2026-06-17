@@ -1,0 +1,2071 @@
+/* ===== GOOGLE FONTS ===== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+
+/* ===================================================
+   MYER'S COLLEGE — BLACK & MAROON LEAD SYSTEM
+   
+   BLACK  → Navbar, footer, topbar (ultimate authority)
+   MAROON → Feature sections, CTA, page heroes, dark cards (brand warmth)
+   GOLD   → Selective prestige (brand name, dividers, stat icons, dark labels)
+   WHITE  → Content cards, light sections
+   CREAM  → Alternating section backgrounds
+=================================================== */
+:root {
+  /* ── Black (structural authority) ── */
+  --black: #0C0C0C;
+  --black-rich: #111111;
+  --black-surface: #1A1A1A;
+  --black-border: rgba(255, 255, 255, 0.08);
+  --black-border-md: rgba(255, 255, 255, 0.14);
+
+  /* ── Maroon (brand sections — the deep lead) ── */
+  --maroon-deep: #4A0E0E;
+  /* darkest — hero overlays, CTA */
+  --maroon: #6B1414;
+  /* primary section background */
+  --maroon-mid: #8B1A1A;
+  /* interactive, buttons, accents */
+  --maroon-vivid: #A82020;
+  /* hover states, accent strips */
+  --maroon-light: #C42B2B;
+  /* bright card tops, hover glow */
+  --maroon-subtle: rgba(107, 20, 20, 0.09);
+  --maroon-tint: rgba(107, 20, 20, 0.16);
+  --maroon-border: rgba(107, 20, 20, 0.24);
+
+  /* Maroon section surfaces */
+  --maroon-surface: #5A1212;
+  /* cards ON maroon sections */
+  --maroon-card: rgba(255, 255, 255, 0.06);
+  --maroon-card-border: rgba(255, 255, 255, 0.12);
+
+  /* ── Gold (selective prestige) ── */
+  --gold: #C4973A;
+  --gold-light: #D9AE5A;
+  --gold-dark: #A67C28;
+  --gold-subtle: rgba(196, 151, 58, 0.10);
+  --gold-border: rgba(196, 151, 58, 0.28);
+
+  /* ── Light surfaces ── */
+  --white: #FFFFFF;
+  --cream: #FAF6F0;
+  --border-light: #EDE8E3;
+  --border-mid: #DDD8D2;
+
+  /* ── Typography ── */
+  --text-primary: #0F0F0F;
+  --text-secondary: #2E2E2E;
+  --text-muted: #6B7280;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 2px 8px -2px rgba(12, 12, 12, 0.10);
+  --shadow-md: 0 6px 24px -4px rgba(12, 12, 12, 0.14);
+  --shadow-lg: 0 16px 48px -8px rgba(12, 12, 12, 0.20);
+  --shadow-maroon: 0 8px 32px -4px rgba(107, 20, 20, 0.35);
+  --shadow-maroon-lg: 0 20px 60px -8px rgba(107, 20, 20, 0.40);
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Sans 3', system-ui, sans-serif;
+
+  /* ── Legacy compatibility aliases ── */
+  --border-color: #EDE8E3;
+  /* alias for --border-light */
+  --card-shadow: 0 2px 8px -2px rgba(12, 12, 12, 0.10);
+  --elevated-shadow: 0 16px 48px -8px rgba(12, 12, 12, 0.20);
+  --gold-shadow: 0 4px 20px -4px rgba(196, 151, 58, 0.25);
+  --text-dark: #0F0F0F;
+  --navy: #0C0C0C;
+  /* alias for --black */
+}
+
+/* ===== BASE ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--white);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+/* ============================================================
+   TOPBAR — Black (absolute authority)
+============================================================ */
+#topbar {
+  background: var(--black);
+  padding: 8px 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.48);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#topbar .topbar-icon {
+  color: var(--gold);
+}
+
+/* ============================================================
+   NAVBAR — Black (authority, premium dark bar)
+============================================================ */
+.site-navbar {
+  background: var(--black-rich) !important;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--maroon);
+  transition: box-shadow 0.3s ease;
+  overflow-x: auto;
+}
+
+.site-navbar.scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.50);
+}
+
+.site-navbar .navbar-brand .brand-name {
+  color: var(--maroon-vivid);
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.site-navbar .navbar-brand .brand-suffix {
+  color: rgba(255, 255, 255, 0.90);
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.site-navbar .navbar-brand {
+  margin-right: auto;
+  margin-left: -8px;
+}
+
+.site-navbar .navbar-nav {
+  margin-right: -8px;
+}
+
+.site-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 12px !important;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.site-navbar .nav-link:hover,
+.site-navbar .nav-link.active {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.site-navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.site-navbar .nav-link:hover::after,
+.site-navbar .nav-link.active::after {
+  width: 60%;
+}
+
+.navbar-toggler {
+  border: none !important;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* ============================================================
+   HERO — Deep black with strong maroon character
+============================================================ */
+.hero-section {
+  position: relative;
+  min-height: 700px;   /* more breathing room */
+  overflow: hidden;
+}
+
+/* ── Hero image — responsive focal point fix ──
+   Main building entrance is on the RIGHT side (white portico ~72% from left).
+   Desktop → full balanced view of whole building.
+   Mobile  → anchored on main entrance so it's always the focal point.
+── */
+.hero-section img.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% center;   /* Desktop: full building visible, entrance prominent */
+  transform: scale(1.0);
+  filter: brightness(1.02) contrast(1.12) saturate(1.08);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: object-position 0.3s ease;
+}
+
+/* Tablet — start bringing entrance into center focus */
+@media (max-width: 992px) {
+  .hero-section img.hero-img {
+    object-position: 78% center;
+  }
+}
+
+/* Mobile — tightly anchor on main entrance (white portico + columns) */
+@media (max-width: 576px) {
+  .hero-section img.hero-img {
+    object-position: 85% center;
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  /* Vignette — dark edges, lighter center so building shows clearly */
+  background:
+    radial-gradient(ellipse 120% 100% at 50% 50%,
+      rgba(0, 0, 0, 0.16) 0%,   /* decreased by 2% */
+      rgba(0, 0, 0, 0.40) 48%,  /* decreased by 2% */
+      rgba(0, 0, 0, 0.52) 100%  /* decreased by ~2% */
+    ),
+    linear-gradient(to top,
+      rgba(0, 0, 0, 0.61) 0%,   /* decreased by 2.5% */
+      rgba(0, 0, 0, 0.10) 32%,  /* decreased by 2% */
+      transparent 58%
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(100px, 12vw, 150px) clamp(20px, 8vw, 80px) clamp(80px, 10vw, 120px);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgb(53 1 1 / 31%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 102, 102, 0.094);
+  border-radius: 50px;
+  padding: clamp(9px, 2vw, 12px) clamp(20px, 4vw, 32px);
+  margin-bottom: clamp(28px, 5vw, 44px);
+  font-size: clamp(0.62rem, 2vw, 0.72rem);
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  font-weight: 600;
+  animation: fadeInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  transition: all 0.3s ease;
+}
+
+.hero-badge:hover {
+  background: rgba(53, 1, 1, 0.354);
+  border-color: rgba(254, 79, 79, 0.137);
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.hero-badge i {
+  font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+  color: var(--gold);
+  filter: drop-shadow(0 1px 3px rgba(196, 151, 58, 0.50));
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 9.5vw, 7rem);  /* pulled back — less dominant */
+  font-weight: 900;
+  color: rgba(255, 245, 232, 0.97);
+  line-height: 1.05;
+  margin-bottom: clamp(22px, 3.5vw, 36px);
+  letter-spacing: -0.03em;
+  text-shadow:
+    0 3px 20px rgba(0, 0, 0, 0.80),
+    0 1px 6px  rgba(0, 0, 0, 0.60);
+  animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+  opacity: 0;
+}
+
+.hero-title .gradient-text {
+  color: var(--maroon-mid);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  display: inline;
+  /* Soft layered glow — premium contrast, no hard outline */
+  text-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.90),
+    0 4px 40px rgba(0, 0, 0, 0.85),
+    0 8px 80px rgba(0, 0, 0, 0.70);
+}
+
+.hero-subtitle {
+  font-size: clamp(1.05rem, 3vw, 1.25rem);
+  color: #ffffff;
+  max-width: clamp(300px, 80vw, 600px);
+  line-height: 1.90;
+  margin-bottom: clamp(36px, 6vw, 56px);
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  text-shadow:
+    0 1px 6px  rgba(0, 0, 0, 0.98),
+    0 3px 18px rgba(0, 0, 0, 0.90),
+    0 6px 40px rgba(0, 0, 0, 0.80);
+  animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.22s forwards;
+  opacity: 0;
+}
+
+.hero-buttons {
+  animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.32s forwards;
+  opacity: 0;
+  gap: clamp(12px, 3vw, 20px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── Hero responsive — center on mobile ── */
+@media (max-width: 768px) {
+  .hero-content {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    padding: 100px 20px 60px;
+  }
+  .hero-eyebrow { justify-content: center; }
+  .hero-title   { align-items: center; }
+  .hero-rule    { margin: 20px auto; }
+  .hero-subtitle { text-align: center; max-width: 100%; }
+  .hero-buttons { justify-content: center; }
+}
+
+
+/* ============================================================
+   PAGE HERO (inner pages) — Deep Maroon
+   This is the signature brand color moment on every inner page
+============================================================ */
+.page-hero {
+  background: linear-gradient(135deg, #5A1212 0%, var(--maroon) 40%, #4A0E0E 80%, var(--maroon-deep) 100%);
+  padding: 100px 20px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid var(--gold);
+}
+
+/* Luxurious multi-layered glow effect */
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    /* Large maroon glow top-left */
+    radial-gradient(ellipse 1200px 900px at 10% 15%, rgba(107, 20, 20, 0.22) 0%, transparent 60%),
+    /* Gold prestige glow top-right */
+    radial-gradient(ellipse 800px 600px at 85% 10%, rgba(196, 151, 58, 0.10) 0%, transparent 55%),
+    /* Deep maroon warmth bottom-right */
+    radial-gradient(ellipse 1000px 700px at 90% 90%, rgba(107, 20, 20, 0.15) 0%, transparent 65%),
+    /* Subtle gold accent bottom-left */
+    radial-gradient(ellipse 600px 500px at 5% 95%, rgba(196, 151, 58, 0.07) 0%, transparent 50%),
+    /* Center ambient warmth */
+    radial-gradient(ellipse 800px 600px at 50% 50%, rgba(74, 14, 14, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Sophisticated texture overlay with gold accents */
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C4973A' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+    /* Vignette edge effect for depth */
+    radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 700;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+  line-height: 1.15;
+  text-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+}
+
+.page-hero-subtitle {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 16px auto 0;
+  position: relative;
+  z-index: 2;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.page-hero-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, var(--gold), rgba(196, 151, 58, 0.3), rgba(196, 151, 58, 0.1));
+  margin: 24px auto 0;
+  border-radius: 2px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 2px 12px rgba(196, 151, 58, 0.25);
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+/* Primary button — maroon solid */
+.btn-gold {
+  background: linear-gradient(135deg, var(--maroon-mid) 0%, var(--maroon-mid)90%, var(--maroon-mid) 100%);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 16px 44px;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  box-shadow:
+    0 18px 48px rgba(196, 43, 43, 0.42),
+    0 8px 20px rgba(196, 43, 43, 0.26),
+    0 2px 4px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #D63D3D 0%, #F04A4A 50%, #D63D3D 100%);
+  color: #fff;
+  transform: translateY(-6px);
+  box-shadow:
+    0 26px 64px rgba(196, 43, 43, 0.52),
+    0 12px 28px rgba(196, 43, 43, 0.36),
+    0 3px 8px rgba(0, 0, 0, 0.16);
+}
+
+.btn-gold:hover::before {
+  opacity: 1;
+}
+
+.btn-gold:active {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 32px rgba(196, 43, 43, 0.36),
+    0 6px 16px rgba(196, 43, 43, 0.20);
+}
+
+/* Outline button — on dark backgrounds */
+.btn-outline-gold {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 245, 232, 0.97);    /* warm cream to match title */
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 15px 40px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);  /* more visible border */
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  font-weight: 600;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+.btn-outline-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-outline-gold:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #fff;
+  transform: translateY(-5px);
+  box-shadow:
+    0 20px 48px rgba(255, 255, 255, 0.18),
+    0 8px 24px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30);
+}
+
+.btn-outline-gold:hover::before {
+  opacity: 1;
+}
+
+.btn-outline-gold:active {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 24px rgba(255, 255, 255, 0.12),
+    0 4px 12px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+/* Gold button — selective use only */
+.btn-gold-accent {
+  background: var(--gold);
+  color: var(--black);
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 12px 28px;
+  border: none;
+  transition: all 0.25s ease;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn-gold-accent:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(196, 151, 58, 0.35);
+}
+
+/* ============================================================
+   STATS BAR — White card with maroon identity
+============================================================ */
+.stats-bar {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  margin-top: -50px;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  border-top: 4px solid var(--maroon-mid);
+}
+
+.stat-item {
+  padding: 28px 20px;
+  text-align: center;
+  border-right: 1px solid var(--border-light);
+  transition: background 0.3s ease;
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-item:hover {
+  background: var(--cream);
+}
+
+.stat-icon {
+  color: var(--maroon-mid);
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 8px;
+}
+
+.stat-value {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   SECTION UTILITIES
+============================================================ */
+.section-padding {
+  padding: 30px 0 60px 0;
+}
+
+/* ── BLACK section (navbar level authority — used sparingly) ── */
+.section-navy,
+.section-black {
+  background: var(--black-rich);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Maroon warmth in black sections */
+.section-navy::before,
+.section-black::before {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  right: -60px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(107, 20, 20, 0.22) 0%, rgba(107, 20, 20, 0.08) 40%, transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-navy>*,
+.section-black>* {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── MAROON section — the signature brand section ── */
+.section-maroon {
+  background: linear-gradient(135deg, var(--black) 0%, #0C0C0C 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Rich maroon glow effect on sections — luxury premium feel */
+.section-maroon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    /* Large maroon glow top-left */
+    radial-gradient(ellipse 900px 700px at 15% 20%, rgba(107, 20, 20, 0.18) 0%, transparent 60%),
+    /* Accent maroon glow bottom-right */
+    radial-gradient(ellipse 700px 600px at 85% 85%, rgba(107, 20, 20, 0.12) 0%, transparent 55%),
+    /* Subtle gold highlight top-right */
+    radial-gradient(ellipse 500px 400px at 75% 15%, rgba(196, 151, 58, 0.06) 0%, transparent 50%),
+    /* Central maroon warmth */
+    radial-gradient(ellipse 600px 500px at 50% 50%, rgba(74, 14, 14, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Texture overlay with warmth */
+.section-maroon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C4973A' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.section-maroon>* {
+  position: relative;
+  z-index: 1;
+}
+
+/* Enhanced maroon-rich styling for placement records section (2nd occurrence) */
+.section-maroon:last-of-type {
+  background: linear-gradient(135deg, #1A0505 0%, #0C0C0C 50%, #0F0505 100%);
+}
+
+.section-maroon:last-of-type::before {
+  background:
+    /* Stronger maroon glow top-left */
+    radial-gradient(ellipse 1000px 800px at 20% 25%, rgba(107, 20, 20, 0.28) 0%, transparent 55%),
+    /* Deep maroon glow bottom-right */
+    radial-gradient(ellipse 800px 650px at 80% 80%, rgba(107, 20, 20, 0.18) 0%, transparent 50%),
+    /* Gold accent for prestige */
+    radial-gradient(ellipse 600px 450px at 70% 20%, rgba(196, 151, 58, 0.08) 0%, transparent 48%),
+    /* Rich maroon center warmth */
+    radial-gradient(ellipse 700px 600px at 50% 50%, rgba(107, 20, 20, 0.10) 0%, transparent 65%);
+}
+
+.section-maroon:last-of-type::after {
+  background:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C4973A' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.section-cream {
+  background: var(--cream);
+}
+
+/* ── Dividers ── */
+.gold-line {
+  width: 64px;
+  height: 3px;
+  background: linear-gradient(to right, var(--gold), rgba(196, 151, 58, 0.12));
+  border-radius: 2px;
+}
+
+.maroon-line {
+  width: 64px;
+  height: 3px;
+  background: linear-gradient(to right, var(--maroon-mid), rgba(139, 26, 26, 0.12));
+  border-radius: 2px;
+}
+
+.gold-text {
+  color: var(--gold);
+}
+
+.maroon-text {
+  color: var(--maroon-mid);
+}
+
+/* ── Section badge on white ── */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--maroon-subtle);
+  border: 1px solid var(--maroon-border);
+  border-radius: 50px;
+  padding: 5px 14px;
+  font-size: 0.68rem;
+  color: var(--maroon-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* Section badge on dark / maroon sections */
+.section-badge-navy {
+  background: rgba(196, 151, 58, 0.12);
+  border: 1px solid rgba(196, 151, 58, 0.28);
+  color: var(--gold);
+}
+
+/* ── Gradient text ── */
+/* .gradient-text {
+  background: linear-gradient(135deg, var(--maroon-light) 0%, var(--maroon-vivid) 50%, var(--maroon-mid) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+} */
+.gradient-text-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   FEATURE CARDS — on maroon/dark sections
+   Glass-style cards that let the maroon breathe through
+============================================================ */
+.feature-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(4px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 28px;
+  height: 100%;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, rgba(196, 151, 58, 0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feature-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: rgba(196, 151, 58, 0.15);
+  border: 1px solid rgba(196, 151, 58, 0.30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon-box {
+  background: rgba(196, 151, 58, 0.25);
+  transform: scale(1.05);
+}
+
+.feature-icon-box i,
+.feature-icon-box svg {
+  color: var(--gold);
+  font-size: 1.2rem;
+}
+
+/* ============================================================
+   EVENT CARDS — on white sections
+============================================================ */
+.event-card {
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 28px 24px;
+  text-align: center;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--maroon-mid), var(--maroon-vivid), transparent);
+}
+
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--maroon-border);
+}
+
+.event-num {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--maroon-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--maroon-mid);
+  transition: all 0.3s;
+}
+
+.event-card:hover .event-num {
+  background: var(--maroon-mid);
+  color: #fff;
+}
+
+/* ============================================================
+   INFO CARDS — on white/cream sections
+============================================================ */
+.info-card {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
+  height: 100%;
+  transition: all 0.4s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--maroon-border);
+}
+
+.info-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--maroon-subtle);
+  border: 1px solid var(--maroon-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.info-card:hover .info-icon-box {
+  background: var(--maroon-mid);
+}
+
+.info-icon-box i,
+.info-icon-box svg {
+  color: var(--maroon-mid);
+  transition: color 0.3s;
+}
+
+.info-card:hover .info-icon-box i,
+.info-card:hover .info-icon-box svg {
+  color: #fff;
+}
+
+/* ============================================================
+   FLOATING BADGE
+============================================================ */
+.floating-badge {
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+  padding: 16px 20px;
+  border: 1px solid var(--border-light);
+  position: absolute;
+  bottom: -24px;
+  left: -24px;
+  animation: float 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+.floating-badge-right {
+  left: auto;
+  right: -24px;
+  animation-delay: 1s;
+}
+
+.floating-badge-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--maroon-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-badge-icon i {
+  color: var(--maroon-mid);
+}
+
+/* ============================================================
+   CTA SECTION — Deep Maroon (the most powerful call-to-action)
+============================================================ */
+.cta-section {
+  background: linear-gradient(135deg, var(--maroon-deep) 0%, var(--maroon) 45%, var(--maroon-deep) 100%);
+  padding: 90px 20px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(0, 0, 0, 0.30) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 50%, rgba(196, 151, 58, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Subtle diagonal line decoration */
+.cta-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(196, 151, 58, 0.20), transparent);
+  pointer-events: none;
+}
+
+.cta-section>* {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-glow {
+  display: none;
+}
+
+/* Replaced by CSS gradients */
+
+/* ============================================================
+   FOOTER — Deep Black (the final authority)
+============================================================ */
+.site-footer {
+  background: var(--black);
+  color: rgba(255, 255, 255, 0.52);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Maroon top accent line */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--maroon) 0%, var(--maroon-vivid) 35%, var(--maroon-vivid) 65%, var(--maroon) 100%);
+}
+
+/* Gold ambient glow bottom-right */
+.site-footer::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: 300px;
+  background: radial-gradient(ellipse at bottom right, rgba(196, 151, 58, 0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.footer-heading {
+  color: var(--gold);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.48);
+  text-decoration: none;
+  transition: color 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+}
+
+.footer-link:hover {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.footer-social {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.50);
+  transition: all 0.25s ease;
+}
+
+.footer-social:hover {
+  background: var(--maroon-mid);
+  border-color: var(--maroon-mid);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.footer-input {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-right: none !important;
+  color: rgba(255, 255, 255, 0.90) !important;
+  border-radius: 8px 0 0 8px !important;
+}
+
+.footer-input::placeholder {
+  color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.footer-input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: var(--maroon-vivid) !important;
+}
+
+/* ── Newsletter form — prevent "SUBSCRI" clip bug ── */
+.newsletter-form {
+  display: flex;
+  align-items: stretch;
+}
+
+.newsletter-form .footer-input {
+  flex: 1 1 auto;
+  min-width: 0;          /* allows input to shrink without overflow */
+}
+
+.newsletter-form button {
+  flex: 0 0 auto;        /* NEVER shrink the button — always full text */
+  white-space: nowrap;
+  font-size: 0.82rem;
+  padding: 10px 14px;
+  letter-spacing: 0.05em;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 18px 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+/* ============================================================
+   ACCORDION
+============================================================ */
+.custom-accordion .accordion-item {
+  border-radius: 12px !important;
+  margin-bottom: 10px;
+  border: 1px solid var(--border-light) !important;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.custom-accordion .accordion-button {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  background: var(--white);
+  padding: 18px 22px;
+}
+
+.custom-accordion .accordion-button:not(.collapsed) {
+  color: var(--maroon-mid);
+  background: var(--white);
+  box-shadow: none;
+  border-left: 3px solid var(--maroon-mid);
+  padding-left: 19px;
+}
+
+.custom-accordion .accordion-button::after {
+  filter: none;
+}
+
+.custom-accordion .accordion-body {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+  background: var(--white);
+  padding: 4px 22px 20px;
+}
+
+/* ============================================================
+   FACULTY TABLE
+============================================================ */
+.faculty-block {
+  margin-bottom: 36px;
+}
+
+.faculty-header {
+  background: linear-gradient(135deg, var(--maroon-deep) 0%, var(--maroon) 100%);
+  padding: 14px 20px;
+  border-radius: 10px 10px 0 0;
+}
+
+.faculty-header h3 {
+  color: var(--gold);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.faculty-grid {
+  border: 1px solid var(--border-light);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+}
+
+.faculty-member {
+  background: var(--white);
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.2s;
+}
+
+.faculty-member:last-child {
+  border-bottom: none;
+}
+
+.faculty-member:hover {
+  background: var(--cream);
+}
+
+.faculty-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--maroon-subtle);
+  border: 1px solid var(--maroon-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.faculty-avatar i,
+.faculty-avatar svg {
+  color: var(--maroon-mid);
+}
+
+.faculty-name {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.faculty-qual {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 2px 0 0;
+}
+
+.faculty-role {
+  font-size: 0.72rem;
+  color: var(--maroon-mid);
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+
+/* ============================================================
+   AGE TABLES
+============================================================ */
+.age-table-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  margin-bottom: 16px;
+}
+
+.age-table-header {
+  background: linear-gradient(135deg, var(--maroon-deep) 0%, var(--maroon) 100%);
+  padding: 10px 18px;
+}
+
+.age-table-header h4 {
+  color: var(--gold);
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.age-table td {
+  font-size: 0.82rem;
+  padding: 9px 14px;
+}
+
+/* ============================================================
+   GOLD MEDALISTS — on maroon/dark sections
+============================================================ */
+.medalist-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.medalist-card:hover {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.20);
+  transform: translateY(-3px);
+}
+
+.medalist-year-header {
+  padding: 12px 18px;
+  background: rgba(0, 0, 0, 0.20);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.medalist-body {
+  padding: 16px;
+}
+
+.medalist-student {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.medalist-student:last-child {
+  margin-bottom: 0;
+}
+
+.medalist-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(196, 151, 58, 0.15);
+  border: 1px solid rgba(196, 151, 58, 0.30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   CONTACT FORM
+============================================================ */
+.contact-form-card {
+  background: var(--white);
+  border-radius: 18px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, var(--maroon-deep), var(--maroon-mid), var(--maroon-vivid), var(--maroon-mid));
+}
+
+.form-control-custom {
+  border-radius: 8px !important;
+  border: 1px solid var(--border-mid) !important;
+  padding: 12px 16px !important;
+  font-size: 0.9rem !important;
+  background: var(--white) !important;
+  transition: all 0.25s ease !important;
+}
+
+.form-control-custom:focus {
+  border-color: var(--maroon-mid) !important;
+  box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.10) !important;
+  outline: none !important;
+}
+
+.contact-info-card {
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+  padding: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+}
+
+.contact-info-card:hover {
+  border-color: var(--maroon-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.contact-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: var(--maroon-subtle);
+  border: 1px solid var(--maroon-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+
+.contact-info-card:hover .contact-icon-box {
+  background: var(--maroon-mid);
+}
+
+.contact-icon-box i {
+  color: var(--maroon-mid);
+  transition: color 0.3s;
+}
+
+.contact-info-card:hover .contact-icon-box i {
+  color: #fff;
+}
+
+/* ============================================================
+   LIFE TABS — maroon underline tab system
+============================================================ */
+.life-tabs {
+  overflow-x: auto;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border-light);
+  scrollbar-width: none;
+  gap: 4px;
+}
+
+.life-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.life-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  margin-bottom: -1px;
+}
+
+.life-tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.life-tab-btn.active {
+  color: var(--maroon-mid);
+  border-bottom-color: var(--maroon-mid);
+}
+
+.tab-content-area {
+  display: none;
+}
+
+.tab-content-area.active {
+  display: block;
+}
+
+/* ============================================================
+   GUIDANCE CARDS
+============================================================ */
+.guidance-card {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
+  height: 100%;
+  transition: all 0.4s ease;
+}
+
+.guidance-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--maroon-border);
+}
+
+.guidance-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--maroon-subtle);
+  border: 1px solid var(--maroon-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  transition: all 0.3s;
+}
+
+.guidance-card:hover .guidance-icon {
+  background: var(--maroon-mid);
+}
+
+.guidance-icon i {
+  color: var(--maroon-mid);
+  transition: color 0.3s;
+}
+
+.guidance-card:hover .guidance-icon i {
+  color: #fff;
+}
+
+/* ============================================================
+   PROCLAMATION CARD
+============================================================ */
+.proclamation-card {
+  background: var(--white);
+  border-radius: 18px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 0 60px -10px rgba(107, 20, 20, 0.10);
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.proclamation-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 56px;
+  border-left: 2px solid rgba(196, 151, 58, 0.50);
+  border-top: 2px solid rgba(196, 151, 58, 0.50);
+  border-radius: 4px 0 0 0;
+}
+
+.proclamation-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 56px;
+  height: 56px;
+  border-right: 2px solid rgba(196, 151, 58, 0.50);
+  border-bottom: 2px solid rgba(196, 151, 58, 0.50);
+  border-radius: 0 0 4px 0;
+}
+
+/* ============================================================
+   CONTENT CARD
+============================================================ */
+.content-card {
+  background: var(--white);
+  border-radius: 18px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.content-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--maroon-deep), var(--maroon-mid), transparent 55%);
+}
+
+/* ============================================================
+   ANIMATIONS
+============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(107, 20, 20, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 4px rgba(107, 20, 20, 0.12);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3.5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   TOAST
+============================================================ */
+.toast-notification {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--maroon-deep);
+  color: rgba(255, 255, 255, 0.90);
+  padding: 14px 20px;
+  border-radius: 10px;
+  border-left: 3px solid var(--gold);
+  box-shadow: var(--shadow-maroon);
+  z-index: 9999;
+  display: none;
+  font-size: 0.88rem;
+}
+
+.toast-notification.show {
+  display: block;
+  animation: fadeInUp 0.35s ease-out;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 500px;
+  }
+
+  .hero-content {
+    min-height: 500px;
+    padding: 100px 20px 60px;
+  }
+
+  .page-hero {
+    padding: 70px 20px 40px;
+  }
+
+  .stats-bar {
+    margin-top: -30px;
+    border-radius: 0;
+  }
+
+  .stat-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .stat-item:last-child {
+    border-bottom: none;
+  }
+
+  .floating-badge,
+  .floating-badge-right {
+    display: none;
+  }
+
+  .section-padding {
+    padding: 28px 0 40px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   PREMIUM FINAL TOUCHES
+═══════════════════════════════════════════════════════ */
+
+/* Smooth selection highlight */
+::selection {
+  background: var(--maroon-mid);
+  color: #fff;
+}
+
+/* Image sections — ensure photos have slight overlay to blend with theme */
+.img-fluid {
+  display: block;
+}
+
+/* Premium link style in light sections */
+.maroon-text {
+  color: var(--maroon-mid);
+  transition: color 0.2s;
+}
+
+.maroon-text:hover {
+  color: var(--maroon-vivid);
+}
+
+/* Fix maroon-text on dark sections — override to white */
+.section-maroon .maroon-text,
+.section-navy .maroon-text,
+.cta-section .maroon-text {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Fix Bootstrap text-muted inside dark sections */
+.section-maroon .text-muted,
+.section-navy .text-muted,
+.cta-section .text-muted {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Fix Bootstrap text-dark inside dark sections */
+.section-maroon .text-dark,
+.section-navy .text-dark {
+  color: rgba(255, 255, 255, 0.90) !important;
+}
+
+/* Fix headings without explicit color in dark sections */
+.section-maroon h1:not([style*="color"]),
+.section-maroon h2:not([style*="color"]),
+.section-maroon h3:not([style*="color"]),
+.section-maroon h4:not([style*="color"]),
+.section-navy h1:not([style*="color"]),
+.section-navy h2:not([style*="color"]),
+.section-navy h3:not([style*="color"]),
+.section-navy h4:not([style*="color"]) {
+  color: #fff;
+}
+
+/* Fix p tags without explicit color in dark sections */
+.section-maroon p:not([style*="color"]),
+.section-navy p:not([style*="color"]) {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* Life nav — maroon-tinted sticky bar */
+.life-nav-btn.active {
+  color: var(--gold) !important;
+}
+
+.life-nav-btn.active::after {
+  background: var(--gold) !important;
+}
+
+/* Premium scroll bar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--maroon-mid);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--maroon-vivid);
+}
+
+/* Feature card text — ensure white on dark sections */
+.feature-card h3,
+.feature-card h4,
+.feature-card p {
+  color: inherit;
+}
+
+.section-maroon .feature-card h3,
+.section-navy .feature-card h3 {
+  color: #fff !important;
+}
+
+/* Club cards on maroon section */
+.club-card h3,
+.club-card p {
+  color: inherit;
+}
+
+.section-maroon .club-card h3 {
+  color: #fff !important;
+}
+
+/* Vision cards — white cards on dark section — ensure dark text ON the card */
+.vision-card h4 {
+  color: var(--text-primary) !important;
+}
+
+.vision-card p {
+  color: var(--text-muted) !important;
+}
+
+/* Medalist section white text */
+.section-maroon .text-white,
+.section-navy .text-white {
+  color: #fff !important;
+}
+
+/* Premium hover transitions across the board */
+a {
+  transition: color 0.2s, opacity 0.2s;
+}
+
+button {
+  transition: all 0.2s;
+}
+
+/* Image hover zoom on cards */
+.rounded-4 img,
+.news-img-wrap img {
+  transition: transform 0.5s ease;
+}
+
+.rounded-4:hover img {
+  transform: scale(1.03);
+}
+
+/* Badge refinement */
+.section-badge {
+  letter-spacing: 0.14em;
+  font-size: 0.66rem;
+}
+
+/* ═══════════════════════════════════════════════════════
+   PREMIUM FINISHING LAYER — High-end institutional polish
+═══════════════════════════════════════════════════════ */
+
+/* ── Typography refinements ── */
+body {
+  letter-spacing: 0.005em;
+}
+
+.site-navbar .nav-link {
+  letter-spacing: 0.07em;
+}
+
+.section-badge {
+  letter-spacing: 0.16em;
+}
+
+.stat-label,
+.faculty-qual {
+  letter-spacing: 0.08em;
+}
+
+/* ── Section transition separators ── */
+.section-maroon+.section-padding,
+.section-navy+.section-padding {
+  border-top: none;
+}
+
+.cta-section+.site-footer {
+  border-top: none;
+}
+
+/* ── Page hero bottom edge — smooth into content ── */
+.page-hero {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ── Stats bar refinement ── */
+.stats-bar {
+  border-top: 3px solid var(--maroon-mid);
+}
+
+.stat-item:hover {
+  background: #fdfaf7;
+}
+
+/* ── Event card date text — maroon on white ── */
+.event-card .maroon-text {
+  color: var(--maroon-mid) !important;
+}
+
+/* ── White section headings — strong contrast ── */
+.section-padding:not(.section-maroon):not(.section-navy):not(.section-cream) h2 {
+  color: var(--text-primary);
+}
+
+.section-cream h2 {
+  color: var(--text-primary);
+}
+
+/* ── Proclamation card heading color ── */
+.proclamation-card h1,
+.proclamation-card h2,
+.proclamation-card blockquote {
+  color: var(--text-primary);
+}
+
+/* ── Accordion — clean open state ── */
+.custom-accordion .accordion-button:not(.collapsed) {
+  background: #fdfbf9;
+}
+
+/* ── Form placeholder refinement ── */
+.form-control-custom::placeholder {
+  color: #aaa;
+  font-style: normal;
+}
+
+.form-control-custom {
+  color: var(--text-primary) !important;
+}
+
+/* ── Footer brand gradient text on black ── */
+.site-footer .gradient-text {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Premium section heading sizes ── */
+.section-maroon h2[style*="font-size:2"],
+.section-navy h2[style*="font-size:2"] {
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Floating badge refinement ── */
+.floating-badge {
+  border-left: 3px solid var(--maroon-mid);
+}
+
+.floating-badge p.fw-bold {
+  color: var(--text-primary) !important;
+  font-size: 0.88rem;
+}
+
+/* ── Table styling ── */
+.age-table th {
+  background: var(--cream);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.age-table tr:hover td {
+  background: #fdfaf7;
+}
+
+/* ── Contact form send button ── */
+.btn-gold[style*="border-radius:0"] {
+  border-radius: 0 8px 8px 0 !important;
+}
+
+/* ── Mobile nav toggle ── */
+@media (max-width: 992px) {
+  .site-navbar .navbar-collapse {
+    background: var(--black-rich);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 12px 4px;
+    margin: 8px -12px -10px;
+  }
+
+  .site-navbar .nav-link {
+    padding: 10px 16px !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .site-navbar .nav-link:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ── Image overlays ── */
+.hero-section img.hero-img,
+.news-img-wrap img,
+.rounded-4 img {
+  will-change: transform;
+}
+
+/* ── Print ── */
+@media print {
+
+  .site-navbar,
+  #topbar,
+  .site-footer,
+  .cta-section {
+    display: none;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+}

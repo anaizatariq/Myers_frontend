@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Myer's College</title>
+  <meta name="description" content="Learn about the history, mission, and vision of Myer's College, Cambridge-affiliated school in Chakwal, Pakistan." />
+  <link rel="icon" href="assets/images/myers-logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <style>
+
+    /* ── MISSION BANNER ── */
+    .mission-banner {
+      background: linear-gradient(135deg, var(--black) 0%, #0C0C0C 100%);
+      border-radius: 24px;
+      padding: 60px 52px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(196,151,58,0.18);
+    }
+    .mission-banner::before {
+      content: '\201C';
+      position: absolute;
+      top: -30px; left: 28px;
+      font-family: var(--font-heading);
+      font-size: 16rem;
+      line-height: 1;
+      color: rgba(196,151,58,0.05);
+      pointer-events: none;
+      user-select: none;
+    }
+    .mission-banner::after {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(196,151,58,0.10), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── KEY STAT CARDS ── */
+    .key-stat {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: transform 0.28s, box-shadow 0.28s, border-color 0.28s;
+      height: 100%;
+    }
+    .key-stat:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--elevated-shadow);
+      border-color: rgba(107,20,20,0.24);
+    }
+    .key-stat-val {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .key-stat-lbl {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 7px;
+    }
+    .key-stat-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg,rgba(196,151,58,0.14),rgba(196,151,58,0.05));
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+    }
+
+    /* ── HISTORY TIMELINE ── */
+    .hist-timeline { position: relative; }
+    .hist-timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 24px; bottom: 24px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(196,151,58,0.10) 100%);
+    }
+    .hist-item {
+      display: flex;
+      gap: 28px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .hist-item:last-child { margin-bottom: 0; }
+    .hist-dot {
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--black);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1;
+    }
+    .hist-dot i { color: var(--gold); font-size: 0.9rem; }
+    .hist-body {
+      flex: 1;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 22px 26px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .hist-body:hover {
+      border-color: rgba(196,151,58,0.22);
+      box-shadow: 0 6px 24px -6px rgba(12,12,12,0.12);
+    }
+    .hist-era {
+      display: inline-block;
+      background: rgba(196,151,58,0.10);
+      color: var(--gold-dark);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 5px;
+      margin-bottom: 8px;
+    }
+
+    /* ── VISION PILLARS ── */
+    .vision-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 30px 26px;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .vision-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .vision-card:hover { transform: translateY(-5px); box-shadow: var(--elevated-shadow); border-color: rgba(107,20,20,0.22); }
+    .vision-card:hover::after { transform: scaleX(1); }
+    .vc1::after { background: linear-gradient(90deg,#6B1414,#8B1A1A); }
+    .vc2::after { background: linear-gradient(90deg,#8B1A1A,#8B1A1A); }
+    .vc3::after { background: linear-gradient(90deg,#6B1414,#8B1A1A); }
+    .vc4::after { background: linear-gradient(90deg,#6B1414,#8B1A1A); }
+    .vc5::after { background: linear-gradient(90deg,#6B1414,#8B1A1A); }
+    .vision-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+      font-size: 1.3rem;
+    }
+    .vc1 .vision-icon { background:rgba(139,26,26,0.08); color:#A82020; }
+    .vc2 .vision-icon { background:rgba(139,26,26,0.08); color:#8B1A1A; }
+    .vc3 .vision-icon { background:rgba(139,26,26,0.08); color:#8B1A1A; }
+    .vc4 .vision-icon { background:rgba(139,26,26,0.08); color: #8B1A1A; }
+    .vc5 .vision-icon { background:rgba(139,26,26,0.08); color:#A82020; }
+
+    /* ── FOUNDER HIGHLIGHT ── */
+    .founder-strip {
+      background: linear-gradient(135deg, var(--cream), #fff);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 36px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .founder-strip::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--gold), var(--gold-light));
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topbar">
+    <div class="container"><div class="d-flex justify-content-between align-items-center"><div class="d-flex gap-4"><span class="d-flex align-items-center gap-2"><i class="bi bi-telephone-fill topbar-icon"></i> +92-543-541610</span><span class="d-flex align-items-center gap-2"><i class="bi bi-envelope-fill topbar-icon"></i> principal@myers.edu.pk</span></div><span class="d-none d-md-inline" style="color:rgba(255,255,255,0.50);font-size:0.75rem;letter-spacing:0.1em;">Welcome to Myer's College — Cambridge Affiliated</span></div></div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="assets/images/myers-logo.png" alt="Myer's College Logo" height="48" width="48" style="object-fit:contain;" /><div class="d-none d-sm-block"><span class="brand-name">Myer's</span><span class="brand-suffix"> College</span></div></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="profile.html">PROFILE</a></li>
+          <li class="nav-item"><a class="nav-link active" href="about.html">ABOUT US</a></li>
+          <li class="nav-item"><a class="nav-link" href="faculty.html">FACULTY</a></li>
+          <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
+          <li class="nav-item"><a class="nav-link" href="facilities.html">FACILITIES</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
+          <li class="nav-item"><a class="nav-link" href="guidance.html">GUIDANCE</a></li>
+          <li class="nav-item"><a class="nav-link" href="life.html">LIFE AT MYERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1 class="page-hero-title">About Us</h1>
+    <p class="page-hero-subtitle">A legacy of excellence rooted in Chakwal since 1999</p>
+    <div class="page-hero-divider"></div>
+  </div>
+
+  <!-- ═══ MISSION ═══ -->
+  <section class="section-padding">
+    <div class="container" style="max-width:880px;">
+      <div class="reveal mission-banner">
+        <div class="position-relative" style="z-index:1;">
+          <p class="gold-text fw-semibold text-uppercase mb-3" style="letter-spacing:0.2em;font-size:0.78rem;">Our Mission</p>
+          <blockquote class="text-white mb-0" style="font-family:var(--font-heading);font-size:1.55rem;font-weight:500;line-height:1.65;font-style:italic;">
+            "At Myer’s College Chakwal, our mission is to nurture confident, compassionate, and globally minded learners through academic excellence, character development, internationally benchmarked education and to develop future-ready learners equipped with knowledge, character, and leadership."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ INTRODUCTION + STATS ═══ -->
+  <section class="section-padding section-cream">
+    <div class="container" style="max-width:1060px;">
+      <div class="reveal row g-5 align-items-center">
+
+        <div class="col-lg-5">
+          <div style="border-radius:20px;overflow:hidden;box-shadow:var(--elevated-shadow);">
+            <img src="assets/images/college-original.jpg" alt="Myer's College" class="img-fluid w-100" style="height:360px;object-fit:cover;display:block;" />
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <p class="gold-text fw-semibold text-uppercase mb-2" style="letter-spacing:0.2em;font-size:0.82rem;">Who We Are</p>
+          <h2 class="fw-bold mb-4" style="font-family:var(--font-heading);font-size:2.2rem;line-height:1.2;">A World-Class Cambridge Institution in the Heart of Chakwal</h2>
+          <p class="text-muted mb-4" style="font-size:0.93rem;line-height:1.9;">Myer's College is a university-preparatory school affiliated with Cambridge International Examinations <strong style="color:var(--black);">(PK 035)</strong>, offering Cambridge O-Levels and A-Levels. Patterned after English public schools, it houses around 1,000 pupils and owns over 100 acres of land near Balkassar-Motorway Interchange, Chakwal — with current classes held at the Kot Sarfraz Khan Campus.</p>
+          <p class="text-muted mb-5" style="font-size:0.93rem;line-height:1.9;">Founded in <strong style="color:var(--black);">1999</strong>, Myer's first appeared in Cambridge International Examinations in <strong style="color:var(--black);">2005</strong> — making headlines with straight A's in all O Level subjects. The college has never looked back since.</p>
+
+          <div class="row g-3">
+            <div class="col-6 col-sm-3">
+              <div class="key-stat">
+                <div class="key-stat-icon"><i class="bi bi-calendar3" style="color:var(--maroon-mid);font-size:1rem;"></i></div>
+                <div class="key-stat-val">1999</div>
+                <div class="key-stat-lbl">Founded</div>
+              </div>
+            </div>
+            <div class="col-6 col-sm-3">
+              <div class="key-stat">
+                <div class="key-stat-icon"><i class="bi bi-people-fill" style="color:var(--maroon-mid);font-size:1rem;"></i></div>
+                <div class="key-stat-val">~1000</div>
+                <div class="key-stat-lbl">Pupils</div>
+              </div>
+            </div>
+            <div class="col-6 col-sm-3">
+              <div class="key-stat">
+                <div class="key-stat-icon"><i class="bi bi-geo-fill" style="color:var(--maroon-mid);font-size:1rem;"></i></div>
+                <div class="key-stat-val">100+</div>
+                <div class="key-stat-lbl">Acres of Land</div>
+              </div>
+            </div>
+            <div class="col-6 col-sm-3">
+              <div class="key-stat">
+                <div class="key-stat-icon"><i class="bi bi-award-fill" style="color:var(--maroon-mid);font-size:1rem;"></i></div>
+                <div class="key-stat-val">2005</div>
+                <div class="key-stat-lbl">First CIE Exams</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HISTORY TIMELINE ═══ -->
+  <section class="section-padding">
+    <div class="container" style="max-width:860px;">
+      <div class="reveal text-center mb-5">
+        <p class="maroon-text fw-semibold text-uppercase" style="letter-spacing:0.2em;font-size:0.82rem;">Our Roots</p>
+        <h2 class="fw-bold" style="font-family:var(--font-heading);font-size:2.3rem;">History &amp; Background</h2>
+        <div class="gold-line mx-auto mt-3"></div>
+      </div>
+
+      <div class="reveal hist-timeline">
+
+        <div class="hist-item">
+          <div class="hist-dot"><i class="bi bi-building-fill"></i></div>
+          <div class="hist-body">
+            <span class="hist-era">19th Century</span>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.1rem;">Raja Aurangzeb Khan — The Pioneer</h4>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.8;">The Chaudrial of Dhani, Khan Bahadur, Raja Aurangzeb Khan, was the first in the Mair-Minhas family to champion education. While other landlords in the Punjab were doing their best to suppress education in their territories, Raja Aurangzeb Khan gave generous donations and property for the establishment of the school — earning praise from British government commissioners in reports as early as 1880.</p>
+          </div>
+        </div>
+
+        <div class="hist-item">
+          <div class="hist-dot"><i class="bi bi-mortarboard-fill"></i></div>
+          <div class="hist-body">
+            <span class="hist-era">1949</span>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.1rem;">Khan Sahib Raja Sarfraz Ali Khan — Government College</h4>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.8;">Raja Aurangzeb's son, Khan Sahib, Raja Sarfraz Ali Khan, promoted the tradition by patronising schools, setting up scholarships for deserving students, and providing the building for the Government Girls School. His biggest contribution was the foundation of Government College Chakwal in 1949, for which he donated one hundred thousand rupees and the central and most expensive piece of his own land. Apart from this, he set up the Sarfraz Fund to support poor students — enabling Chakwali youth to join the Army and Civil Services as Officers.</p>
+          </div>
+        </div>
+
+        <div class="hist-item">
+          <div class="hist-dot"><i class="bi bi-heart-fill"></i></div>
+          <div class="hist-body">
+            <span class="hist-era">Legacy Continues</span>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.1rem;">Family Commitment to Education</h4>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.8;">After Khan Sahib's passing, his family continued the mission. One daughter donated a primary school for girls in Chakwal. His sons donated land for three different schools in Faisalabad — a generational tradition of building education infrastructure across Punjab.</p>
+          </div>
+        </div>
+
+        <div class="hist-item">
+          <div class="hist-dot"><i class="bi bi-stars"></i></div>
+          <div class="hist-body">
+            <span class="hist-era">1999 — Founded</span>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.1rem;">Raja Yassir Sarfraz — Myer's College is Born</h4>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.8;">Thirty years after Khan Sahib, his grandson Raja Yassir Sarfraz, son of Raja Humayun Sarfraz, decided to rejuvenate his family's mission in Chakwal. Consequently, he founded Myer's College — an institution he intends to establish on the pattern and standard set by the leading public schools of the country. Raja Yassir Sarfraz himself studied at Aitchison and then at the University of Florida, graduating with high honors in Computer and Information Sciences. He worked there for a while but then turned down many lucrative job offers as he had decided to serve his motherland and hometown. He always had a keen interest in Education and hence decided to become the managing member of the College Board of Governors.</p>
+            <p class="text-muted mb-0 mt-3" style="font-size:0.88rem;line-height:1.8;">It was decided to name the school after the first settler of this area, Raja Muhammad Mair, who also happens to be the direct ancestor of the Sarfraz family. The area of Dhani was one part of Jammu State of Dogra Rajputs. In the year 1190, Raja Baghir Dev, a Jamwal Prince, converted to Islam and decided to settle in this area. He was named Muhammad Mair after conversion. His descendants are known as Mair-Minhas Rajputs and were the taulqadars of the area until the British annexed it in 1849.</p>
+          </div>
+        </div>
+
+        <div class="hist-item">
+          <div class="hist-dot"><i class="bi bi-trophy-fill"></i></div>
+          <div class="hist-body" style="border-color:rgba(196,151,58,0.28);background:linear-gradient(135deg,rgba(196,151,58,0.03),#fff);">
+            <span class="hist-era">2005 — First Cambridge Exams</span>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.1rem;">Straight A's — A Legacy of Excellence Begins</h4>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.8;">The first Myer's College student appeared in Cambridge International Examinations in 2005 and made national headlines by securing straight A's in all O Level subjects. Every year since, the college has maintained and surpassed this standard — with gold medals, international scholarships and global university placements continuing to this day.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Founder card -->
+      <div class="reveal founder-strip mt-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-md-2 text-center">
+            <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.07);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto;">
+              <i class="bi bi-person-fill " style="font-size:1.8rem;"></i>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <p class="gold-text fw-semibold text-uppercase mb-1" style="letter-spacing:0.15em;font-size:0.72rem;">Founder &amp; Chairman</p>
+            <h4 class="fw-bold mb-1" style="font-family:var(--font-heading);font-size:1.15rem;">Raja Yassir Sarfraz</h4>
+            <p class="text-muted mb-0" style="font-size:0.85rem;line-height:1.7;">Aitchison College · University of Florida (Computer &amp; Information Sciences, High Honors) · Managing Member, Board of Governors, Myer's College</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VISION PILLARS ═══ -->
+  <section class="section-padding section-maroon position-relative overflow-hidden">
+    <div style="position:absolute;top:60px;left:40px;width:300px;height:300px;background:radial-gradient(circle,rgba(196,151,58,0.06),transparent 70%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:40px;right:40px;width:300px;height:300px;background:radial-gradient(circle,rgba(196,151,58,0.06),transparent 70%);pointer-events:none;"></div>
+    <div class="container position-relative">
+      <div class="reveal text-center mb-5">
+        <div class="section-badge section-badge-navy"><i class="bi bi-eye-fill"></i> Looking Forward</div>
+        <h2 class="fw-bold text-white" style="font-family:var(--font-heading);font-size:2.3rem;">Vision of Myer's College</h2>
+        <div class="gold-line mx-auto mt-3 mb-4"></div>
+        <p style="color:rgba(255,255,255,0.58);font-size:0.93rem;line-height:1.8;max-width:600px;margin:0 auto;">At Myer's College, we strive to create a school community that empowers and nurtures our students to become well-rounded individuals equipped with the skills and values necessary to excel in a rapidly evolving world.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal vision-card vc1">
+            <div class="vision-icon"><i class="bi bi-lightbulb-fill"></i></div>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.05rem;">Critical Thinking</h4>
+            <p class="text-light mb-0" style="font-size:0.87rem;line-height:1.75;">We encourage students to analyze information, evaluate perspectives, and make informed decisions through engaging and thought-provoking educational experiences that develop intellectual curiosity and problem-solving skills.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal vision-card vc2">
+            <div class="vision-icon"><i class="bi bi-globe2"></i></div>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.05rem;">Global Perspective</h4>
+            <p class="text-light mb-0" style="font-size:0.87rem;line-height:1.75;">We broaden students' horizons by exposing them to diverse cultures, ideas, and perspectives — preparing compassionate global citizens who embrace diversity and work collaboratively across borders.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal vision-card vc3">
+            <div class="vision-icon"><i class="bi bi-shield-check"></i></div>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.05rem;">Core Values</h4>
+            <p class="text-light mb-0" style="font-size:0.87rem;line-height:1.75;">We instill a deep appreciation for honesty, integrity, loyalty, perseverance, and compassion — values that shape character and relationships, making students responsible members of society.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal vision-card vc4">
+            <div class="vision-icon"><i class="bi bi-infinity"></i></div>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.05rem;">Lifelong Learning</h4>
+            <p class="text-light mb-0" style="font-size:0.87rem;line-height:1.75;">We cultivate a love for learning through relevant, meaningful opportunities integrating technology and real-world applications — empowering students to become self-directed lifelong learners.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal vision-card vc5">
+            <div class="vision-icon"><i class="bi bi-people-fill"></i></div>
+            <h4 class="fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.05rem;">Community Partnership</h4>
+            <p class="text-light mb-0" style="font-size:0.87rem;line-height:1.75;">We value strong partnerships with parents, caregivers, and the wider community — creating a supportive network that enhances students' experiences and strengthens their connections to the world.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal" style="background:rgba(255,255,255,0.07);border-radius:20px;padding:30px 26px;border:1px solid rgba(196,151,58,0.18);height:100%;">
+            <p class="gold-text fw-semibold text-uppercase mb-3" style="letter-spacing:0.15em;font-size:0.72rem;">Cambridge Affiliated</p>
+            <p class="text-white fw-bold mb-2" style="font-family:var(--font-heading);font-size:1.35rem;line-height:1.3;">PK 035<br>Myer's College</p>
+            <p style="color:rgba(255,255,255,0.50);font-size:0.82rem;line-height:1.7;margin-bottom:16px;">Internationally recognised O-Level &amp; A-Level qualifications accepted by top universities worldwide.</p>
+            <a href="academics.html" style="display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:0.8rem;font-weight:700;text-decoration:none;">Explore Academics <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer pt-5 pb-0">
+    <div class="container py-4">
+      <div class="row g-5">
+        <div class="col-md-6 col-lg-3"><div class="d-flex align-items-center gap-2 mb-3"><img src="assets/images/myers-logo.png" alt="Myer's College" height="44" width="44" style="object-fit:contain;" /><div><span class="gradient-text" style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;">Myer's</span><span style="color:rgba(255,255,255,0.95);font-family:var(--font-heading);font-size:1.1rem;font-weight:700;"> College</span></div></div><p style="font-size:0.85rem;line-height:1.8;color:rgba(255,255,255,0.52);">A university-preparatory school affiliated with Cambridge International Examinations, providing quality education since 1999.</p><div class="d-flex gap-2 mt-3"><a href="#" class="footer-social"><i class="bi bi-facebook"></i></a><a href="#" class="footer-social"><i class="bi bi-instagram"></i></a><a href="#" class="footer-social"><i class="bi bi-youtube"></i></a></div></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Quick Links</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:10px;"><li><a href="index.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Home</a></li><li><a href="about.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> About Us</a></li><li><a href="academics.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Academics</a></li><li><a href="admissions.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Admissions</a></li><li><a href="life.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Life at Myers</a></li><li><a href="contact.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Contact Us</a></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Contact Info</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:16px;font-size:0.85rem;color:rgba(255,255,255,0.52);"><li class="d-flex align-items-start gap-3"><i class="bi bi-geo-alt-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Myers College, Kot Sarfraz Khan, Chakwal-48800, Punjab, Pakistan</li><li class="d-flex align-items-start gap-3"><i class="bi bi-telephone-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">+92-543-541610</p><p class="mb-0">+92-321-2960044</p></div></li><li class="d-flex align-items-start gap-3"><i class="bi bi-envelope-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">principal@myers.edu.pk</p><p class="mb-0">counselor@myers.edu.pk</p></div></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Stay Connected</h4><p style="font-size:0.85rem;color:rgba(255,255,255,0.52);">Subscribe to get updates on admissions, events and more.</p><form class="newsletter-form d-flex mt-3" onsubmit="return false;"><input type="email" class="form-control footer-input" placeholder="Your email" required /><button type="submit" class="btn-gold" style="border-radius:0 10px 10px 0;padding:10px 16px;">Subscribe</button></form></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2"><p class="mb-0">&copy; <span id="year"></span> Myer's College. All rights reserved.</p><p class="mb-0">Cambridge International Examinations — PK 035</p></div></div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

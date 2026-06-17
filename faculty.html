@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Faculty — Myer's College</title>
+  <meta name="description" content="Meet the dedicated and experienced faculty of Myer's College, Chakwal — senior leadership and teaching staff across all schools." />
+  <link rel="icon" href="assets/images/myers-logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <style>
+
+    /* ── DEPT FILTER TABS ── */
+    .dept-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .dept-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+    .dept-btn:hover { border-color: rgba(196,151,58,0.35); color: var(--black); }
+    .dept-btn.active {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--gold);
+    }
+    .dept-btn .dept-count {
+      background: rgba(196,151,58,0.14);
+      color: var(--gold-dark);
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 50px;
+      transition: background 0.22s;
+    }
+    .dept-btn.active .dept-count {
+      background: rgba(196,151,58,0.20);
+      color: var(--gold);
+    }
+
+    /* ── FACULTY CARD ── */
+    .f-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      animation: fadeSlideUp 0.3s ease forwards;
+    }
+    .f-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--elevated-shadow);
+      border-color: rgba(196,151,58,0.22);
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .f-card-top {
+      padding: 24px 20px 18px;
+      text-align: center;
+      position: relative;
+    }
+    /* Thin coloured top border per department */
+    .f-card-top::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .dept-leadership .f-card-top::before { background: linear-gradient(90deg,var(--gold),var(--gold-light)); }
+    .dept-senior    .f-card-top::before { background: linear-gradient(90deg,#8B1A1A,#8B1A1A); }
+    .dept-prep      .f-card-top::before { background: linear-gradient(90deg,#4A0E0E,#8B1A1A); }
+    .dept-junior    .f-card-top::before { background: linear-gradient(90deg,#C4973A,#f97316); }
+    .dept-preschool .f-card-top::before { background: linear-gradient(90deg,#6B1414,#A82020); }
+
+    .f-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .dept-leadership .f-avatar { background: linear-gradient(135deg,var(--gold-dark),var(--gold)); }
+    .dept-senior     .f-avatar { background: linear-gradient(135deg,#0369a1,#8B1A1A); }
+    .dept-prep       .f-avatar { background: linear-gradient(135deg,#065f46,#8B1A1A); }
+    .dept-junior     .f-avatar { background: linear-gradient(135deg,#b45309,#C4973A); }
+    .dept-preschool  .f-avatar { background: linear-gradient(135deg,#9d174d,#A82020); }
+
+    .f-name {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+    .f-qual {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+    .f-card-footer {
+      padding: 10px 20px 16px;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+    .f-role-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 11px; border-radius: 50px;
+    }
+    .badge-hod      { background:rgba(196,151,58,0.10); color:var(--gold-dark); border:1px solid rgba(196,151,58,0.25); }
+    .badge-teacher  { background:rgba(107,114,128,0.08); color:var(--text-muted); border:1px solid var(--border-color); }
+    .badge-principal { background:rgba(196,151,58,0.12); color:var(--gold-dark); border:1px solid rgba(196,151,58,0.28); }
+    .badge-head     { background:rgba(107,20,20,0.10); color:var(--maroon-mid); border:1px solid rgba(107,20,20,0.22); }
+    .badge-director { background:rgba(196,151,58,0.10); color:var(--gold-dark); border:1px solid rgba(196,151,58,0.25); }
+    .badge-law      { background:rgba(107,20,20,0.10); color:var(--maroon-mid); border:1px solid rgba(107,20,20,0.22); }
+    .badge-gpr      { background:rgba(196,151,58,0.10); color:var(--gold-dark); border:1px solid rgba(196,151,58,0.25); }
+
+    /* ── DEPT SECTION HEADER ── */
+    .dept-section { display: none; }
+    .dept-section.active { display: block; }
+
+    /* ── SECTION DIVIDER LABEL ── */
+    .dept-header-bar {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px;
+    }
+    .dept-header-bar h3 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--black);
+      white-space: nowrap;
+      margin: 0;
+    }
+    .dept-header-bar::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+    .dept-header-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── SUBJECT DEPARTMENT SUBDIVISION ── */
+    .subject-department {
+      margin-bottom: 42px;
+    }
+    .subject-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px;
+      margin-left: 0;
+    }
+    .subject-header h4 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+    .subject-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-color) 0%, transparent 100%);
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topbar">
+    <div class="container"><div class="d-flex justify-content-between align-items-center"><div class="d-flex gap-4"><span class="d-flex align-items-center gap-2"><i class="bi bi-telephone-fill topbar-icon"></i> +92-543-541610</span><span class="d-flex align-items-center gap-2"><i class="bi bi-envelope-fill topbar-icon"></i> principal@myers.edu.pk</span></div><span class="d-none d-md-inline" style="color:rgba(255,255,255,0.50);font-size:0.75rem;letter-spacing:0.1em;">Welcome to Myer's College — Cambridge Affiliated</span></div></div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="assets/images/myers-logo.png" alt="Myer's College Logo" height="48" width="48" style="object-fit:contain;" /><div class="d-none d-sm-block"><span class="brand-name">Myer's</span><span class="brand-suffix"> College</span></div></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="profile.html">PROFILE</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">ABOUT US</a></li>
+          <li class="nav-item"><a class="nav-link active" href="faculty.html">FACULTY</a></li>
+          <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
+          <li class="nav-item"><a class="nav-link" href="facilities.html">FACILITIES</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
+          <li class="nav-item"><a class="nav-link" href="guidance.html">GUIDANCE</a></li>
+          <li class="nav-item"><a class="nav-link" href="life.html">LIFE AT MYERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1 class="page-hero-title">Our Faculty</h1>
+    <p class="page-hero-subtitle">Dedicated educators selected with meticulous care for pedagogic excellence</p>
+    <div class="page-hero-divider"></div>
+  </div>
+
+  <section class="section-padding">
+    <div class="container" style="max-width:1100px;">
+
+      <!-- Intro strip -->
+      <div class="reveal text-center mb-5" style="max-width:720px;margin:0 auto;">
+        <p class="gold-text fw-semibold text-uppercase mb-2" style="letter-spacing:0.2em;font-size:0.82rem;">The Team Behind the Excellence</p>
+        <h2 class="fw-bold mb-3" style="font-family:var(--font-heading);font-size:2.3rem;">Meet Our Faculty</h2>
+        <div class="gold-line mx-auto mb-4"></div>
+        <p class="text-muted" style="font-size:0.93rem;line-height:1.85;">Teaching staff at Myer's College is selected with meticulous care and thorough scrutiny. Teachers' aptitude, experiential knowledge, professional skills and subject mastery are fully evaluated — resulting in a team that is self-motivated, highly trained and deeply committed to taking Myer's College to the pinnacle of glory.</p>
+      </div>
+
+      <!-- Dept filter tabs -->
+      <div class="reveal dept-nav">
+        <button class="dept-btn active" data-dept="all">All Staff <span class="dept-count">63</span></button>
+        <button class="dept-btn" data-dept="leadership">Management <span class="dept-count">6</span></button>
+        <button class="dept-btn" data-dept="senior">Senior School <span class="dept-count">18</span></button>
+        <button class="dept-btn" data-dept="prep">Preparatory <span class="dept-count">14</span></button>
+        <button class="dept-btn" data-dept="junior">Junior School <span class="dept-count">16</span></button>
+        <button class="dept-btn" data-dept="preschool">Pre School <span class="dept-count">9</span></button>
+      </div>
+
+      <!-- ── MANAGEMENT ── -->
+      <div id="sect-leadership" class="dept-section active">
+        <div class="dept-header-bar"><div class="dept-header-dot" style="background:var(--gold);"></div><h3>Management</h3></div>
+        <div class="row g-4 mb-5">
+          <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-leadership"><div class="f-card-top"><div class="f-avatar">NB</div><p class="f-name">Noreen Bahadur</p><p class="f-qual">MA English</p></div><div class="f-card-footer"><span class="f-role-badge badge-principal"><i class="bi bi-star-fill" style="font-size:0.6rem;"></i> Principal</span></div></div></div>
+          <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-leadership"><div class="f-card-top"><div class="f-avatar">SI</div><p class="f-name">Saima Imran</p><p class="f-qual">MSc Chemistry</p></div><div class="f-card-footer"><span class="f-role-badge badge-head"><i class="bi bi-building" style="font-size:0.6rem;"></i> Head Mistress Sr. School</span></div></div></div>
+          <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-leadership"><div class="f-card-top"><div class="f-avatar">MF</div><p class="f-name">Mubina Fazil</p><p class="f-qual">MSc Botany, Zoology</p></div><div class="f-card-footer"><span class="f-role-badge badge-head"><i class="bi bi-building" style="font-size:0.6rem;"></i> Head Mistress Prep. School</span></div></div></div>
+          <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-leadership"><div class="f-card-top"><div class="f-avatar">SS</div><p class="f-name">Shazia Sultana</p><p class="f-qual">MA Education</p></div><div class="f-card-footer"><span class="f-role-badge badge-head"><i class="bi bi-building" style="font-size:0.6rem;"></i> Head Mistress Pre. School</span></div></div></div>
+          <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-leadership"><div class="f-card-top"><div class="f-avatar">SW</div><p class="f-name">Shazia Wajid</p><p class="f-qual">MA English</p></div><div class="f-card-footer"><span class="f-role-badge badge-head"><i class="bi bi-building" style="font-size:0.6rem;"></i> Head Mistress Jr. School</span></div></div></div>
+          <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-leadership"><div class="f-card-top"><div class="f-avatar">AR</div><p class="f-name">Asma Rehan</p><p class="f-qual">MA English, M.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-director"><i class="bi bi-globe" style="font-size:0.6rem;"></i> Int. Admission Counselor</span></div></div></div>
+        </div>
+      </div>
+
+      <!-- ── SENIOR SCHOOL ── -->
+      <div id="sect-senior" class="dept-section active">
+        <div class="dept-header-bar"><div class="dept-header-dot" style="background:#8B1A1A;"></div><h3>Senior School</h3></div>
+
+        <!-- BIOLOGY & LIFE SCIENCES -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Biology & Life Sciences</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">MS</div><p class="f-name">Dr Munazza Sadia</p><p class="f-qual">PhD Biochemistry</p></div><div class="f-card-footer"><span class="f-role-badge badge-hod"><i class="bi bi-award-fill" style="font-size:0.6rem;"></i> HOD</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">MB</div><p class="f-name">Madiha Batool</p><p class="f-qual">M.Sc Environmental Biology</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- CHEMISTRY -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Chemistry</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">IS</div><p class="f-name">Imran Shakoor</p><p class="f-qual">M.Sc Chemistry</p></div><div class="f-card-footer"><span class="f-role-badge badge-hod"><i class="bi bi-award-fill" style="font-size:0.6rem;"></i> HOD</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">SB</div><p class="f-name">Saima Banaras</p><p class="f-qual">M.Sc Chemistry</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">RB</div><p class="f-name">Rabbia Batool</p><p class="f-qual">BSc Chemistry</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- PHYSICS -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Physics</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">AM</div><p class="f-name">Muhammad Ahsan Mumtaz</p><p class="f-qual">M.Sc Physics</p></div><div class="f-card-footer"><span class="f-role-badge badge-hod"><i class="bi bi-award-fill" style="font-size:0.6rem;"></i> HOD</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">BQ</div><p class="f-name">Bushra Qamar</p><p class="f-qual">BS Physics</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- ENGLISH LANGUAGE & LITERATURE -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>English Language & Literature</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">WA</div><p class="f-name">Wajahat Ahmed</p><p class="f-qual">MA English (ELT)</p></div><div class="f-card-footer"><span class="f-role-badge badge-director"><i class="bi bi-star-fill" style="font-size:0.6rem;"></i> Director</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">FN</div><p class="f-name">Farah Noreen</p><p class="f-qual">M.A English, B.Ed, M.Ed, TEFL</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">LB</div><p class="f-name">Lubna Bibi</p><p class="f-qual">M.A English</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+
+        <!-- URDU & LANGUAGE STUDIES -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Urdu & Language Studies</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">MA</div><p class="f-name">Muhammad Ameer Sultan</p><p class="f-qual">M.A Urdu, M.A Punjabi, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-hod"><i class="bi bi-award-fill" style="font-size:0.6rem;"></i> HOD</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">SR</div><p class="f-name">Sadia Raj</p><p class="f-qual">M.A Urdu</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">FS</div><p class="f-name">Fakhra Sarfraz</p><p class="f-qual">M.Sc Geography, M.A Education, M.A Urdu</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">MS</div><p class="f-name">Muhammad Shakeel Anjum</p><p class="f-qual">MA Sociology</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- INFORMATION TECHNOLOGY -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Information Technology</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">MK</div><p class="f-name">Muhammad Ali Kausar</p><p class="f-qual">BS IT, M.A Education</p></div><div class="f-card-footer"><span class="f-role-badge badge-hod"><i class="bi bi-award-fill" style="font-size:0.6rem;"></i> HOD</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">IF</div><p class="f-name">Muhammad Imran Faizi</p><p class="f-qual">MS Computer Science</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- MATHEMATICS -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Mathematics</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">SI</div><p class="f-name">Shahid Imran</p><p class="f-qual">MSc Mathematics</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-senior"><div class="f-card-top"><div class="f-avatar">SK</div><p class="f-name">Syed Kazim Mehdi Naqvi</p><p class="f-qual">MSc Mathematics</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── PREPARATORY ── -->
+      <div id="sect-prep" class="dept-section active">
+        <div class="dept-header-bar"><div class="dept-header-dot" style="background:#8B1A1A;"></div><h3>Preparatory School Staff</h3></div>
+
+        <!-- SCIENCE & BIOLOGY -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Science & Biology</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">AI</div><p class="f-name">Ammara Imran Malik</p><p class="f-qual">BSc Zoology + Chemistry + Botany, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">SF</div><p class="f-name">Syeda Faryal Raza Hamdani</p><p class="f-qual">BSc, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- ENGLISH LANGUAGE & LITERATURE -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>English Language & Literature</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">AN</div><p class="f-name">Afshan Noreen</p><p class="f-qual">BS English, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">AL</div><p class="f-name">Ambreen Latif</p><p class="f-qual">MSc Physics</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">FY</div><p class="f-name">Faiza Younas</p><p class="f-qual">M.A English, M.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">FZ</div><p class="f-name">Fatima Tu Zahra</p><p class="f-qual">MA English Linguistics</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">SI</div><p class="f-name">Shehreen Iqbal</p><p class="f-qual">MA English Literature</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- MATHEMATICS & STATISTICS -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Mathematics & Statistics</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">FN</div><p class="f-name">Faiz Un Nisa</p><p class="f-qual">MSc Statistics, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">CB</div><p class="f-name">Carol Sohail Bhatti</p><p class="f-qual">MS Software Engineering</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- URDU & SOCIAL STUDIES -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Urdu & Social Studies</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">FB</div><p class="f-name">Fariha Batool</p><p class="f-qual">M.A Urdu, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">RA</div><p class="f-name">Rizwana Aziz</p><p class="f-qual">M.A Urdu, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">TZ</div><p class="f-name">Tehmeen Zamurd</p><p class="f-qual">M.A Urdu, M.A Mass Comm., M.Ed, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">LM</div><p class="f-name">Lubna Mazher</p><p class="f-qual">M.A International Relations, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- VISUAL ARTS & CREATIVE EXPRESSION -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Visual Arts & Creative Expression</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-prep"><div class="f-card-top"><div class="f-avatar">SM</div><p class="f-name">Sehar Mehboob</p><p class="f-qual">BS Fine Arts</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── JUNIOR SCHOOL ── -->
+      <div id="sect-junior" class="dept-section active">
+        <div class="dept-header-bar"><div class="dept-header-dot" style="background:#C4973A;"></div><h3>Junior School Staff</h3></div>
+
+        <!-- SCIENCE & BIOLOGY -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Science &amp; Biology</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">HJ</div><p class="f-name">Hafza Javed</p><p class="f-qual">BS Botany</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">KN</div><p class="f-name">Komal Naveed</p><p class="f-qual">BS Biochemistry</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">SF</div><p class="f-name">Sidra Fazal</p><p class="f-qual">BS Zoology</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">SR</div><p class="f-name">Sidra Rehman</p><p class="f-qual">BS Zoology</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- MATHEMATICS & ECONOMICS -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Mathematics &amp; Economics</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">ZN</div><p class="f-name">Zahida Noreen</p><p class="f-qual">BS Maths, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">MR</div><p class="f-name">Maryam Rameen</p><p class="f-qual">BS Economics</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- URDU & SOCIAL STUDIES -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Urdu &amp; Social Studies</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">MB</div><p class="f-name">Mehwish Batool</p><p class="f-qual">M.A Urdu, B.Com, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">AS</div><p class="f-name">Andleeb Sohail</p><p class="f-qual">B.L.I.S, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">BZ</div><p class="f-name">Bushra Zulfiqar</p><p class="f-qual">M.A Urdu, B.Ed, M.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">TF</div><p class="f-name">Tehreem Fatima</p><p class="f-qual">M.A Urdu, M.A History, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+        <!-- GENERAL STAFF -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>General Staff</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">RY</div><p class="f-name">Ruqia Yameen</p><p class="f-qual">MA English, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">MY</div><p class="f-name">Mehreen Yousaf</p><p class="f-qual">M.A Political Science, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">QA</div><p class="f-name">Quratulain</p><p class="f-qual">BS Economics, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">MT</div><p class="f-name">Mehwish Talat</p><p class="f-qual">MSc Applied Science, M.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">NR</div><p class="f-name">Naila Rehan</p><p class="f-qual">MSc Political Science</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-junior"><div class="f-card-top"><div class="f-avatar">RJ</div><p class="f-name">Rabia Javed</p><p class="f-qual">M.A Economics, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── PRE SCHOOL ── -->
+      <div id="sect-preschool" class="dept-section active">
+        <div class="dept-header-bar"><div class="dept-header-dot" style="background:#A82020;"></div><h3>Pre School Staff</h3></div>
+
+        <!-- EARLY YEARS EDUCATORS & CAREGIVERS -->
+        <div class="subject-department">
+          <div class="subject-header"><h4>Early Years Educators &amp; Caregivers</h4></div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-preschool"><div class="f-card-top"><div class="f-avatar">SL</div><p class="f-name">Sunaina Liaqat</p><p class="f-qual">BS Software Engineering, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-preschool"><div class="f-card-top"><div class="f-avatar">UR</div><p class="f-name">Um I Rubab</p><p class="f-qual">M.A Education, B.Ed, Montessori</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-preschool"><div class="f-card-top"><div class="f-avatar">YF</div><p class="f-name">Yasmeen Faqeer</p><p class="f-qual">B.A, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-preschool"><div class="f-card-top"><div class="f-avatar">KP</div><p class="f-name">Khalida Parveen</p><p class="f-qual">M.A Education, Montessori</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-preschool"><div class="f-card-top"><div class="f-avatar">BQ</div><p class="f-name">Bushra Qamar</p><p class="f-qual">M.A Education, Montessori</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-preschool"><div class="f-card-top"><div class="f-avatar">SB</div><p class="f-name">Sameen Batool</p><p class="f-qual">M.A English, M.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-preschool"><div class="f-card-top"><div class="f-avatar">NS</div><p class="f-name">Naima Sultan</p><p class="f-qual">BA, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-preschool"><div class="f-card-top"><div class="f-avatar">NT</div><p class="f-name">Nadia Tasawar</p><p class="f-qual">M.A Education, B.Ed, Montessori</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+            <div class="col-6 col-md-4 col-lg-3"><div class="f-card dept-preschool"><div class="f-card-top"><div class="f-avatar">KI</div><p class="f-name">Kiran Iftikhar</p><p class="f-qual">B.A, B.Ed</p></div><div class="f-card-footer"><span class="f-role-badge badge-teacher">Teacher</span></div></div></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer pt-5 pb-0">
+    <div class="container py-4">
+      <div class="row g-5">
+        <div class="col-md-6 col-lg-3"><div class="d-flex align-items-center gap-2 mb-3"><img src="assets/images/myers-logo.png" alt="Myer's College" height="44" width="44" style="object-fit:contain;" /><div><span class="gradient-text" style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;">Myer's</span><span style="color:rgba(255,255,255,0.95);font-family:var(--font-heading);font-size:1.1rem;font-weight:700;"> College</span></div></div><p style="font-size:0.85rem;line-height:1.8;color:rgba(255,255,255,0.52);">A university-preparatory school affiliated with Cambridge International Examinations, providing quality education since 1999.</p><div class="d-flex gap-2 mt-3"><a href="#" class="footer-social"><i class="bi bi-facebook"></i></a><a href="#" class="footer-social"><i class="bi bi-instagram"></i></a><a href="#" class="footer-social"><i class="bi bi-youtube"></i></a></div></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Quick Links</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:10px;"><li><a href="index.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Home</a></li><li><a href="about.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> About Us</a></li><li><a href="academics.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Academics</a></li><li><a href="admissions.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Admissions</a></li><li><a href="life.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Life at Myers</a></li><li><a href="contact.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Contact Us</a></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Contact Info</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:16px;font-size:0.85rem;color:rgba(255,255,255,0.52);"><li class="d-flex align-items-start gap-3"><i class="bi bi-geo-alt-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Myers College, Kot Sarfraz Khan, Chakwal-48800, Punjab, Pakistan</li><li class="d-flex align-items-start gap-3"><i class="bi bi-telephone-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">+92-543-541610</p><p class="mb-0">+92-321-2960044</p></div></li><li class="d-flex align-items-start gap-3"><i class="bi bi-envelope-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">principal@myers.edu.pk</p><p class="mb-0">counselor@myers.edu.pk</p></div></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Stay Connected</h4><p style="font-size:0.85rem;color:rgba(255,255,255,0.52);">Subscribe to get updates on admissions, events and more.</p><form class="newsletter-form d-flex mt-3" onsubmit="return false;"><input type="email" class="form-control footer-input" placeholder="Your email" required /><button type="submit" class="btn-gold" style="border-radius:0 10px 10px 0;padding:10px 16px;">Subscribe</button></form></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2"><p class="mb-0">&copy; <span id="year"></span> Myer's College. All rights reserved.</p><p class="mb-0">Cambridge International Examinations — PK 035</p></div></div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/chatbot.js"></script>
+  <script>
+    const deptMap = {
+      all:        ['sect-leadership','sect-senior','sect-prep','sect-junior','sect-preschool'],
+      leadership: ['sect-leadership'],
+      senior:     ['sect-senior'],
+      prep:       ['sect-prep'],
+      junior:     ['sect-junior'],
+      preschool:  ['sect-preschool']
+    };
+    const allSections = ['sect-leadership','sect-senior','sect-prep','sect-junior','sect-preschool'];
+
+    document.querySelectorAll('.dept-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.dept-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const dept = btn.dataset.dept;
+        allSections.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.toggle('active', deptMap[dept].includes(id));
+        });
+        document.querySelectorAll('.dept-section.active .f-card').forEach((c,i) => {
+          c.style.animationDelay = (i * 0.03) + 's';
+          c.style.animation = 'none';
+          c.offsetHeight;
+          c.style.animation = '';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

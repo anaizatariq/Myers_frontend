@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Myer's College — Cambridge Affiliated | Chakwal, Pakistan</title>
+  <meta name="description" content="Myer's College is a Cambridge-affiliated university-preparatory school located at Chakwal, Punjab, Pakistan, offering O-Levels and A-Levels since 1999." />
+  <link rel="icon" href="assets/images/myers-logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+<style>
+   /* Override any hidden styles */
+  #eventsContainer {
+    /* display: flex !important; */
+    flex-wrap: wrap !important;
+  }
+
+  .event-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .event-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+  }
+
+  .event-num {
+    display: inline-block;
+    background: #8B4513;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .maroon-text {
+    color: #8B4513 !important;
+  }
+
+  /* --- Premium Luxury Carousel CSS --- */
+  .luxury-award-card {
+    background: #ffffff;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(139,26,26,0.06);
+    border: 1px solid rgba(196,151,58,0.15);
+    margin: 0 auto;
+    max-width: 1050px;
+    position: relative;
+  }
+  .luxury-img-col {
+    position: relative;
+    min-height: 450px;
+    background: #eaeaea;
+  }
+  .luxury-img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .luxury-year-badge {
+    position: absolute;
+    top: 24px; left: 24px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 800;
+    color: var(--maroon);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border: 1px solid rgba(196,151,58,0.3);
+    z-index: 2;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+  .luxury-text-col {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .luxury-quote {
+    font-size: 4rem;
+    color: rgba(196,151,58,0.15);
+    line-height: 0;
+    margin-bottom: 20px;
+  }
+  .luxury-award-title {
+    display: inline-block;
+    background: rgba(196,151,58,0.1);
+    color: #a37c2b;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(196,151,58,0.2);
+  }
+  .luxury-name {
+    font-family: var(--font-heading);
+    color: var(--maroon);
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .luxury-desc {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #555;
+    text-align: justify;
+    margin-bottom: 0;
+  }
+  
+  /* Carousel Controls & Indicators */
+  .luxury-carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .luxury-btn {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(196,151,58,0.3);
+    color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  .luxury-btn:hover {
+    background: var(--gold);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(196,151,58,0.3);
+  }
+  .luxury-indicators {
+    display: flex;
+    gap: 8px;
+  }
+  .luxury-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(196,151,58,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+  }
+  .luxury-dot.active {
+    background: var(--maroon);
+    width: 24px;
+    border-radius: 10px;
+  }
+  .mobile-swipe-hint {
+    display: none;
+    text-align: center;
+    color: var(--gold);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+
+  /* Mobile Adjustments */
+  @media (max-width: 991px) {
+    .luxury-img-col { min-height: 400px; height: 400px; }
+    .luxury-text-col { padding: 2.5rem 2rem; }
+    .luxury-name { font-size: 1.8rem; }
+    .luxury-desc { font-size: 0.95rem; }
+    .mobile-swipe-hint { display: block; }
+    .luxury-btn { display: none; /* Hide buttons on mobile to encourage swiping */ }
+  }
+  @media (max-width: 576px) {
+    .luxury-img-col { min-height: 350px; height: 350px; }
+    .luxury-text-col { padding: 2rem 1.5rem; }
+  }
+</style>
+
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-4">
+          <span class="d-flex align-items-center gap-2"><i class="bi bi-telephone-fill topbar-icon"></i> +92-543-541610</span>
+          <span class="d-flex align-items-center gap-2"><i class="bi bi-envelope-fill topbar-icon"></i> principal@myers.edu.pk</span>
+        </div>
+        <span class="d-none d-md-inline" style="color:rgba(255,255,255,0.50);font-size:0.75rem;letter-spacing:0.1em;">Welcome to Myer's College — Cambridge Affiliated</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/images/myers-logo.png" alt="Myer's College Logo" height="48" width="48" style="object-fit:contain;" />
+        <div class="d-none d-sm-block">
+          <span class="brand-name">Myer's</span>
+          <span class="brand-suffix"> College</span>
+        </div>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="profile.html">PROFILE</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">ABOUT US</a></li>
+          <li class="nav-item"><a class="nav-link" href="faculty.html">FACULTY</a></li>
+          <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
+          <li class="nav-item"><a class="nav-link" href="facilities.html">FACILITIES</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
+          <li class="nav-item"><a class="nav-link" href="guidance.html">GUIDANCE</a></li>
+          <li class="nav-item"><a class="nav-link" href="life.html">LIFE AT MYERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <img src="assets/images/college-original.jpg" alt="Myer's College Campus" class="hero-img" />
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-in-up">
+          <i class="bi bi-stars" style="color:var(--gold);"></i>
+          Cambridge Affiliated &middot; Est. 1999
+        </div>
+        <h1 class="hero-title">
+          <span class="gradient-text">Myer's</span> College
+        </h1>
+        <p class="hero-subtitle">
+          A university-preparatory school shaping minds, building futures, and<br class="d-none d-md-inline"> nurturing leaders at Chakwal, Punjab
+        </p>
+        <div class="hero-buttons d-flex flex-wrap gap-3 justify-content-center">
+          <a href="admissions.html" class="btn-gold">Apply Now <i class="bi bi-arrow-right"></i></a>
+          <a href="about.html" class="btn-outline-gold">Discover More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <section class="py-0 px-3">
+    <div class="container">
+      <div class="stats-bar row g-0 animate-pulse-glow">
+        <div class="col-6 col-md-3 stat-item">
+          <i class="bi bi-mortarboard-fill stat-icon d-block" style="font-size:1.6rem;"></i>
+          <div class="stat-value">~1000</div>
+          <div class="stat-label">Students</div>
+        </div>
+        <div class="col-6 col-md-3 stat-item">
+          <i class="bi bi-people-fill stat-icon d-block" style="font-size:1.6rem;"></i>
+          <div class="stat-value">50+</div>
+          <div class="stat-label">Faculty Members</div>
+        </div>
+        <div class="col-6 col-md-3 stat-item">
+          <i class="bi bi-book-fill stat-icon d-block" style="font-size:1.6rem;"></i>
+          <div class="stat-value">Cambridge</div>
+          <div class="stat-label">CIE Affiliated</div>
+        </div>
+        <div class="col-6 col-md-3 stat-item">
+          <i class="bi bi-award-fill stat-icon d-block" style="font-size:1.6rem;"></i>
+          <div class="stat-value">25+</div>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+       <!-- EVENTS & ANNOUNCEMENTS -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="reveal text-center mb-5">
+        <div class="section-badge"><i class="bi bi-calendar3"></i> Stay Updated</div>
+        <h2 class="fw-bold" style="font-family:var(--font-heading);font-size:2.2rem;">Events &amp; Announcements</h2>
+        <div class="gold-line mx-auto mt-3"></div>
+      </div>
+      
+      <!-- Events Container - DYNAMICALLY FILLED BY JAVASCRIPT -->
+      <div id="eventsContainer" class="row g-4">
+        <!-- Loading indicator -->
+        <div class="col-12 text-center py-5">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3">Loading events...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ABOUT PREVIEW -->
+  <section class="section-padding section-cream">
+    <div class="container">
+      <div class="reveal">
+        <div class="row g-5 align-items-center">
+          <div class="col-md-6">
+            <p class="maroon-text fw-semibold text-uppercase" style="letter-spacing:0.2em;font-size:0.85rem;">Welcome To</p>
+            <h2 class="fw-bold mb-3" style="font-family:var(--font-heading);font-size:clamp(2rem,4vw,2.8rem);line-height:1.2;">
+              Myer's <span class="gradient-text">College</span>
+            </h2>
+            <div class="gold-line mb-4"></div>
+            <p class="text-muted mb-3" style="line-height:1.8;">
+              Myer's College is a university-preparatory school located at Chakwal, Punjab, in Pakistan. The College is affiliated with Cambridge International Examinations (PK 035: Myer's College) and offers Cambridge O-LEVELS and A-LEVELS qualifications.
+            </p>
+            <p class="text-muted mb-4" style="line-height:1.8;">
+              Founded in 1999, patterned after English public schools and housing around 1000 pupils. It owns over 100 acres of land near Balkassar-Motorway Interchange, Chakwal.
+            </p>
+            <a href="about.html" class="maroon-text fw-semibold text-decoration-none d-inline-flex align-items-center gap-2">
+              Learn Our Story <i class="bi bi-chevron-right"></i>
+            </a>
+          </div>
+          <div class="col-md-6 position-relative">
+            <div class="rounded-4 overflow-hidden" style="box-shadow:var(--elevated-shadow);">
+              <img src="assets/images/college-original.jpg" alt="Myer's College Building" class="img-fluid w-100" style="height:400px;object-fit:cover;object-position:80% center;" />
+            </div>
+            <div class="floating-badge d-none d-md-flex align-items-center gap-3">
+              <div class="floating-badge-icon"><i class="bi bi-award-fill" style="color:var(--gold);font-size:1.2rem;"></i></div>
+              <div>
+                <p class="fw-bold mb-0" style="font-family:var(--font-heading);">Since 1999</p>
+                <p class="mb-0 text-muted" style="font-size:0.75rem;">Legacy of Excellence</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="section-padding section-maroon position-relative overflow-hidden">
+    <div style="position:absolute;top:60px;left:40px;width:280px;height:280px;background:radial-gradient(circle,rgba(196,151,58,0.12) 0%,transparent 65%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:60px;right:40px;width:280px;height:280px;background:radial-gradient(circle,rgba(196,151,58,0.12) 0%,transparent 65%);pointer-events:none;"></div>
+    <div class="container position-relative">
+      <div class="reveal text-center mb-5">
+        <div class="section-badge section-badge-navy"><i class="bi bi-stars"></i> Why Myer's</div>
+        <h2 class="fw-bold text-white" style="font-family:var(--font-heading);font-size:2.2rem;">Why Choose Myer's College?</h2>
+        <div class="gold-line mx-auto mt-3"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal feature-card">
+            <div class="feature-icon-box"><i class="bi bi-mortarboard-fill" style="color:var(--gold);font-size:1.4rem;"></i></div>
+            <h3 class="fw-bold text-white mb-2" style="font-size:1.1rem;">Academic Excellence</h3>
+            <p style="color:rgba(255,255,255,0.58);font-size:0.9rem;line-height:1.7;">Cambridge O-Levels and A-Levels with a legacy of gold medalists since 2005.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal feature-card">
+            <div class="feature-icon-box"><i class="bi bi-people-fill" style="color:var(--gold);font-size:1.4rem;"></i></div>
+            <h3 class="fw-bold text-white mb-2" style="font-size:1.1rem;">Experienced Faculty</h3>
+            <p style="color:rgba(255,255,255,0.58);font-size:0.9rem;line-height:1.7;">Meticulously selected educators with deep subject expertise and pedagogic competence.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal feature-card">
+            <div class="feature-icon-box"><i class="bi bi-book-fill" style="color:var(--gold);font-size:1.4rem;"></i></div>
+            <h3 class="fw-bold text-white mb-2" style="font-size:1.1rem;">Best Education System</h3>
+            <p style="color:rgba(255,255,255,0.58);font-size:0.9rem;line-height:1.7;">Learning through creative, activity based classes where concepts underpin knowledge acquisition.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal feature-card">
+            <div class="feature-icon-box"><i class="bi bi-trophy-fill" style="color:var(--gold);font-size:1.4rem;"></i></div>
+            <h3 class="fw-bold text-white mb-2" style="font-size:1.1rem;">Gold Medal Legacy</h3>
+            <p style="color:rgba(255,255,255,0.58);font-size:0.9rem;line-height:1.7;">19+ consecutive years of producing gold medalists in O-Level and A-Level examinations.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal feature-card">
+            <div class="feature-icon-box"><i class="bi bi-globe" style="color:var(--gold);font-size:1.4rem;"></i></div>
+            <h3 class="fw-bold text-white mb-2" style="font-size:1.1rem;">University Placements</h3>
+            <p style="color:rgba(255,255,255,0.58);font-size:0.9rem;line-height:1.7;">Students admitted to leading universities worldwide — Australia, UK, USA and top national institutions.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal feature-card">
+            <div class="feature-icon-box"><i class="bi bi-stars" style="color:var(--gold);font-size:1.4rem;"></i></div>
+            <h3 class="fw-bold text-white mb-2" style="font-size:1.1rem;">Holistic Development</h3>
+            <p style="color:rgba(255,255,255,0.58);font-size:0.9rem;line-height:1.7;">6 vibrant clubs, 5 houses, sports facilities, and a rich tradition of character building.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ACADEMIC DISTINCTION & AWARDS (PREMIUM MOBILE-FIRST CAROUSEL) ═══ -->
+  <section class="section-padding" style="background-color: #fbfaf8; border-top: 1px solid rgba(139,26,26,0.05); border-bottom: 1px solid rgba(139,26,26,0.05);">
+    <div class="container">
+      
+      <!-- Section Header -->
+      <div class="reveal text-center mb-5">
+        <div class="section-badge mx-auto mb-3" style="background:rgba(196,151,58,0.12); color:var(--maroon); border:1px solid rgba(196,151,58,0.3);">
+          <i class="bi bi-award-fill" style="color:var(--gold);"></i> A Legacy of Excellence
+        </div>
+        <h2 class="fw-bold" style="font-family:var(--font-heading); font-size:clamp(2rem,4vw,2.8rem); color:var(--maroon);">
+          Academic Distinction <span class="gradient-text">&amp; Awards</span>
+        </h2>
+        <div class="gold-line mx-auto mt-3 mb-4"></div>
+        <p class="text-muted mx-auto" style="max-width:700px; font-size:1.05rem; line-height:1.8;">
+          Myer's College proudly celebrates its students who have earned prestigious recognition from Cambridge Assessment International Education. Explore the incredible achievements of our world-class talent.
+        </p>
+      </div>
+
+
+
+      <div class="reveal">
+        <div id="awardsLuxuryCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">
+          
+          <div class="carousel-inner">
+            
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2012</div>
+                    <img src="assets/images/myers distinction awards images/Muhammad Shujaat Mirza.png" alt="Muhammad Shujaat Mirza" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">World Top Award in Chemistry</span></div>
+                    <h3 class="luxury-name">Muhammad Shujaat Mirza</h3>
+                    <p class="luxury-desc">Myer’s College proudly celebrates its students’ exceptional achievements. In June 2012, Muhammad Shujaat Mirza was honored with the World Top Award in Chemistry at the Cambridge O Level examinations, earning the highest mark globally. This recognition reflects the College’s commitment to academic excellence and its tradition of nurturing world-class talent.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2012</div>
+                    <img src="assets/images/myers distinction awards images/Ali Haider Adeeb.png" alt="Ali Haider Adeeb" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Outstanding Cambridge Learner</span></div>
+                    <h3 class="luxury-name">Ali Haider Adeeb</h3>
+                    <p class="luxury-desc">Ali Haider Adeeb of Myer’s College earned recognition in the Outstanding Cambridge Learner Awards by the University of Cambridge International Examinations. In the June 2012 session, he distinguished himself by achieving the second highest mark in Islamabad across nine Cambridge O Levels a remarkable accomplishment reflecting both talent and perseverance.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2012</div>
+                    <img src="assets/images/myers distinction awards images/Abdul Wahab.png" alt="Abdul Wahab" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Outstanding Cambridge Learner</span></div>
+                    <h3 class="luxury-name">Abdul Wahab</h3>
+                    <p class="luxury-desc">Abdul Wahab, a distinguished student of Myer’s College, earned recognition in the June 2012 Cambridge O Level examinations by achieving the third highest mark in Islamabad across seven subjects. His success, honored through the Outstanding Cambridge Learner Award, reflects both his academic excellence and dedication.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2015</div>
+                    <img src="assets/images/myers distinction awards images/Nausherwan Khan.png" alt="Nausherwan Khan" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Outstanding Cambridge Learner</span></div>
+                    <h3 class="luxury-name">Nausherwan Khan</h3>
+                    <p class="luxury-desc">Nausherwan Khan, a distinguished student of Myer’s College, earned recognition in the Outstanding Cambridge Learner Awards, Pakistan. In the June 2015 Cambridge O Level examinations, he achieved the third highest mark in Islamabad for Best Across Seven Cambridge O Levels. His accomplishment reflects exceptional academic dedication, intellectual ability, and a commitment to excellence that continues to inspire fellow students and educators alike.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2016</div>
+                    <img src="assets/images/myers distinction awards images/Haider Ali Hussain.png" alt="Haider Ali Hussain" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Outstanding Cambridge Learner</span></div>
+                    <h3 class="luxury-name">Haider Ali Hussain</h3>
+                    <p class="luxury-desc">Haider Ali Hussain of Myer’s College was honored with the Outstanding Cambridge Learner Award for achieving the Highest Mark in Islamabad in the June 2016 Cambridge International Examinations, securing Best Across Seven Cambridge O Levels. His success reflects both his dedication and the academic excellence fostered at Myer’s College.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 6 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2017</div>
+                    <img src="assets/images/myers distinction awards images/Farah Jabean.png" alt="Farah Jabean Ashraf" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Outstanding Cambridge Learner</span></div>
+                    <h3 class="luxury-name">Farah Jabean Ashraf</h3>
+                    <p class="luxury-desc">Farah Jabean Ashraf of Myer’s College received the Outstanding Cambridge Learner Award for achieving the highest mark in North Pakistan in Cambridge O Level Biology during the June 2017 examinations. This recognition, presented by Cambridge Assessment International Education, celebrates her exceptional academic excellence and dedication.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 7 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2019</div>
+                    <img src="assets/images/myers distinction awards images/Momina Ishfaq.png" alt="Momina Ishfaq" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Outstanding Cambridge Learner</span></div>
+                    <h3 class="luxury-name">Momina Ishfaq</h3>
+                    <p class="luxury-desc">Momina Ishfaq, a distinguished student of Myer’s College, earned international recognition in the Outstanding Cambridge Learner Awards 2019. She achieved Third Place in North Pakistan for Best Across Eight Cambridge O Levels in the June 2019 examinations. Her accomplishment reflects exceptional academic dedication, consistency, and excellence across diverse subjects, positioning her among the top achievers in the region. Momina’s success not only highlights her personal commitment to learning but also showcases the academic strength and guidance provided at Myer’s College.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 8 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2020</div>
+                    <img src="assets/images/myers distinction awards images/Shah Bano.png" alt="Shah Bano" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Highest Mark in North Pakistan</span></div>
+                    <h3 class="luxury-name">Shah Bano</h3>
+                    <p class="luxury-desc">Shah Bano, a distinguished student of Myer’s College Chakwal, earned the Highest Mark in North Pakistan for Cambridge International A Level Urdu in the November 2020 examinations. Recognized by Cambridge Assessment International Education through the prestigious Outstanding Cambridge Learner Award, her accomplishment reflects exceptional dedication, academic brilliance, and mastery of the Urdu language. Shah Bano’s success stands as a proud testament to the excellence fostered at Myer’s College and serves as an inspiration for students across the region.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 9 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2021</div>
+                    <img src="assets/images/myers distinction awards images/Areej Fatima.png" alt="Areej Fatima" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">High Achievement Award in Pakistan</span></div>
+                    <h3 class="luxury-name">Areej Fatima</h3>
+                    <p class="luxury-desc">Areej Fatima, a distinguished student of Myer’s College, earned international recognition by securing the High Achievement Award in Pakistan for Cambridge International A Level Islamic Studies in the November 2021 examinations. Her accomplishment, certified by Cambridge Assessment International Education, reflects her dedication, intellectual excellence, and commitment to academic distinction. Areej’s success stands as an inspiration for students nationwide, showcasing the values of perseverance and scholarly brilliance that Myer's College nurtures.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 10 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2022</div>
+                    <img src="assets/images/myers distinction awards images/Malaika Tahir.jpg" alt="Malaika Tahir" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Outstanding Cambridge Learner</span></div>
+                    <h3 class="luxury-name">Malaika Tahir</h3>
+                    <p class="luxury-desc">Malaika Tahir is a distinguished student of Myer's College who earned recognition in the Outstanding Cambridge Learner Awards for her exceptional academic performance. In the June 2022 Cambridge Examinations, she achieved Second Place in North Pakistan for Best Across Eight Cambridge O Levels. This prestigious award highlights her dedication, intellectual ability, and consistent excellence across multiple subjects. Malaika’s achievement reflects both her personal commitment to learning and the high academic standards upheld at Myer's College.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 11 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2023</div>
+                    <img src="assets/images/myers distinction awards images/Muhammad Usman- Outstanding Cambridge Learner.jpg" alt="Muhammad Usman" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Outstanding Cambridge Learner</span></div>
+                    <h3 class="luxury-name">Muhammad Usman</h3>
+                    <p class="luxury-desc">Muhammad Usman, a distinguished student of Myer’s College, earned international recognition in the Outstanding Cambridge Learner Awards 2023. He achieved Third Place in North Pakistan for Best Across Eight Cambridge O Levels in the June 2023 examinations. His accomplishment reflects exceptional academic dedication, consistency, and excellence across diverse subjects, positioning him among the top achievers in the region. Usman’s success not only highlights his personal commitment to learning but also showcases the academic strength and guidance provided at Myer’s College.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 12 -->
+            <div class="carousel-item">
+              <div class="luxury-award-card">
+                <div class="row g-0">
+                  <div class="col-lg-5 luxury-img-col">
+                    <div class="luxury-year-badge"><i class="bi bi-calendar3"></i> 2025</div>
+                    <img src="assets/images/myers distinction awards images/Muhammad Usman – Academic Distinction in Sociology.jpg" alt="Muhammad Usman" class="luxury-img">
+                  </div>
+                  <div class="col-lg-7 luxury-text-col">
+                    <i class="bi bi-quote luxury-quote"></i>
+                    <div class="mb-2"><span class="luxury-award-title">Academic Distinction in Sociology</span></div>
+                    <h3 class="luxury-name">Muhammad Usman</h3>
+                    <p class="luxury-desc">Myer’s College proudly recognizes Muhammad Usman for his exceptional achievement in the Cambridge A Level examinations 2025. He gained the highest mark in North Pakistan, Pakistan for Cambridge International A Level Sociology in the June 2025 exams, reflecting his analytical strength, intellectual dedication, and commitment to academic excellence. This accomplishment highlights both his personal merit and the College’s tradition of nurturing high achievers.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Controls & Indicators -->
+          <div class="luxury-carousel-controls">
+            <button class="luxury-btn" type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide="prev">
+              <i class="bi bi-arrow-left"></i>
+            </button>
+            <div class="luxury-indicators">
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="0" class="luxury-dot active" aria-current="true"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="1" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="2" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="3" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="4" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="5" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="6" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="7" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="8" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="9" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="10" class="luxury-dot"></button>
+              <button type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide-to="11" class="luxury-dot"></button>
+            </div>
+            <button class="luxury-btn" type="button" data-bs-target="#awardsLuxuryCarousel" data-bs-slide="next">
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+          <div class="mobile-swipe-hint d-lg-none">
+            <i class="bi bi-hand-index-thumb"></i> Swipe to Explore
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CAMPUS LIFE PREVIEW -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="reveal">
+        <div class="row g-5 align-items-center">
+          <div class="col-md-6 order-md-1 position-relative">
+            <div class="rounded-4 overflow-hidden" style="box-shadow:var(--elevated-shadow);">
+              <img src="assets/images/students.png" alt="Students at Myer's College" class="img-fluid w-100" style="height:400px;object-fit:cover;" />
+            </div>
+            <div class="floating-badge floating-badge-right d-none d-md-flex align-items-center gap-3">
+              <div class="floating-badge-icon"><i class="bi bi-people-fill" style="color:var(--gold);font-size:1.2rem;"></i></div>
+              <div>
+                <p class="fw-bold mb-0" style="font-family:var(--font-heading);">6 Clubs</p>
+                <p class="mb-0 text-muted" style="font-size:0.75rem;">5 Houses · Sports</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 order-md-2">
+            <p class="maroon-text fw-semibold text-uppercase" style="letter-spacing:0.2em;font-size:0.85rem;">Beyond Academics</p>
+            <h2 class="fw-bold mb-3" style="font-family:var(--font-heading);font-size:clamp(2rem,4vw,2.8rem);">
+              Life at <span class="gradient-text">Myer's</span>
+            </h2>
+            <div class="gold-line mb-4"></div>
+            <p class="text-muted mb-3" style="line-height:1.8;">
+              Experience a vibrant campus life with clubs for reading, drama, coding, environment, sports, and arts. Our 5 historic houses foster healthy competition and school spirit.
+            </p>
+            <p class="text-muted mb-4" style="line-height:1.8;">
+              From swimming galas to football tournaments, badminton competitions to horse riding — there's a world of opportunity waiting for every student.
+            </p>
+            <a href="life.html" class="btn-gold">Explore Campus Life <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="container position-relative">
+      <div class="reveal">
+        <div class="section-badge section-badge-navy mx-auto mb-4" style="width:fit-content;">
+          <i class="bi bi-mortarboard-fill"></i> Admissions Open
+        </div>
+        <h2 class="fw-bold text-white mb-4 mx-auto" style="font-family:var(--font-heading);font-size:clamp(1.8rem,4vw,3rem);max-width:600px;line-height:1.2;">
+          Ready to Join <span class="gradient-text">Myer's College</span>?
+        </h2>
+        <p class="mb-5 mx-auto" style="color:rgba(255,255,255,0.58);font-size:1.05rem;max-width:480px;">
+          Take the first step towards a brighter future. Begin your journey with us today.
+        </p>
+        <div class="d-flex flex-wrap gap-3 justify-content-center">
+          <a href="admissions.html" class="btn-gold" style="padding:14px 36px;font-size:1.05rem;">Apply for Admission <i class="bi bi-arrow-right"></i></a>
+          <a href="contact.html" class="btn-outline-gold" style="padding:14px 36px;font-size:1.05rem;">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer pt-5 pb-0">
+    <div class="container py-4">
+      <div class="row g-5">
+        <!-- Brand -->
+        <div class="col-md-6 col-lg-3">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="assets/images/myers-logo.png" alt="Myer's College" height="44" width="44" style="object-fit:contain;" />
+            <div>
+              <span class="gradient-text" style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;">Myer's</span>
+              <span style="color:rgba(255,255,255,0.95);font-family:var(--font-heading);font-size:1.1rem;font-weight:700;"> College</span>
+            </div>
+          </div>
+          <p style="font-size:0.85rem;line-height:1.8;color:rgba(255,255,255,0.52);">
+            A university-preparatory school affiliated with Cambridge International Examinations, providing quality education since 1999.
+          </p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="footer-social"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <!-- Quick Links -->
+        <div class="col-md-6 col-lg-3">
+          <h4 class="footer-heading mb-4">Quick Links</h4>
+          <ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:10px;">
+            <li><a href="index.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Home</a></li>
+            <li><a href="about.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> About Us</a></li>
+            <li><a href="academics.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Academics</a></li>
+            <li><a href="admissions.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Admissions</a></li>
+            <li><a href="life.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Life at Myers</a></li>
+            <li><a href="contact.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Contact Us</a></li>
+          </ul>
+        </div>
+        <!-- Contact Info -->
+        <div class="col-md-6 col-lg-3">
+          <h4 class="footer-heading mb-4">Contact Info</h4>
+          <ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:16px;font-size:0.85rem;color:rgba(255,255,255,0.52);">
+            <li class="d-flex align-items-start gap-3">
+              <i class="bi bi-geo-alt-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>
+              Myers College, Kot Sarfraz Khan, Chakwal-48800, Punjab, Pakistan
+            </li>
+            <li class="d-flex align-items-start gap-3">
+              <i class="bi bi-telephone-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>
+              <div><p class="mb-1">+92-543-541610</p><p class="mb-0">+92-321-2960044</p></div>
+            </li>
+            <li class="d-flex align-items-start gap-3">
+              <i class="bi bi-envelope-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>
+              <div><p class="mb-1">principal@myers.edu.pk</p><p class="mb-0">counselor@myers.edu.pk</p></div>
+            </li>
+          </ul>
+        </div>
+        <!-- Newsletter -->
+        <div class="col-md-6 col-lg-3">
+          <h4 class="footer-heading mb-4">Stay Connected</h4>
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.52);">Subscribe to get updates on admissions, events and more.</p>
+          <form class="newsletter-form d-flex mt-3" onsubmit="return false;">
+            <input type="email" class="form-control footer-input" placeholder="Your email" required />
+            <button type="submit" class="btn-gold" style="border-radius:0 10px 10px 0;padding:10px 10px;white-space:nowrap;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+        <p class="mb-0">&copy; <span id="year"></span> Myer's College. All rights reserved.</p>
+        <p class="mb-0">Cambridge International Examinations — PK 035</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/public-events.js"></script>
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

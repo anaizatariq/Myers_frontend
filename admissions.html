@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admissions — Myer's College</title>
+  <meta name="description" content="Begin your journey at Myer's College. Learn about the admissions process, age requirements, programmes and how to apply." />
+  <link rel="icon" href="assets/images/myers-logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <style>
+
+    /* ── QUICK RESOURCE PILLS ── */
+    .resource-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(196,151,58,0.22);
+      border-radius: 14px;
+      padding: 14px 22px;
+      text-decoration: none;
+      transition: all 0.28s ease;
+      flex: 1; min-width: 200px;
+    }
+    .resource-pill:hover {
+      background: rgba(196,151,58,0.10);
+      border-color: rgba(196,151,58,0.55);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px -8px rgba(0,0,0,0.35);
+    }
+    .resource-pill-icon {
+      width: 42px; height: 42px; border-radius: 11px;
+      background: rgba(196,151,58,0.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── KEY FACTS STRIP ── */
+    .fact-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: rgba(196,151,58,0.12);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(196,151,58,0.18);
+    }
+    .fact-item {
+      background: rgba(56, 38, 2, 0.861);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .fact-item:first-child { border-radius: 19px 0 0 19px; }
+    .fact-item:last-child  { border-radius: 0 19px 19px 0; }
+    .fact-val {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .fact-lbl {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.44);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 6px;
+    }
+
+    /* ── PROCESS STEPS ── */
+    .process-wrap { position: relative; }
+    .process-line {
+      position: absolute;
+      left: 24px; top: 28px; bottom: 28px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(196,151,58,0.08) 100%);
+    }
+    .process-step {
+      display: flex; gap: 24px; align-items: flex-start;
+      margin-bottom: 28px; position: relative;
+    }
+    .process-step:last-child { margin-bottom: 0; }
+    .step-node {
+      flex-shrink: 0;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem;
+      font-family: var(--font-heading);
+      box-shadow: 0 4px 18px -4px rgba(196,151,58,0.45);
+      z-index: 1;
+    }
+    .step-body {
+      flex: 1;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .step-body:hover {
+      border-color: rgba(196,151,58,0.28);
+      box-shadow: 0 8px 24px -6px rgba(12,12,12,0.12);
+    }
+    .step-num-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    /* ── SCHOOL ACCORDION AGE TABLES ── */
+    .school-acc-item {
+      border-radius: 16px !important;
+      border: 1px solid var(--border-color) !important;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .school-acc-btn {
+      background: #fff !important;
+      border: none !important;
+      padding: 20px 24px !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+      color: var(--text-dark) !important;
+      box-shadow: none !important;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .school-acc-btn:not(.collapsed) {
+      color: var(--black) !important;
+      background: #fff !important;
+    }
+    .school-acc-btn::after { margin-left: auto !important; }
+    .acc-school-icon {
+      width: 40px; height: 40px; border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 1rem;
+    }
+    .age-row {
+      display: flex; align-items: center;
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--border-color);
+      transition: background 0.2s;
+    }
+    .age-row:last-child { border-bottom: none; }
+    .age-row:hover { background: var(--cream); }
+    .age-class { flex: 1; font-size: 0.88rem; font-weight: 600; color: var(--text-dark); }
+    .age-code {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-muted); margin-right: 16px;
+    }
+    .age-badge {
+      background: linear-gradient(135deg, rgba(196,151,58,0.14), rgba(196,151,58,0.06));
+      border: 1px solid rgba(196,151,58,0.22);
+      color: var(--gold-dark);
+      font-weight: 800; font-size: 0.82rem;
+      padding: 3px 12px; border-radius: 50px;
+      min-width: 44px; text-align: center;
+    }
+
+    /* ── NOTICE BANNER ── */
+    .notice-banner {
+      background: linear-gradient(135deg, rgba(196,151,58,0.10) 0%, rgba(196,151,58,0.04) 100%);
+      border: 1px solid rgba(196,151,58,0.28);
+      border-radius: 18px;
+      padding: 24px 28px;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .notice-icon {
+      width: 48px; height: 48px; border-radius: 13px;
+      background: rgba(196,151,58,0.14);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--black) 0%, #0C0C0C 100%);
+      border-radius: 24px;
+      padding: 56px 48px;
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(196, 58, 58, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute; bottom: -60px; left: -60px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(159, 29, 29, 0.253), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── CONTACT CARDS ── */
+    .contact-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 22px 20px;
+      transition: background 0.25s, border-color 0.25s;
+      text-decoration: none;
+      display: block;
+    }
+    .contact-card:hover {
+      background: rgba(196,151,58,0.07);
+      border-color: rgba(196,151,58,0.28);
+    }
+
+    @media (max-width: 576px) {
+      .cta-section { padding: 36px 24px; }
+      .fact-item:first-child, .fact-item:last-child { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topbar">
+    <div class="container"><div class="d-flex justify-content-between align-items-center"><div class="d-flex gap-4"><span class="d-flex align-items-center gap-2"><i class="bi bi-telephone-fill topbar-icon"></i> +92-543-541610</span><span class="d-flex align-items-center gap-2"><i class="bi bi-envelope-fill topbar-icon"></i> principal@myers.edu.pk</span></div><span class="d-none d-md-inline" style="color:rgba(255,255,255,0.50);font-size:0.75rem;letter-spacing:0.1em;">Welcome to Myer's College — Cambridge Affiliated</span></div></div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="assets/images/myers-logo.png" alt="Myer's College Logo" height="48" width="48" style="object-fit:contain;" /><div class="d-none d-sm-block"><span class="brand-name">Myer's</span><span class="brand-suffix"> College</span></div></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="profile.html">PROFILE</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">ABOUT US</a></li>
+          <li class="nav-item"><a class="nav-link" href="faculty.html">FACULTY</a></li>
+          <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
+          <li class="nav-item"><a class="nav-link" href="facilities.html">FACILITIES</a></li>
+          <li class="nav-item"><a class="nav-link active" href="admissions.html">ADMISSIONS</a></li>
+          <li class="nav-item"><a class="nav-link" href="guidance.html">GUIDANCE</a></li>
+          <li class="nav-item"><a class="nav-link" href="life.html">LIFE AT MYERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <div class="page-hero" style="padding-bottom:90px;">
+    <p style="color:rgba(196,151,58,0.75);font-size:0.75rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:12px;position:relative;z-index:1;">Myer's College · Chakwal</p>
+    <h1 class="page-hero-title">Admissions</h1>
+    <p class="page-hero-subtitle">Secure your child's future at one of Pakistan's most distinguished Cambridge-affiliated institutions</p>
+    <div class="page-hero-divider"></div>
+  </div>
+
+  <!-- ═══ QUICK RESOURCES STRIP ═══ -->
+  <section class="py-0 px-3" style="margin-top:-44px;position:relative;z-index:10;">
+    <div class="container" style="max-width:860px;">
+      <div class="reveal" style="background:rgba(255,255,255,0.07);border-radius:20px;padding:24px 28px;border:1px solid rgba(255,255,255,0.12);">
+        <p style="color:rgba(234, 234, 234, 0.895);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:14px;" class="mb-4">Quick Access</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;">
+          <a href="trust.html" class="resource-pill">
+            <div class="resource-pill-icon"><i class="bi bi-award-fill" style="color:var(--maroon); font-size:1.1rem;"></i></div>
+            <div>
+              <p class="text-dark fw-bold mb-0" style=" font-size:0.88rem;line-height:1.2;">Qamar Jehan Begum Trust Fund</p>
+              <p style="color:rgba(11, 11, 11, 0.877);font-size:0.73rem;margin:0;">Scholarship & financial aid</p>
+            </div>
+            <i class="bi bi-arrow-right ms-auto" style="color:rgba(212, 162, 60, 0.852);font-size: 1rem;"></i>
+          </a>
+          <a href="assets/handbookmyers.pdf" target="_blank" rel="noopener" class="resource-pill">
+            <div class="resource-pill-icon"><i class="bi bi-file-earmark-pdf-fill" style="color:var(--maroon);font-size:1.1rem;"></i></div>
+            <div>
+              <p class="text-dark fw-bold mb-0" style="font-size:0.88rem;line-height:1.2;">Student Handbook</p>
+              <p style="color:rgba(11, 11, 11, 0.877);font-size:0.73rem;margin:0;">Download PDF guide</p>
+            </div>
+            <i class="bi bi-arrow-up-right ms-auto" style="color:rgba(212, 162, 60, 0.852); font-size:1rem;"></i>
+          </a>
+          <a href="contact.html" class="resource-pill">
+            <div class="resource-pill-icon"><i class="bi bi-envelope-fill" style="color:var(--maroon);font-size:1.1rem;"></i></div>
+            <div>
+              <p class="text-dark fw-bold mb-0" style="font-size:0.88rem;line-height:1.2;">Admissions Office</p>
+              <p style="color:rgba(11, 11, 11, 0.877);font-size:0.73rem;margin:0;">Get in touch directly</p>
+            </div>
+            <i class="bi bi-arrow-right ms-auto" style="color:rgba(212, 162, 60, 0.852);font-size:1rem;"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ INTRO + KEY FACTS ═══ -->
+  <section class="section-padding">
+    <div class="container" style="max-width:1000px;">
+
+      <!-- Notice banner -->
+      <div class="reveal notice-banner mb-5">
+        <div class="notice-icon">
+          <i class="bi bi-calendar-check-fill" style="color:var(--maroon);font-size:1.2rem;"></i>
+        </div>
+        <div>
+          <p class="fw-bold mb-1" style="font-size:0.95rem;color:var(--black);">Admissions Open — Starting March</p>
+          <p class="text-muted mb-0" style="font-size:0.85rem;line-height:1.6;">The admission process for classes Kindergarten to 10th begins in March each year. Students admitted in March attend special two-month summer coaching to align with our August start.</p>
+        </div>
+      </div>
+
+      <!-- Two-col intro -->
+      <div class="row g-5 align-items-start mb-6">
+        <div class="col-lg-6 reveal">
+          <p class="gold-text fw-semibold text-uppercase mb-2" style="letter-spacing:0.2em;font-size:0.82rem;">Overview</p>
+          <h2 class="fw-bold mb-4" style="font-family:var(--font-heading);font-size:2.2rem;line-height:1.2;">Admission Process</h2>
+          <p class="text-muted mb-4" style="font-size:0.93rem;line-height:1.9;">Admissions at Myer's are limited and highly competitive. Only <strong style="color:var(--black);">24 students</strong> are accommodated in each section, with each class having only two sections. It is easier to get a child admitted in the Pre-school (ages 2–4) as seats are very limited in higher classes — applicants are frequently placed on a waiting list.</p>
+          <p class="text-muted mb-0" style="font-size:0.93rem;line-height:1.9;">Students admitted in March attend specially designed coaching classes to strengthen their English language and Mathematical skills before the August term begins — ensuring every new student is fully prepared from day one.</p>
+        </div>
+        <div class="col-lg-6 reveal">
+          <!-- Key facts strip -->
+          <div class="fact-strip mb-4">
+            <div class="fact-item">
+              <div class="fact-val">24</div>
+              <div class="fact-lbl">Per Section</div>
+            </div>
+            <div class="fact-item">
+              <div class="fact-val">2</div>
+              <div class="fact-lbl">Sections/Class</div>
+            </div>
+            <div class="fact-item">
+              <div class="fact-val">Aug</div>
+              <div class="fact-lbl">Term Starts</div>
+            </div>
+            <div class="fact-item">
+              <div class="fact-val">Mar</div>
+              <div class="fact-lbl">Apply From</div>
+            </div>
+          </div>
+          <!-- Programmes offered -->
+          <div style="background:var(--cream);border-radius:18px;padding:24px 22px;border:1px solid var(--border-color);">
+            <p class="gold-text fw-semibold text-uppercase mb-3" style="letter-spacing:0.15em;font-size:0.72rem;">Programmes Offered</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#A82020;flex-shrink:0;"></div>
+                <span style="font-size:0.88rem;font-weight:600;">Pre School &nbsp;<span style="color:var(--text-muted);font-weight:400;">— Ages 2–4</span></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#8B1A1A;flex-shrink:0;"></div>
+                <span style="font-size:0.88rem;font-weight:600;">Junior School &nbsp;<span style="color:var(--text-muted);font-weight:400;">— Grades 1–4</span></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#8B1A1A;flex-shrink:0;"></div>
+                <span style="font-size:0.88rem;font-weight:600;">Preparatory School &nbsp;<span style="color:var(--text-muted);font-weight:400;">— Grades 5–7</span></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#8B1A1A;flex-shrink:0;"></div>
+                <span style="font-size:0.88rem;font-weight:600;">Senior School / O-Levels &nbsp;<span style="color:var(--text-muted);font-weight:400;">— Grades 8–11</span></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#8B1A1A;flex-shrink:0;"></div>
+                <span style="font-size:0.88rem;font-weight:600;">College — A-Levels &nbsp;<span style="color:var(--text-muted);font-weight:400;">— Year 12–13</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ STEPS ═══ -->
+  <section class="section-padding section-cream">
+    <div class="container" style="max-width:720px;">
+      <div class="reveal text-center mb-5">
+        <p class="maroon-text fw-semibold text-uppercase" style="letter-spacing:0.2em;font-size:0.82rem;">How To Apply</p>
+        <h2 class="fw-bold" style="font-family:var(--font-heading);font-size:2.3rem;">Steps to Get Admission</h2>
+        <div class="gold-line mx-auto mt-3"></div>
+      </div>
+
+      <div class="reveal process-wrap">
+        <div class="process-line"></div>
+
+        <div class="process-step">
+          <div class="step-node">1</div>
+          <div class="step-body">
+            <p class="step-num-label">Step One</p>
+            <p class="fw-bold mb-1" style="font-size:0.98rem;">Obtain the Prospectus</p>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.7;">Collect the Myer's College prospectus from the Information Desk and read it thoroughly to understand the academic structure, values and requirements.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-node">2</div>
+          <div class="step-body">
+            <p class="step-num-label">Step Two</p>
+            <p class="fw-bold mb-1" style="font-size:0.98rem;">Complete the Application Forms</p>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.7;">Fill in the enclosed forms carefully and attach all required documents — National ID Card copy, photographs, Birth Certificate, and any previous academic records.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-node">3</div>
+          <div class="step-body">
+            <p class="step-num-label">Step Three</p>
+            <p class="fw-bold mb-1" style="font-size:0.98rem;">Register at the Admissions Office</p>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.7;">Submit your completed application forms with all required documents and the registration fee at the Admissions Office to receive your registration confirmation.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-node">4</div>
+          <div class="step-body">
+            <p class="step-num-label">Step Four</p>
+            <p class="fw-bold mb-1" style="font-size:0.98rem;">Schedule an Interview &amp; Test</p>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.7;">Arrange an interview and entrance test appointment directly with the Admissions Office at a mutually convenient date and time.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-node">5</div>
+          <div class="step-body">
+            <p class="step-num-label">Step Five</p>
+            <p class="fw-bold mb-1" style="font-size:0.98rem;">Attend the Interview &amp; Assessment</p>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.7;">Your child will be interviewed and assessed by the relevant faculty. The test is designed to gauge current ability and readiness for Myer's academic standards.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-node">6</div>
+          <div class="step-body" style="border-color:rgba(196,151,58,0.28);background:linear-gradient(135deg,rgba(196,151,58,0.04),#fff);">
+            <p class="step-num-label" style="color:var(--gold-dark);">Step Six — Final</p>
+            <p class="fw-bold mb-1" style="font-size:0.98rem;">Secure Admission &amp; Complete the File</p>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.7;">Upon passing the assessment, pay the admission fee and obtain your unique admission number. Complete your child's file as instructed by the office — welcome to Myer's!</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ AGE FOR ADMISSION ═══ -->
+  <section class="section-padding">
+    <div class="container" style="max-width:860px;">
+      <div class="reveal text-center mb-5">
+        <p class="maroon-text fw-semibold text-uppercase" style="letter-spacing:0.2em;font-size:0.82rem;">Academic Year: August – June</p>
+        <h2 class="fw-bold" style="font-family:var(--font-heading);font-size:2.3rem;">Age for Admission</h2>
+        <div class="gold-line mx-auto mt-3 mb-4"></div>
+        <p class="text-muted" style="font-size:0.93rem;line-height:1.8;max-width:560px;margin:0 auto;">Each school level at Myer's caters to a specific age group. Select a school below to view the class-by-class age requirements.</p>
+      </div>
+
+      <!-- ── PREMIUM TABS LAYOUT ── -->
+      <style>
+        .custom-school-tabs .nav-link {
+          background: #fff; border: 1px solid var(--border-color);
+          border-radius: 16px; padding: 16px 20px; margin-bottom: 12px;
+          color: var(--text-dark); transition: all 0.3s ease;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+        }
+        .custom-school-tabs .nav-link:hover {
+          background: var(--cream); border-color: rgba(139,26,26,0.15);
+          transform: translateX(4px);
+        }
+        .custom-school-tabs .nav-link.active {
+          background: var(--maroon); color: #fff;
+          border-color: var(--maroon);
+          box-shadow: 0 8px 20px rgba(139,26,26,0.2);
+          transform: translateX(8px);
+        }
+        .custom-school-tabs .nav-link.active .tab-icon {
+          background: rgba(255,255,255,0.2) !important; color: #fff !important;
+        }
+        .custom-school-tabs .nav-link.active .tab-meta {
+          color: rgba(255,255,255,0.7) !important;
+        }
+        .tab-icon {
+          width: 44px; height: 44px; border-radius: 12px;
+          background: rgba(139,26,26,0.08); color: var(--maroon);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 1.1rem; flex-shrink: 0; transition: all 0.3s ease;
+        }
+        .tab-meta {
+          font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-body);
+          transition: all 0.3s ease;
+        }
+        .school-pane-card {
+          background: #fff; border: 1px solid var(--border-color);
+          border-radius: 24px; padding: 40px; height: 100%;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+        }
+        @media (max-width: 768px) {
+          .school-pane-card { padding: 24px; }
+          .custom-school-tabs .nav-link.active { transform: translateX(0) translateY(-4px); }
+          .custom-school-tabs .nav-link:hover { transform: translateX(0); }
+        }
+        .pane-icon-large {
+          width: 60px; height: 60px; border-radius: 16px;
+          background: linear-gradient(135deg, rgba(139,26,26,0.1) 0%, rgba(196,151,58,0.1) 100%);
+          color: var(--maroon); font-size: 1.5rem;
+          display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .grade-row-premium {
+          background: #fff; border: 1px solid var(--border-color);
+          border-radius: 12px; padding: 14px 20px;
+          display: flex; align-items: center; justify-content: space-between;
+          margin-bottom: 10px; transition: all 0.2s ease;
+        }
+        .grade-row-premium:hover {
+          background: var(--cream); border-color: rgba(196,151,58,0.3);
+        }
+        .grade-code-premium {
+          font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+          text-transform: uppercase; color: var(--text-muted);
+          background: #f8f9fa; border: 1px solid #e9ecef;
+          padding: 4px 10px; border-radius: 6px; margin-right: 12px;
+        }
+        .grade-age-premium {
+          background: linear-gradient(135deg, rgba(196,151,58,0.14), rgba(196,151,58,0.06));
+          border: 1px solid rgba(196,151,58,0.22); color: var(--gold-dark);
+          font-weight: 800; font-size: 0.85rem; padding: 5px 14px; border-radius: 50px;
+        }
+      </style>
+
+      <div class="reveal row g-4 g-lg-5 align-items-stretch">
+        
+        <!-- Left Side: Tabs -->
+        <div class="col-lg-4">
+          <div class="nav flex-column nav-pills custom-school-tabs" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" id="v-pills-pre-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pre" type="button" role="tab" aria-controls="v-pills-pre" aria-selected="true">
+              <div class="d-flex align-items-center gap-3 text-start">
+                <div class="tab-icon"><i class="bi bi-stars"></i></div>
+                <div><div class="fw-bold">Pre School</div><div class="tab-meta">Ages 2+ · Mont to Prep</div></div>
+              </div>
+            </button>
+            <button class="nav-link" id="v-pills-junior-tab" data-bs-toggle="pill" data-bs-target="#v-pills-junior" type="button" role="tab" aria-controls="v-pills-junior" aria-selected="false">
+              <div class="d-flex align-items-center gap-3 text-start">
+                <div class="tab-icon"><i class="bi bi-people-fill"></i></div>
+                <div><div class="fw-bold">Junior School</div><div class="tab-meta">Ages 5+ · Grades 1–4</div></div>
+              </div>
+            </button>
+            <button class="nav-link" id="v-pills-prep-tab" data-bs-toggle="pill" data-bs-target="#v-pills-prep" type="button" role="tab" aria-controls="v-pills-prep" aria-selected="false">
+              <div class="d-flex align-items-center gap-3 text-start">
+                <div class="tab-icon"><i class="bi bi-book-fill"></i></div>
+                <div><div class="fw-bold">Preparatory School</div><div class="tab-meta">Ages 9+ · Grades 5–7</div></div>
+              </div>
+            </button>
+            <button class="nav-link" id="v-pills-senior-tab" data-bs-toggle="pill" data-bs-target="#v-pills-senior" type="button" role="tab" aria-controls="v-pills-senior" aria-selected="false">
+              <div class="d-flex align-items-center gap-3 text-start">
+                <div class="tab-icon"><i class="bi bi-building"></i></div>
+                <div><div class="fw-bold">Senior School</div><div class="tab-meta">Ages 12+ · Grades 8–11</div></div>
+              </div>
+            </button>
+            <button class="nav-link" id="v-pills-college-tab" data-bs-toggle="pill" data-bs-target="#v-pills-college" type="button" role="tab" aria-controls="v-pills-college" aria-selected="false">
+              <div class="d-flex align-items-center gap-3 text-start">
+                <div class="tab-icon"><i class="bi bi-mortarboard-fill"></i></div>
+                <div><div class="fw-bold">College — A-Levels</div><div class="tab-meta">Ages 16+ · Year 12–13</div></div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side: Content Panes -->
+        <div class="col-lg-8">
+          <div class="tab-content" id="v-pills-tabContent">
+            
+            <!-- Pre School Pane -->
+            <div class="tab-pane fade show active" id="v-pills-pre" role="tabpanel" aria-labelledby="v-pills-pre-tab">
+              <div class="school-pane-card">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <div class="pane-icon-large"><i class="bi bi-stars"></i></div>
+                  <div>
+                    <h3 class="fw-bold mb-1" style="font-family:var(--font-heading); color:var(--maroon);">Pre School</h3>
+                    <p class="text-muted mb-0" style="font-size:0.88rem;">The foundational years of learning and discovery.</p>
+                  </div>
+                </div>
+                <div class="grade-row-premium">
+                  <div class="d-flex align-items-center"><span class="grade-code-premium">P-1</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Montessori</span></div>
+                  <span class="grade-age-premium">2+ Years</span>
+                </div>
+                <div class="grade-row-premium">
+                  <div class="d-flex align-items-center"><span class="grade-code-premium">P-2</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Nursery</span></div>
+                  <span class="grade-age-premium">3+ Years</span>
+                </div>
+                <div class="grade-row-premium">
+                  <div class="d-flex align-items-center"><span class="grade-code-premium">P-3</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Prep</span></div>
+                  <span class="grade-age-premium">4+ Years</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Junior School Pane -->
+            <div class="tab-pane fade" id="v-pills-junior" role="tabpanel" aria-labelledby="v-pills-junior-tab">
+              <div class="school-pane-card">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <div class="pane-icon-large"><i class="bi bi-people-fill"></i></div>
+                  <div>
+                    <h3 class="fw-bold mb-1" style="font-family:var(--font-heading); color:var(--maroon);">Junior School</h3>
+                    <p class="text-muted mb-0" style="font-size:0.88rem;">Building on early foundations with structured, core academics.</p>
+                  </div>
+                </div>
+                <div class="grade-row-premium"><div class="d-flex align-items-center"><span class="grade-code-premium">K-1</span><span class="fw-bold text-dark" style="font-size:0.95rem;">One</span></div><span class="grade-age-premium">5+ Years</span></div>
+                <div class="grade-row-premium"><div class="d-flex align-items-center"><span class="grade-code-premium">K-2</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Two</span></div><span class="grade-age-premium">6+ Years</span></div>
+                <div class="grade-row-premium"><div class="d-flex align-items-center"><span class="grade-code-premium">K-3</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Three</span></div><span class="grade-age-premium">7+ Years</span></div>
+                <div class="grade-row-premium"><div class="d-flex align-items-center"><span class="grade-code-premium">K-4</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Four</span></div><span class="grade-age-premium">8+ Years</span></div>
+              </div>
+            </div>
+
+            <!-- Preparatory School Pane -->
+            <div class="tab-pane fade" id="v-pills-prep" role="tabpanel" aria-labelledby="v-pills-prep-tab">
+              <div class="school-pane-card">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <div class="pane-icon-large"><i class="bi bi-book-fill"></i></div>
+                  <div>
+                    <h3 class="fw-bold mb-1" style="font-family:var(--font-heading); color:var(--maroon);">Preparatory School</h3>
+                    <p class="text-muted mb-0" style="font-size:0.88rem;">Transitioning to advanced academics and independent study.</p>
+                  </div>
+                </div>
+                <div class="grade-row-premium"><div class="d-flex align-items-center"><span class="grade-code-premium">E-1</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Five</span></div><span class="grade-age-premium">9+ Years</span></div>
+                <div class="grade-row-premium"><div class="d-flex align-items-center"><span class="grade-code-premium">E-2</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Six</span></div><span class="grade-age-premium">10+ Years</span></div>
+                <div class="grade-row-premium"><div class="d-flex align-items-center"><span class="grade-code-premium">E-3</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Seven</span></div><span class="grade-age-premium">11+ Years</span></div>
+              </div>
+            </div>
+
+            <!-- Senior School Pane (The Elegantly Fixed Section) -->
+            <div class="tab-pane fade" id="v-pills-senior" role="tabpanel" aria-labelledby="v-pills-senior-tab">
+              <div class="school-pane-card d-flex flex-column justify-content-center">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <div class="pane-icon-large"><i class="bi bi-building"></i></div>
+                  <div>
+                    <h3 class="fw-bold mb-1" style="font-family:var(--font-heading); color:var(--maroon);">Senior School</h3>
+                    <p class="text-muted mb-0" style="font-size:0.88rem;">Grades 8 through 11</p>
+                  </div>
+                </div>
+                <div class="p-4 rounded-4" style="background:linear-gradient(135deg, rgba(139,26,26,0.03), rgba(196,151,58,0.05)); border:1px solid rgba(196,151,58,0.2);">
+                  <div class="d-flex align-items-center gap-2 mb-3">
+                    <i class="bi bi-award-fill" style="color:var(--gold); font-size:1.2rem;"></i>
+                    <h5 class="fw-bold text-dark mb-0">Robust Academic Framework</h5>
+                  </div>
+                  <p class="text-muted" style="line-height:1.8; font-size:0.95rem;">
+                    Preparing students for higher education with a rigorous curriculum, advanced critical thinking skills, and holistic personal development. Our Senior School provides a highly structured environment where students are tailored for upcoming academic challenges.
+                  </p>
+                  <div class="d-inline-flex align-items-center gap-2 mt-2 px-3 py-2 bg-white rounded-3 border">
+                    <span class="badge" style="background:var(--maroon);">Ages 12+</span>
+                    <span class="text-muted" style="font-size:0.8rem; font-weight:600;">Comprehensive Development</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- College A-Levels Pane -->
+            <div class="tab-pane fade" id="v-pills-college" role="tabpanel" aria-labelledby="v-pills-college-tab">
+              <div class="school-pane-card">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <div class="pane-icon-large"><i class="bi bi-mortarboard-fill"></i></div>
+                  <div>
+                    <h3 class="fw-bold mb-1" style="font-family:var(--font-heading); color:var(--maroon);">College — A-Levels</h3>
+                    <p class="text-muted mb-0" style="font-size:0.88rem;">Cambridge International Curriculum</p>
+                  </div>
+                </div>
+                <div class="grade-row-premium">
+                  <div class="d-flex align-items-center"><span class="grade-code-premium">A-1</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Year 12 (Lower Sixth)</span></div>
+                  <span class="grade-age-premium">16+ Years</span>
+                </div>
+                <div class="grade-row-premium">
+                  <div class="d-flex align-items-center"><span class="grade-code-premium">A-2</span><span class="fw-bold text-dark" style="font-size:0.95rem;">Year 13 — A-Level</span></div>
+                  <span class="grade-age-premium">17+ Years</span>
+                </div>
+                <div class="mt-4 p-3 bg-light rounded-3 border d-flex gap-3 align-items-center">
+                  <i class="bi bi-globe" style="color:var(--maroon); font-size:1.5rem; opacity:0.8;"></i>
+                  <span style="font-size:0.8rem; color:var(--text-muted); font-weight:500;">Globally recognized curriculum designed to prepare students for top-tier universities worldwide.</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Important note -->
+      <div class="reveal mt-4">
+        <div style="background:var(--cream);border-radius:14px;padding:18px 22px;border:1px solid var(--border-color);display:flex;gap:12px;align-items:flex-start;">
+          <i class="bi bi-info-circle-fill" style="color:var(--maroon);font-size:1rem;flex-shrink:0;margin-top:2px;"></i>
+          <p class="text-muted mb-0" style="font-size:0.85rem;line-height:1.7;"><strong style="color:var(--black);">Please note:</strong> Admissions in higher classes are limited and seats are often filled quickly. Early application is strongly recommended. Applicants are placed on a waiting list when no seats are available.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="section-padding">
+    <div class="container" style="max-width:900px;">
+      <div class="reveal cta-section">
+        <div class="row g-5 align-items-center position-relative" style="z-index:1;">
+          <div class="col-lg-7">
+            <p class="gold-text fw-semibold text-uppercase mb-2" style="letter-spacing:0.2em;font-size:0.78rem;">Begin the Journey</p>
+            <h2 class="text-white fw-bold mb-3" style="font-family:var(--font-heading);font-size:2rem;line-height:1.2;">Ready to Join<br>Myer's College?</h2>
+            <p style="color:rgba(255,255,255,0.65);font-size:0.92rem;line-height:1.8;margin-bottom:0;">Visit us at the campus or reach out directly to our Admissions Office. We're happy to guide you through every step of the process and answer any questions you may have.</p>
+          </div>
+          <div class="col-lg-5">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <a href="contact.html" class="contact-card">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:38px;height:38px;border-radius:10px;background:rgba(196,151,58,0.14);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="bi bi-envelope-fill" style="color:var(--maroon);font-size:0.9rem;"></i></div>
+                  <div><p class="text-white fw-bold mb-0" style="font-size:0.88rem;">Contact Admissions</p><p style="color:rgba(255,255,255,0.38);font-size:0.75rem;margin:0;">principal@myers.edu.pk</p></div>
+                  <i class="bi bi-arrow-right ms-auto" style="color:rgba(196,151,58,0.45);"></i>
+                </div>
+              </a>
+              <a href="tel:+92543541610" class="contact-card">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:38px;height:38px;border-radius:10px;background:rgba(196,151,58,0.14);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="bi bi-telephone-fill" style="color:var(--maroon);font-size:0.9rem;"></i></div>
+                  <div><p class="text-white fw-bold mb-0" style="font-size:0.88rem;">Call the Office</p><p style="color:rgba(255,255,255,0.38);font-size:0.75rem;margin:0;">+92-543-541610</p></div>
+                  <i class="bi bi-arrow-right ms-auto" style="color:rgba(196,151,58,0.45);"></i>
+                </div>
+              </a>
+              <a href="trust.html" class="contact-card">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:38px;height:38px;border-radius:10px;background:rgba(196,151,58,0.14);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="bi bi-award-fill" style="color:#A82020;font-size:0.9rem;"></i></div>
+                  <div><p class="text-white fw-bold mb-0" style="font-size:0.88rem;">Scholarship Fund</p><p style="color:rgba(255,255,255,0.38);font-size:0.75rem;margin:0;">Qamar Jehan Begum Trust Fund</p></div>
+                  <i class="bi bi-arrow-up-right ms-auto" style="color:rgba(196,151,58,0.45);"></i>
+                </div>
+              </a>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:16px 18px;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <i class="bi bi-geo-alt-fill" style="color:var(--maroon);font-size:0.9rem;flex-shrink:0;"></i>
+                  <p style="color:rgba(255,255,255,0.52);font-size:0.82rem;margin:0;line-height:1.5;">Myers College, Kot Sarfaraz Khan,<br>Chakwal-48800, Punjab, Pakistan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer pt-5 pb-0">
+    <div class="container py-4">
+      <div class="row g-5">
+        <div class="col-md-6 col-lg-3"><div class="d-flex align-items-center gap-2 mb-3"><img src="assets/images/myers-logo.png" alt="Myer's College" height="44" width="44" style="object-fit:contain;" /><div><span class="gradient-text" style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;">Myer's</span><span style="color:rgba(255,255,255,0.95);font-family:var(--font-heading);font-size:1.1rem;font-weight:700;"> College</span></div></div><p style="font-size:0.85rem;line-height:1.8;color:rgba(255,255,255,0.52);">A university-preparatory school affiliated with Cambridge International Examinations, providing quality education since 1999.</p><div class="d-flex gap-2 mt-3"><a href="#" class="footer-social"><i class="bi bi-facebook"></i></a><a href="#" class="footer-social"><i class="bi bi-instagram"></i></a><a href="#" class="footer-social"><i class="bi bi-youtube"></i></a></div></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Quick Links</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:10px;"><li><a href="index.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Home</a></li><li><a href="about.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> About Us</a></li><li><a href="academics.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Academics</a></li><li><a href="admissions.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Admissions</a></li><li><a href="guidance.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Guidance &amp; Counseling</a></li><li><a href="contact.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Contact Us</a></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Contact Info</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:16px;font-size:0.85rem;color:rgba(255,255,255,0.52);"><li class="d-flex align-items-start gap-3"><i class="bi bi-geo-alt-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Myers College, Kot Sarfraz Khan, Chakwal-48800</li><li class="d-flex align-items-start gap-3"><i class="bi bi-telephone-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">+92-543-541610</p><p class="mb-0">+92-321-2960044</p></div></li><li class="d-flex align-items-start gap-3"><i class="bi bi-envelope-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">principal@myers.edu.pk</p><p class="mb-0">counselor@myers.edu.pk</p></div></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Stay Connected</h4><p style="font-size:0.85rem;color:rgba(255,255,255,0.52);">Subscribe to get updates on admissions, events and more.</p><form class="newsletter-form d-flex mt-3" onsubmit="return false;"><input type="email" class="form-control footer-input" placeholder="Your email" required /><button type="submit" class="btn-gold" style="border-radius:0 10px 10px 0;padding:10px 16px;">Subscribe</button></form></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2"><p class="mb-0">&copy; <span id="year"></span> Myer's College. All rights reserved.</p><p class="mb-0">Cambridge International Examinations — PK 035</p></div></div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

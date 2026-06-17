@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academics — Myer's College</title>
+  <meta name="description" content="Explore academics at Myer's College — Cambridge O-Levels, A-Levels, gold medalists, and our four-school structure." />
+  <link rel="icon" href="assets/images/myers-logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <style>
+    
+    .m-year-btn {
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(196,151,58,0.20);
+      background: transparent;
+      color: rgba(255,255,255,0.44);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.04em;
+    }
+    .m-year-btn:hover { border-color: rgba(196,151,58,0.45); color: var(--gold); }
+    .m-year-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
+    }
+    .m-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,151,58,0.14);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeSlideUp 0.35s ease forwards;
+    }
+    .m-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(196,151,58,0.45);
+      box-shadow: 0 20px 50px -12px rgba(0,0,0,0.5);
+    }
+    .m-card-photo {
+      width: 100%; aspect-ratio: 3/4;
+      overflow: hidden;
+      background: linear-gradient(135deg,#000000,#0A0A0A);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .m-card-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .m-card:hover .m-card-photo img { transform: scale(1.06); }
+    .m-card-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg,rgba(12,12,12,0.78) 0%,transparent 55%);
+    }
+    .m-level-chip {
+      position: absolute; bottom: 12px; left: 12px;
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 12px; border-radius: 50px;
+      font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .m-level-chip.alevel { background: rgba(107,20,20,0.08); border: 1px solid rgba(107,20,20,0.08); color: #93c5fd; }
+    .m-level-chip.olevel { background: rgba(107,20,20,0.08); border: 1px solid rgba(107,20,20,0.08); color: #6ee7b7; }
+    .m-card-body { padding: 18px 18px 20px; flex: 1; }
+    .m-grade-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(196,151,58,0.12);
+      border: 1px solid rgba(196,151,58,0.22);
+      color: var(--gold);
+      font-size: 0.72rem; font-weight: 800;
+      padding: 4px 11px; border-radius: 6px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .service-card {
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid var(--border-color);
+      padding: 36px 28px 32px;
+      height: 100%;
+      transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: var(--elevated-shadow); border-color: rgba(196,151,58,0.28); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 60px; height: 60px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(196,151,58,0.14), rgba(196,151,58,0.06));
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 22px;
+    }
+    .medalist-photo-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(196,151,58,0.18);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .medalist-photo-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(196,151,58,0.55);
+      box-shadow: 0 20px 50px -12px rgba(0,0,0,0.45);
+    }
+    .medalist-photo-wrap {
+      width: 100%;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg,#000000,#0A0A0A);
+    }
+    .medalist-photo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.5s ease;
+    }
+    .medalist-photo-card:hover .medalist-photo-wrap img { transform: scale(1.06); }
+    .medalist-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(12,12,12,0.80) 0%, transparent 60%);
+    }
+    .medalist-photo-body { padding: 16px 16px 18px; }
+    .year-badge-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(196,151,58,0.12);
+      border: 1px solid rgba(196,151,58,0.28);
+      border-radius: 50px;
+      padding: 3px 11px;
+      font-size: 0.7rem;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .medalist-level-tag {
+      display: inline-block;
+      background: rgba(196,151,58,0.18);
+      color: var(--gold-light);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .year-section-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      color: var(--gold);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .year-section-title::after {
+      content:'';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(196,151,58,0.35), transparent);
+    }
+    #extraMedalists { display: none; }
+    #extraMedalists.shown { display: block; }
+    .show-more-btn {
+      background: rgba(196,151,58,0.10);
+      border: 1px solid rgba(196,151,58,0.28);
+      color: var(--gold);
+      border-radius: 50px;
+      padding: 14px 40px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .show-more-btn:hover { background: var(--gold); color: var(--black); }
+    .highlight-strip {
+      background: linear-gradient(135deg, var(--black) 0%, var(--black-rich) 100%);
+      border-radius: 22px;
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .highlight-strip::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(196,151,58,0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── SCHOOLS PREMIUM ACCORDION ── */
+    .schools-accordion {
+      background: transparent;
+    }
+    .school-ac-item { 
+      margin: 16px 0; 
+      position: relative;
+    }
+    .school-ac-header {
+      display: flex; align-items: center; gap: 20px; padding: 10px 24px 10px 10px;
+      border-radius: 50px;
+      background: linear-gradient(180deg, #ffffff 0%, #f7f3f1 100%);
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      user-select: none; text-decoration: none; 
+      border: 1px solid rgba(196, 151, 58, 0.15);
+      box-shadow: 
+        0 8px 16px -4px rgba(139, 26, 26, 0.08), 
+        inset -4px -4px 10px rgba(139, 26, 26, 0.04), 
+        inset 4px 4px 10px rgba(255, 255, 255, 1);
+      position: relative; z-index: 2;
+    }
+    .school-ac-header:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 12px 24px -6px rgba(139, 26, 26, 0.12),
+        inset -4px -4px 10px rgba(139, 26, 26, 0.04),
+        inset 4px 4px 10px rgba(255, 255, 255, 1);
+      border-color: rgba(196, 151, 58, 0.35);
+    }
+    .school-ac-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, #8B1A1A 0%, #5E0F0F 100%);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 1.4rem; color: #fff;
+      box-shadow: inset 0 2px 6px rgba(255,255,255,0.25), 0 6px 14px rgba(139, 26, 26, 0.35);
+      transition: transform 0.3s ease;
+    }
+    .school-ac-header:not(.collapsed) .school-ac-icon { transform: scale(1.05); }
+    .school-ac-info { flex: 1; }
+    .school-ac-info h4 { color: #2A1717; font-size: 1.15rem; font-weight: 700; margin: 0 0 2px; font-family: var(--font-heading); }
+    .school-ac-info p { color: rgba(139, 26, 26, 0.7); font-size: 0.72rem; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+    .school-ac-chevron { 
+      color: rgba(139, 26, 26, 0.4); font-size: 1rem; 
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s; flex-shrink: 0; 
+      background: rgba(139, 26, 26, 0.05); width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .school-ac-header:hover .school-ac-chevron { background: rgba(139, 26, 26, 0.1); color: rgba(139, 26, 26, 0.7); }
+    .school-ac-header:not(.collapsed) .school-ac-chevron { transform: rotate(180deg); color: #fff; background: var(--maroon); }
+    .school-ac-body {
+      padding: 36px 30px 24px 94px; background: #fff; 
+      border-radius: 0 0 24px 24px; margin-top: -24px; position: relative; z-index: 1;
+      border: 1px solid rgba(139, 26, 26, 0.08); border-top: none;
+      box-shadow: 0 8px 24px rgba(139, 26, 26, 0.05);
+      color: rgba(30, 8, 10, 0.65); font-size: 0.92rem; line-height: 1.8;
+    }
+    @media (max-width: 576px) { 
+      .school-ac-header { padding: 8px 16px 8px 8px; border-radius: 40px; }
+      .school-ac-icon { width: 48px; height: 48px; font-size: 1.15rem; } 
+      .school-ac-body { padding: 40px 20px 24px 20px; margin-top: -24px; }
+      .school-ac-info h4 { font-size: 1rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="topbar">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-4">
+          <span class="d-flex align-items-center gap-2"><i class="bi bi-telephone-fill topbar-icon"></i> +92-543-541610</span>
+          <span class="d-flex align-items-center gap-2"><i class="bi bi-envelope-fill topbar-icon"></i> principal@myers.edu.pk</span>
+        </div>
+        <span class="d-none d-md-inline" style="color:rgba(255,255,255,0.50);font-size:0.75rem;letter-spacing:0.1em;">Welcome to Myer's College — Cambridge Affiliated</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/images/myers-logo.png" alt="Myer's College Logo" height="48" width="48" style="object-fit:contain;" />
+        <div class="d-none d-sm-block"><span class="brand-name">Myer's</span><span class="brand-suffix"> College</span></div>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="profile.html">PROFILE</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">ABOUT US</a></li>
+          <li class="nav-item"><a class="nav-link" href="faculty.html">FACULTY</a></li>
+          <li class="nav-item"><a class="nav-link active" href="academics.html">ACADEMICS</a></li>
+          <li class="nav-item"><a class="nav-link" href="facilities.html">FACILITIES</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
+          <li class="nav-item"><a class="nav-link" href="guidance.html">GUIDANCE</a></li>
+          <li class="nav-item"><a class="nav-link" href="life.html">LIFE AT MYERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1 class="page-hero-title">Academics</h1>
+    <p class="page-hero-subtitle">Where excellence meets innovation — Cambridge affiliated since 2005</p>
+    <div class="page-hero-divider"></div>
+  </div>
+
+  <section class="py-0 px-3" style="position:relative;z-index:10;margin-top:-40px;">
+    <div class="container">
+      <div class="stats-bar row g-0 animate-pulse-glow">
+        <div class="col-6 col-md-3 stat-item"><div class="stat-value gold-text">~1000</div><div class="stat-label">Students</div></div>
+        <div class="col-6 col-md-3 stat-item"><div class="stat-value gold-text">19+</div><div class="stat-label">Years of Gold Medals</div></div>
+        <div class="col-6 col-md-3 stat-item"><div class="stat-value gold-text">4</div><div class="stat-label">Schools</div></div>
+        <div class="col-6 col-md-3 stat-item"><div class="stat-value gold-text">CIE</div><div class="stat-label">Cambridge Affiliated</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR SERVICES -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="reveal text-center mb-5">
+        <p class="maroon-text fw-semibold text-uppercase" style="letter-spacing:0.2em;font-size:0.85rem;">What We Offer</p>
+        <h2 class="fw-bold" style="font-family:var(--font-heading);font-size:2.4rem;">Our Services</h2>
+        <div class="gold-line mx-auto mt-3"></div>
+      </div>
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <div class="reveal service-card">
+            <div class="service-icon"><i class="bi bi-mortarboard-fill" style="color:var(--gold);font-size:1.7rem;"></i></div>
+            <h3 class="fw-bold mb-3" style="font-size:1.15rem;font-family:var(--font-heading);">Scholarships</h3>
+            <p class="text-muted mb-0" style="font-size:0.9rem;line-height:1.75;">Qamar Jahan Begum Trust Fund offers reduction in tuition to complete schooling including clothing and books, ensuring no deserving student is left behind.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="reveal service-card">
+            <div class="service-icon"><i class="bi bi-lightbulb-fill" style="color:var(--gold);font-size:1.7rem;"></i></div>
+            <h3 class="fw-bold mb-3" style="font-size:1.15rem;font-family:var(--font-heading);">Best Education System</h3>
+            <p class="text-muted mb-0" style="font-size:0.9rem;line-height:1.75;">We offer learning through creative, activity-based classes in which concepts underpin knowledge acquisition and application — preparing students for Cambridge excellence.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="reveal service-card">
+            <div class="service-icon"><i class="bi bi-person-workspace" style="color:var(--gold);font-size:1.7rem;"></i></div>
+            <h3 class="fw-bold mb-3" style="font-size:1.15rem;font-family:var(--font-heading);">Experienced Teachers</h3>
+            <p class="text-muted mb-0" style="font-size:0.9rem;line-height:1.75;">Teaching staff at Myer's College is selected with meticulous care and thorough scrutiny with a view to ensuring the highest standard of pedagogic competence.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+          <div class="reveal service-card">
+            <div class="service-icon"><i class="bi bi-cpu-fill" style="color:var(--gold);font-size:1.7rem;"></i></div>
+            <h3 class="fw-bold mb-3" style="font-size:1.15rem;font-family:var(--font-heading);">Computer Center</h3>
+            <p class="text-muted mb-0" style="font-size:0.9rem;line-height:1.75;">Equipped with state-of-the-art hardware and up-to-date software, our Computer Center aims to satisfy the needs of teaching, research and administration functions.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="reveal service-card">
+            <div class="service-icon"><i class="bi bi-dribbble" style="color:var(--gold);font-size:1.7rem;"></i></div>
+            <h3 class="fw-bold mb-3" style="font-size:1.15rem;font-family:var(--font-heading);">Football Grounds</h3>
+            <p class="text-muted mb-0" style="font-size:0.9rem;line-height:1.75;">Football is an integral part of our profile and we ensure the best possible playing conditions with a full-size pitch and a specialist coach for all students.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHT STRIP -->
+  <section class="py-5 px-3">
+    <div class="container">
+      <div class="highlight-strip reveal">
+        <div class="row align-items-center g-4">
+          <div class="col-md-7">
+            <p class="gold-text fw-semibold text-uppercase mb-2" style="letter-spacing:0.2em;font-size:0.8rem;">Cambridge International</p>
+            <h3 class="text-white fw-bold mb-3" style="font-family:var(--font-heading);font-size:1.85rem;">Globally Recognised O &amp; A Level Qualifications</h3>
+            <p style="color:rgba(255,255,255,0.65);font-size:0.9rem;line-height:1.8;margin-bottom:0;">Myer's College is an affiliated centre of Cambridge International Examinations (CIE), offering the internationally acclaimed O Level and A Level programmes. Our students compete with the world's best — and consistently win.</p>
+          </div>
+          <div class="col-md-5">
+            <div class="row g-3">
+              <div class="col-6"><div style="background:rgba(196,151,58,0.10);border:1px solid rgba(255,255,255,0.14);border-radius:14px;padding:20px 16px;text-align:center;"><div style="font-family:var(--font-heading);font-size:2rem;font-weight:700;color:var(--gold);">O Level</div><div style="font-size:0.8rem;color:rgba(255,255,255,0.52);margin-top:4px;">Grades 9 – 10</div></div></div>
+              <div class="col-6"><div style="background:rgba(196,151,58,0.10);border:1px solid rgba(255,255,255,0.14);border-radius:14px;padding:20px 16px;text-align:center;"><div style="font-family:var(--font-heading);font-size:2rem;font-weight:700;color:var(--gold);">A Level</div><div style="font-size:0.8rem;color:rgba(255,255,255,0.52);margin-top:4px;">Grades 11 – 12</div></div></div>
+              <div class="col-12"><div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;text-align:center;"><div style="font-size:0.8rem;color:rgba(255,255,255,0.50);letter-spacing:0.1em;text-transform:uppercase;">Cambridge Centre Code</div><div style="font-family:var(--font-heading);font-size:1.3rem;font-weight:700;color:#fff;margin-top:4px;">PK 035</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUR SCHOOLS -->
+  <section class="section-padding section-cream">
+    <div class="container" style="max-width:900px;">
+      <div class="reveal text-center mb-5">
+        <p class="maroon-text fw-semibold text-uppercase" style="letter-spacing:0.2em;font-size:0.85rem;">Academic Structure</p>
+        <h2 class="fw-bold" style="font-family:var(--font-heading);font-size:2.4rem;">Four Schools of Myer's College</h2>
+        <div class="gold-line mx-auto mt-3"></div>
+      </div>
+      <div class="reveal schools-accordion">
+
+        <!-- Pre School -->
+        <div class="school-ac-item">
+          <div class="school-ac-header collapsed" data-bs-toggle="collapse" data-bs-target="#school1" aria-expanded="false" role="button">
+            <div class="school-ac-icon"><i class="bi bi-stars"></i></div>
+            <div class="school-ac-info">
+              <h4>Pre School</h4>
+              <p>Tier 1 of Myer's Academic Structure</p>
+            </div>
+            <i class="bi bi-chevron-down school-ac-chevron"></i>
+          </div>
+          <div class="collapse" id="school1">
+            <div class="school-ac-body">At Myer's, this school is the most basic and it grooms and nurtures around 300 cute kids with dreams beautiful and goals well-chosen. This is exactly the place where toddlers with first few fumbling steps are ultimately transmuted into confident children who aspire to excel. Myerian educators make every effort possible to help these young learners with drawing, communication, reading, writing, games and even meals.</div>
+          </div>
+        </div>
+
+        <!-- Junior School -->
+        <div class="school-ac-item">
+          <div class="school-ac-header collapsed" data-bs-toggle="collapse" data-bs-target="#school2" aria-expanded="false" role="button">
+            <div class="school-ac-icon"><i class="bi bi-people-fill"></i></div>
+            <div class="school-ac-info">
+              <h4>Junior School</h4>
+              <p>Tier 2 of Myer's Academic Structure</p>
+            </div>
+            <i class="bi bi-chevron-down school-ac-chevron"></i>
+          </div>
+          <div class="collapse" id="school2">
+            <div class="school-ac-body">This school is level two for the students where they go from grade one to grade four. At this stage, we make sure that our young students grow in self-belief, master new skills, actively take part in sports as well as other co-curricular competitions and start thinking in an analytical way.</div>
+          </div>
+        </div>
+
+        <!-- Preparatory School -->
+        <div class="school-ac-item">
+          <div class="school-ac-header collapsed" data-bs-toggle="collapse" data-bs-target="#school3" aria-expanded="false" role="button">
+            <div class="school-ac-icon"><i class="bi bi-book-fill"></i></div>
+            <div class="school-ac-info">
+              <h4>Preparatory School</h4>
+              <p>Tier 3 of Myer's Academic Structure</p>
+            </div>
+            <i class="bi bi-chevron-down school-ac-chevron"></i>
+          </div>
+          <div class="collapse" id="school3">
+            <div class="school-ac-body">This is the third academic tier at Myer's with lots of pivotal importance. This is exactly when small children become teens, realize their responsibilities and plan to eventually become excellent O Level students. The preparatory school students, being more mature and competitive, make the most of their three-year stay at this level.</div>
+          </div>
+        </div>
+
+        <!-- Senior School -->
+        <div class="school-ac-item">
+          <div class="school-ac-header collapsed" data-bs-toggle="collapse" data-bs-target="#school4" aria-expanded="false" role="button">
+            <div class="school-ac-icon"><i class="bi bi-building"></i></div>
+            <div class="school-ac-info">
+              <h4>Senior School</h4>
+              <p>Tier 4 of Myer's Academic Structure</p>
+            </div>
+            <i class="bi bi-chevron-down school-ac-chevron"></i>
+          </div>
+          <div class="collapse" id="school4">
+            <div class="school-ac-body">Our senior school comprises O Levels and A Levels and is the most competitive, challenging and dynamic school. It offers fantastic opportunities to young learners to refine creative skills and enhance their capacity. Our O/A Level students are taken care of in the best way possible and helped to conquer the invincible heights.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GOLD MEDALISTS -->
+  <section class="section-padding section-maroon position-relative overflow-hidden" id="goldMedalists">
+    <div style="position:absolute;top:80px;left:60px;width:380px;height:380px;background:radial-gradient(circle,rgba(196,151,58,0.07),transparent 70%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:80px;right:60px;width:380px;height:380px;background:radial-gradient(circle,rgba(196,151,58,0.07),transparent 70%);pointer-events:none;"></div>
+
+    <div class="container position-relative">
+
+      <!-- Header -->
+      <div class="reveal text-center mb-4">
+        <div class="section-badge section-badge-navy"><i class="bi bi-trophy-fill"></i> Hall of Fame</div>
+        <h2 class="fw-bold text-white" style="font-family:var(--font-heading);font-size:2.6rem;">Our Gold Medalists</h2>
+        <div class="gold-line mx-auto mt-3 mb-4"></div>
+        <p style="color:rgba(255,255,255,0.58);max-width:680px;margin:0 auto 6px;font-size:0.92rem;line-height:1.8;">Myer's College is the esteemed institution where the latent potential of young students is uncovered, their characters are nurtured, and their aspirations are most effectively fulfilled.</p>
+        <p style="color:rgba(196,151,58,0.90);font-style:italic;font-size:0.88rem;">At Myer's, we warmly own all of them and cherish all that they have achieved. Hats off to our heroes!</p>
+      </div>
+
+      <!-- Year Selector -->
+      <div class="reveal" style="max-width:820px;margin:0 auto 36px;">
+        <p style="color:rgba(255,255,255,0.32);font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;text-align:center;margin-bottom:14px;">Select a Year</p>
+        <div id="yearSelector" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
+          <!-- filled by JS -->
+        </div>
+      </div>
+
+      <!-- Counter strip -->
+      <div class="reveal" style="max-width:820px;margin:0 auto 32px;">
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(196,151,58,0.6);"></div>
+            <span id="yearLabel" style="color:var(--gold);font-weight:700;font-family:var(--font-heading);font-size:1rem;">Year 2023</span>
+          </div>
+          <div style="display:flex;gap:20px;">
+            <span id="aLevelCount" style="font-size:0.78rem;color:rgba(255,255,255,0.44);"><span style="color:rgba(255,255,255,0.78);font-weight:700;" id="aNum">—</span> A-Level</span>
+            <span id="oLevelCount" style="font-size:0.78rem;color:rgba(255,255,255,0.44);"><span style="color:rgba(255,255,255,0.78);font-weight:700;" id="oNum">—</span> O-Level</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards display -->
+      <div id="medalistDisplay" style="max-width:820px;margin:0 auto;"></div>
+
+      <!-- Prev / Next nav -->
+      <div style="max-width:820px;margin:28px auto 0;display:flex;justify-content:space-between;align-items:center;">
+        <button id="prevYear" onclick="shiftYear(-1)" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.52);border-radius:50px;padding:10px 22px;font-size:0.8rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.25s ease;" onmouseover="this.style.borderColor='rgba(196,151,58,0.35)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.52)'">
+          <i class="bi bi-chevron-left"></i> Prev Year
+        </button>
+        <span id="yearCounter" style="color:rgba(255,255,255,0.28);font-size:0.78rem;"></span>
+        <button id="nextYear" onclick="shiftYear(1)" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.52);border-radius:50px;padding:10px 22px;font-size:0.8rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.25s ease;" onmouseover="this.style.borderColor='rgba(196,151,58,0.35)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.52)'">
+          Next Year <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  
+  <script>
+    const MEDALISTS = {
+      2023: [
+        { name:"Laiba Tahir",      level:"alevel", grade:"1A* 2A",         img:"https://www.myers.edu.pk/img/gold/alevel/laiba23.jpg" },
+        { name:"Muhammad Usman",   level:"olevel", grade:"9 A*",           img:"https://www.myers.edu.pk/img/gold/olevel/usman23.jpg" }
+      ],
+      2022: [
+        { name:"Talal Hassan",     level:"alevel", grade:"3 A*",           img:"https://www.myers.edu.pk/img/gold/alevel/talalhassan.jpg" },
+        { name:"Malaika Tahir",    level:"olevel", grade:"9 A*",           img:"https://www.myers.edu.pk/img/gold/olevel/malaika.jpeg" }
+      ],
+      2021: [
+        { name:"Momina Ishfaq",         level:"alevel", grade:"1A* & 2A",  img:"https://www.myers.edu.pk/img/gold/olevel/momina.jpeg" },
+        { name:"Syed Shahzaib Abbas",   level:"olevel", grade:"8A* & 1A",  img:"https://www.myers.edu.pk/img/gold/olevel/shahzaib.jpeg" }
+      ],
+      2020: [
+        { name:"Arooj Fatima",     level:"olevel", grade:"9 A*",           img:"https://www.myers.edu.pk/img/gold/olevel/AroojFatima.jpeg" }
+      ],
+      2019: [
+        { name:"Momina Ishfaq",    level:"olevel", grade:"10 A's",         img:"https://www.myers.edu.pk/img/gold/olevel/momina.jpeg" }
+      ],
+      2018: [
+        { name:"Zartashia Israr",  level:"olevel", grade:"8 A's & 1 B",    img:"https://www.myers.edu.pk/img/gold/olevel/zartashia.jpeg" }
+      ],
+      2017: [
+        { name:"Nausherwan Khan",  level:"alevel", grade:"3 A*",           img:"https://www.myers.edu.pk/img/gold/alevel/nausherwan.jpeg" },
+        { name:"Farah Jabeen",     level:"olevel", grade:"7 A*",           img:"https://www.myers.edu.pk/img/gold/olevel/farha.jpg" }
+      ],
+      2016: [
+        { name:"Amna Danial Khawaja", level:"alevel", grade:"1 A",        img:"https://www.myers.edu.pk/img/gold/alevel/amna.jpeg" },
+        { name:"Haider Ali Hussain",  level:"olevel", grade:"7A* & 1B",   img:"https://www.myers.edu.pk/img/gold/olevel/haider.jpeg" }
+      ],
+      2015: [
+        { name:"Hina Batool",      level:"alevel", grade:"3 A's",          img:"https://www.myers.edu.pk/img/gold/alevel/hinabatool.jpg" },
+        { name:"Nausherwan Khan",  level:"olevel", grade:"9 A's",          img:"https://www.myers.edu.pk/img/gold/alevel/nausherwan.jpeg" }
+      ],
+      2014: [
+        { name:"M. Turab Ali Khan",level:"alevel", grade:"3 A+",          img:"https://www.myers.edu.pk/img/gold/alevel/turabalikhan.jpg" },
+        { name:"Iqra Akhtar",      level:"olevel", grade:"7 A's & 1 B",   img:"https://www.myers.edu.pk/img/gold/olevel/iqraakhtar.jpeg" }
+      ],
+      2013: [
+        { name:"Yousaf Bin Nasir", level:"alevel", grade:"2 A's & 1 B",   img:"https://www.myers.edu.pk/img/gold/alevel/yousaf1.jpg" },
+        { name:"Hafsa Abid",       level:"olevel", grade:"8 A's",          img:"https://www.myers.edu.pk/img/gold/olevel/hafsaabid.jpg" }
+      ],
+      2012: [
+        { name:"Aimen Farzeen",         level:"alevel", grade:"3 A's",    img:"https://www.myers.edu.pk/img/gold/alevel/aimenfarzeen.jpg" },
+        { name:"M. Shujaat Mirza",      level:"olevel", grade:"9 A's",    img:"https://www.myers.edu.pk/img/gold/olevel/shujaat.jpeg" }
+      ],
+      2011: [
+        { name:"M. Shahnawaz Khan", level:"alevel", grade:"2 A's & 1 B",  img:"https://www.myers.edu.pk/img/gold/alevel/shahnawaz.jpg" },
+        { name:"Hamza Sarfaraz Khan",level:"olevel", grade:"8 A's",       img:"https://www.myers.edu.pk/img/gold/olevel/hamzasarfaraz.jpeg" }
+      ],
+      2010: [
+        { name:"Nazish Mukhtar",   level:"alevel", grade:"2 A's & 1 B",   img:"https://www.myers.edu.pk/img/gold/alevel/nazishmukhtar.jpg" },
+        { name:"Aimen Farzeen",    level:"olevel", grade:"8 A's",          img:"https://www.myers.edu.pk/img/gold/alevel/aimenfarzeen.jpg" }
+      ],
+      2009: [
+        { name:"Shafaq Rizwan",    level:"olevel", grade:"6 A's & 2 B's",  img:"https://www.myers.edu.pk/img/gold/olevel/shafaq.jpeg" }
+      ],
+      2008: [
+        { name:"Memoona Fatima Khan",level:"olevel", grade:"8 A's",       img:"https://www.myers.edu.pk/img/gold/olevel/mamoona.jpeg" }
+      ],
+      2007: [
+        { name:"Syed Ali Hussain", level:"olevel", grade:"6 A's & 2 B's",  img:"https://www.myers.edu.pk/img/gold/olevel/alihussain.jpeg" }
+      ],
+      2006: [
+        { name:"Rabia Liaqat",     level:"olevel", grade:"5 A's & 3 B's",  img:"https://www.myers.edu.pk/img/teachers/femalered.jpeg" }
+      ],
+      2005: [
+        { name:"Palwasha Babar",   level:"olevel", grade:"8 A's",          img:"https://www.myers.edu.pk/img/gold/olevel/palwasha.jpg" }
+      ]
+    };
+
+    const years = Object.keys(MEDALISTS).map(Number).sort((a,b) => b-a);
+    let activeYear = years[0];
+
+    // Build year buttons
+    const selector = document.getElementById('yearSelector');
+    years.forEach(y => {
+      const btn = document.createElement('button');
+      btn.className = 'm-year-btn' + (y === activeYear ? ' active' : '');
+      btn.textContent = y;
+      btn.dataset.year = y;
+      btn.addEventListener('click', () => setYear(y));
+      selector.appendChild(btn);
+    });
+
+    function setYear(y) {
+      activeYear = y;
+      // Update buttons
+      document.querySelectorAll('.m-year-btn').forEach(b => {
+        b.classList.toggle('active', parseInt(b.dataset.year) === y);
+      });
+      renderCards(y);
+    }
+
+    function renderCards(y) {
+      const data = MEDALISTS[y];
+      const display = document.getElementById('medalistDisplay');
+      // Update counter strip
+      document.getElementById('yearLabel').textContent = 'Year ' + y;
+      const aCount = data.filter(d => d.level === 'alevel').length;
+      const oCount = data.filter(d => d.level === 'olevel').length;
+      document.getElementById('aNum').textContent = aCount || '—';
+      document.getElementById('oNum').textContent = oCount || '—';
+      const idx = years.indexOf(y);
+      document.getElementById('yearCounter').textContent = (idx + 1) + ' of ' + years.length;
+
+      // Build cards HTML — always show up to 4 per row, centered
+      const cols = data.length === 1 ? 'col-sm-6 col-md-4' :
+                   data.length === 2 ? 'col-6 col-md-4 col-lg-3' :
+                   'col-6 col-md-4 col-lg-3';
+
+      const html = '<div class="row g-4 justify-content-center">' +
+        data.map((m, i) =>
+          `<div class="${cols}" style="animation-delay:${i * 0.06}s">
+            <div class="m-card">
+              <div class="m-card-photo">
+                <img src="${m.img}" alt="${m.name}" loading="lazy"
+                     onerror="this.parentElement.style.background='linear-gradient(135deg,#000000,#0A0A0A)';" />
+                <div class="m-card-photo-overlay"></div>
+                <span class="m-level-chip ${m.level}">
+                  <i class="bi bi-trophy-fill"></i>
+                  ${m.level === 'alevel' ? 'A-Level' : 'O-Level'}
+                </span>
+              </div>
+              <div class="m-card-body">
+                <p class="text-white fw-bold mb-2" style="font-size:0.92rem;font-family:var(--font-heading);line-height:1.25;">${m.name}</p>
+                <span class="m-grade-badge"><i class="bi bi-star-fill" style="font-size:0.6rem;"></i> ${m.grade}</span>
+              </div>
+            </div>
+          </div>`
+        ).join('') + '</div>';
+      display.innerHTML = html;
+    }
+
+    function shiftYear(dir) {
+      const idx = years.indexOf(activeYear);
+      const next = years[idx + dir];
+      if (next !== undefined) setYear(next);
+    }
+
+    // Init
+    renderCards(activeYear);
+  </script>
+
+  <footer class="site-footer pt-5 pb-0">
+    <div class="container py-4">
+      <div class="row g-5">
+        <div class="col-md-6 col-lg-3"><div class="d-flex align-items-center gap-2 mb-3"><img src="assets/images/myers-logo.png" alt="Myer's College" height="44" width="44" style="object-fit:contain;" /><div><span class="gradient-text" style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;">Myer's</span><span style="color:rgba(255,255,255,0.95);font-family:var(--font-heading);font-size:1.1rem;font-weight:700;"> College</span></div></div><p style="font-size:0.85rem;line-height:1.8;color:rgba(255,255,255,0.52);">A university-preparatory school affiliated with Cambridge International Examinations, providing quality education since 1999.</p><div class="d-flex gap-2 mt-3"><a href="#" class="footer-social"><i class="bi bi-facebook"></i></a><a href="#" class="footer-social"><i class="bi bi-instagram"></i></a><a href="#" class="footer-social"><i class="bi bi-youtube"></i></a></div></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Quick Links</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:10px;"><li><a href="index.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Home</a></li><li><a href="about.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> About Us</a></li><li><a href="academics.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Academics</a></li><li><a href="admissions.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Admissions</a></li><li><a href="life.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Life at Myers</a></li><li><a href="contact.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Contact Us</a></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Contact Info</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:16px;font-size:0.85rem;color:rgba(255,255,255,0.52);"><li class="d-flex align-items-start gap-3"><i class="bi bi-geo-alt-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Myers College, Kot Sarfraz Khan, Chakwal-48800, Punjab, Pakistan</li><li class="d-flex align-items-start gap-3"><i class="bi bi-telephone-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">+92-543-541610</p><p class="mb-0">+92-321-2960044</p></div></li><li class="d-flex align-items-start gap-3"><i class="bi bi-envelope-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">principal@myers.edu.pk</p><p class="mb-0">counselor@myers.edu.pk</p></div></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Stay Connected</h4><p style="font-size:0.85rem;color:rgba(255,255,255,0.52);">Subscribe to get updates on admissions, events and more.</p><form class="newsletter-form d-flex mt-3" onsubmit="return false;"><input type="email" class="form-control footer-input" placeholder="Your email" required /><button type="submit" class="btn-gold" style="border-radius:0 10px 10px 0;padding:10px 16px;">Subscribe</button></form></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2"><p class="mb-0">&copy; <span id="year"></span> Myer's College. All rights reserved.</p><p class="mb-0">Cambridge International Examinations — PK 035</p></div></div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/chatbot.js"></script>
+  <script>
+    const btn = document.getElementById('showMoreMedalists');
+    const extra = document.getElementById('extraMedalists');
+    let shown = false;
+    btn.addEventListener('click', () => {
+      shown = !shown;
+      if (shown) {
+        extra.classList.add('shown');
+        btn.innerHTML = '<i class="bi bi-chevron-up"></i> Show Less';
+      } else {
+        extra.classList.remove('shown');
+        btn.innerHTML = '<i class="bi bi-chevron-down"></i> View All Years (2005 \u2013 2018)';
+      }
+    });
+  </script>
+</body>
+</html>

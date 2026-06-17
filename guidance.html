@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guidance &amp; Counseling — Myer's College</title>
+  <meta name="description" content="University placements, career counseling and guidance services at Myer's College. Students placed in top universities across USA, UK, Australia, Germany and Pakistan." />
+  <link rel="icon" href="assets/images/myers-logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <style>
+    /* ── COUNSELING SERVICE CARDS ── */
+    .counsel-card {
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid var(--border-color);
+      padding: 32px 26px;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .counsel-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .counsel-card:hover { transform: translateY(-5px); box-shadow: var(--elevated-shadow); border-color: rgba(196,151,58,0.22); }
+    .counsel-card:hover::after { transform: scaleX(1); }
+    .counsel-icon {
+      width: 54px; height: 54px;
+      border-radius: 15px;
+      background: linear-gradient(135deg,rgba(196,151,58,0.14),rgba(196,151,58,0.05));
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    /* ── PHOTO GALLERY ── */
+    .placement-year-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg,var(--black),var(--black-rich));
+      color: var(--gold);
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 50px;
+      border: 1px solid rgba(196,151,58,0.22);
+      margin-bottom: 20px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .gallery-item {
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.07); }
+    .gallery-item-overlay {
+      position: absolute; inset: 0;
+      background: rgba(139,26,26,0.12);
+      transition: background 0.3s;
+    }
+    .gallery-item:hover .gallery-item-overlay { background: rgba(12,12,12,0.55); }
+
+    /* ── YEAR TABS ── */
+    .year-tabs-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .year-tab {
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: 1px solid rgba(196,151,58,0.22);
+      background: transparent;
+      color: rgba(255,255,255,0.52);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      letter-spacing: 0.04em;
+    }
+    .year-tab:hover { border-color: rgba(196,151,58,0.6); color: var(--gold); }
+    .year-tab.active {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+    }
+
+    /* ── PLACEMENT DATA PANEL ── */
+    .placement-panel { display: none; }
+    .placement-panel.active { display: block; }
+
+    /* category header */
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      margin-top: 32px;
+    }
+    .cat-header:first-child { margin-top: 0; }
+    .cat-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .cat-dot.intl { background: #8B1A1A; }
+    .cat-dot.national { background: #8B1A1A; }
+    .cat-dot.medical { background: #8B1A1A; }
+    .cat-header h4 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin: 0;
+    }
+    .cat-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+    }
+
+    /* placement row item */
+    .p-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 16px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 8px;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    .p-item:hover {
+      background: rgba(196,151,58,0.07);
+      border-color: rgba(196,151,58,0.20);
+    }
+    .p-avatar {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.95rem;
+    }
+    .p-avatar.intl { background: rgba(139,26,26,0.12); color: #C42B2B; }
+    .p-avatar.national { background: rgba(139,26,26,0.12); color: #C42B2B; }
+    .p-avatar.medical { background: rgba(139,26,26,0.12); color: #C42B2B; }
+    .p-name {
+      font-weight: 700;
+      color: rgba(255,255,255,0.92);
+      font-size: 0.88rem;
+      line-height: 1.2;
+    }
+    .p-meta {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.38);
+      margin-top: 2px;
+    }
+    .p-uni {
+      margin-left: auto;
+      text-align: right;
+      flex-shrink: 0;
+      max-width: 200px;
+    }
+    .p-uni-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1.3;
+    }
+    .p-uni-country {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.32);
+      margin-top: 2px;
+    }
+
+    /* stat chips in intro */
+    .stat-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(196,151,58,0.10);
+      border: 1px solid rgba(196,151,58,0.20);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* lightbox overlay */
+    #lightbox {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 100%; max-height: 88vh; border-radius: 12px; object-fit: contain; }
+    #lightbox-close {
+      position: absolute; top: 16px; right: 20px;
+      color: #fff; font-size: 1.8rem; cursor: pointer; line-height: 1;
+      background: none; border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topbar">
+    <div class="container"><div class="d-flex justify-content-between align-items-center"><div class="d-flex gap-4"><span class="d-flex align-items-center gap-2"><i class="bi bi-telephone-fill topbar-icon"></i> +92-543-541610</span><span class="d-flex align-items-center gap-2"><i class="bi bi-envelope-fill topbar-icon"></i> principal@myers.edu.pk</span></div><span class="d-none d-md-inline" style="color:rgba(255,255,255,0.50);font-size:0.75rem;letter-spacing:0.1em;">Welcome to Myer's College — Cambridge Affiliated</span></div></div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="assets/images/myers-logo.png" alt="Myer's College Logo" height="48" width="48" style="object-fit:contain;" /><div class="d-none d-sm-block"><span class="brand-name">Myer's</span><span class="brand-suffix"> College</span></div></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="profile.html">PROFILE</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">ABOUT US</a></li>
+          <li class="nav-item"><a class="nav-link" href="faculty.html">FACULTY</a></li>
+          <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
+          <li class="nav-item"><a class="nav-link" href="facilities.html">FACILITIES</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
+          <li class="nav-item"><a class="nav-link active" href="guidance.html">GUIDANCE</a></li>
+          <li class="nav-item"><a class="nav-link" href="life.html">LIFE AT MYERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1 class="page-hero-title">Guidance &amp; Counseling</h1>
+    <p class="page-hero-subtitle">Empowering every student's path — from school to the world's top universities</p>
+    <div class="page-hero-divider"></div>
+  </div>
+
+  <!-- ═══ INTRO ═══ -->
+  <section class="section-padding">
+    <div class="container" style="max-width:1000px;">
+      <div class="reveal">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-7">
+            <p class="gold-text fw-semibold text-uppercase mb-2" style="letter-spacing:0.2em;font-size:0.82rem;">University Placements</p>
+            <h2 class="fw-bold mb-4" style="font-family:var(--font-heading);font-size:2.2rem;line-height:1.2;">Shaping Futures,<br>One Student at a Time</h2>
+            <p class="text-muted mb-3" style="line-height:1.85;font-size:0.95rem;">Career and future planning are significant, as acknowledged by Myer's College. We comprehend how intimidating the next stage of formal education can be, and we are conscious of the ambiguities and worries that students frequently encounter.</p>
+            <p class="text-muted mb-4" style="line-height:1.85;font-size:0.95rem;">We provide guidance and counselling services to any student who requests support. Our counselling section helps students understand their course options, assists with personal statement writing, and provides direction for university applications. Numerous career events are planned so students can hear from experts across a variety of disciplines.</p>
+            <a href="https://www.myers.edu.pk/unilist.php" target="_blank" rel="noopener" class="d-inline-flex align-items-center gap-2 px-4 py-3" style="background:rgba(255,255,255,0.07);color:var(--gold);border:1px solid rgba(196,151,58,0.28);border-radius:12px;font-weight:700;font-size:0.85rem;text-decoration:none;transition:all 0.3s ease;">
+              <i class="bi bi-globe2"></i> Universities in USA offering scholarships to international students
+            </a>
+          </div>
+          <div class="col-lg-5">
+            <div style="background:rgba(255,255,255,0.07);border-radius:20px;padding:32px;border:1px solid rgba(255,255,255,0.12);">
+              <p class="gold-text fw-semibold text-uppercase mb-4" style="letter-spacing:0.15em;font-size:0.75rem;">Placements at a Glance</p>
+              <div class="d-flex flex-column gap-3">
+                <div class="d-flex justify-content-between align-items-center py-3 px-0" style="border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div class="d-flex align-items-center gap-3"><div style="width:36px;height:36px;border-radius:10px;background:rgba(139,26,26,0.12);display:flex;align-items:center;justify-content:center;"><i class="bi bi-globe2" style="color:#C42B2B;font-size:0.9rem;"></i></div><span style="color:rgba(69, 69, 69, 0.75);font-size:0.88rem;">International Universities</span></div>
+                  <span style="color:var(--gold);font-weight:700;font-family:var(--font-heading);font-size:1.2rem;">USA · UK · AU · DE</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-3 px-0" style="border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div class="d-flex align-items-center gap-3"><div style="width:36px;height:36px;border-radius:10px;background:rgba(139,26,26,0.12);display:flex;align-items:center;justify-content:center;"><i class="bi bi-building" style="color:#C42B2B;font-size:0.9rem;"></i></div><span style="color:rgba(69, 69, 69, 0.75);font-size:0.88rem;">National Universities</span></div>
+                  <span style="color:var(--gold);font-weight:700;font-family:var(--font-heading);font-size:1.2rem;">NUST · FAST · LUMS</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-3 px-0" style="border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div class="d-flex align-items-center gap-3"><div style="width:36px;height:36px;border-radius:10px;background:rgba(139,26,26,0.12);display:flex;align-items:center;justify-content:center;"><i class="bi bi-heart-pulse-fill" style="color:#C42B2B;font-size:0.9rem;"></i></div><span style="color:rgba(69, 69, 69, 0.75);font-size:0.88rem;">Medical Colleges</span></div>
+                  <span style="color:var(--gold);font-weight:700;font-family:var(--font-heading);font-size:1.2rem;">Army · KE · IMC</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-3 px-0">
+                  <div class="d-flex align-items-center gap-3"><div style="width:36px;height:36px;border-radius:10px;background:rgba(196,151,58,0.12);display:flex;align-items:center;justify-content:center;"><i class="bi bi-calendar3" style="color: #C42B2B;font-size:0.9rem;"></i></div><span style="color:rgba(69, 69, 69, 0.75);font-size:0.88rem;">Years of Placements</span></div>
+                  <span style="color:var(--gold);font-weight:700;font-family:var(--font-heading);font-size:1.2rem;">2005 – 2025</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COUNSELING SERVICES ═══ -->
+  <section class="section-padding section-cream">
+    <div class="container">
+      <div class="reveal text-center mb-5">
+        <p class="maroon-text fw-semibold text-uppercase" style="letter-spacing:0.2em;font-size:0.82rem;">What We Provide</p>
+        <h2 class="fw-bold" style="font-family:var(--font-heading);font-size:2.2rem;">Counseling Services</h2>
+        <div class="gold-line mx-auto mt-3"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal counsel-card">
+            <div class="counsel-icon"><i class="bi bi-book-half" style="color:var(--gold);font-size:1.5rem;"></i></div>
+            <h3 class="fw-bold mb-2" style="font-size:1.1rem;font-family:var(--font-heading);">Academic Counseling</h3>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.75;">Guidance on subject selection, study techniques, exam preparation and academic planning. Our counselors help students identify their strengths and sharpen areas that need improvement.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal counsel-card">
+            <div class="counsel-icon"><i class="bi bi-heart-fill" style="color:var(--gold);font-size:1.5rem;"></i></div>
+            <h3 class="fw-bold mb-2" style="font-size:1.1rem;font-family:var(--font-heading);">Personal Counseling</h3>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.75;">Confidential support for personal issues, stress management and emotional well-being. A safe space to discuss concerns and receive professional guidance through life's challenges.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal counsel-card">
+            <div class="counsel-icon"><i class="bi bi-mortarboard-fill" style="color:var(--gold);font-size:1.5rem;"></i></div>
+            <h3 class="fw-bold mb-2" style="font-size:1.1rem;font-family:var(--font-heading);">Career Guidance</h3>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.75;">Career counseling sessions to explore options, university admissions and professional development. We guide students in selecting the right path with expert input from industry professionals.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal counsel-card">
+            <div class="counsel-icon"><i class="bi bi-shield-check" style="color:var(--gold);font-size:1.5rem;"></i></div>
+            <h3 class="fw-bold mb-2" style="font-size:1.1rem;font-family:var(--font-heading);">Behavioural Support</h3>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.75;">Programs for character building, conflict resolution and positive behavioural habits. We help build resilience, discipline and a strong moral compass in every student.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal counsel-card">
+            <div class="counsel-icon"><i class="bi bi-people-fill" style="color:var(--gold);font-size:1.5rem;"></i></div>
+            <h3 class="fw-bold mb-2" style="font-size:1.1rem;font-family:var(--font-heading);">Parent Counseling</h3>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.75;">Regular meetings and workshops for parents to understand their child's progress and strengthen the home-school partnership for optimal student development.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="reveal counsel-card">
+            <div class="counsel-icon"><i class="bi bi-compass-fill" style="color:var(--gold);font-size:1.5rem;"></i></div>
+            <h3 class="fw-bold mb-2" style="font-size:1.1rem;font-family:var(--font-heading);">University Placement</h3>
+            <p class="text-muted mb-0" style="font-size:0.88rem;line-height:1.75;">Dedicated support for university applications nationally and internationally. Our counselors assist with the full process — personal statements, applications and interview preparation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PHOTO GALLERIES (2025, 2024, 2023) ═══ -->
+  <section class="section-padding section-maroon position-relative overflow-hidden">
+    <div style="position:absolute;top:60px;left:40px;width:300px;height:300px;background:radial-gradient(circle,rgba(196,151,58,0.07),transparent 70%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:40px;right:40px;width:300px;height:300px;background:radial-gradient(circle,rgba(107,20,20,0.07),transparent 70%)"></div>
+    <div class="container position-relative">
+      <div class="reveal text-center mb-5">
+        <div class="section-badge section-badge-navy"><i class="bi bi-images"></i> Placement Highlights</div>
+        <h2 class="fw-bold text-white" style="font-family:var(--font-heading);font-size:2.2rem;">International Placement Portraits</h2>
+        <div class="gold-line mx-auto mt-3 mb-0"></div>
+      </div>
+
+      <!-- 2025 -->
+      <div class="reveal mb-5">
+        <div class="placement-year-label"><i class="bi bi-award-fill"></i> Year 2025</div>
+        <div class="gallery-grid">
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/uni/upimg1.jpeg" alt="Placement 2025" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/uni/upimg2.jpeg" alt="Placement 2025" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/uni/upimg3.jpeg" alt="Placement 2025" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/uni/upimg4.jpeg" alt="Placement 2025" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/uni/upimg5.jpeg" alt="Placement 2025" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/uni/upimg6.jpeg" alt="Placement 2025" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/uni/upimg7.jpeg" alt="Placement 2025" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/uni/upimg8.jpeg" alt="Placement 2025" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+        </div>
+      </div>
+
+      <!-- 2024 -->
+      <div class="reveal mb-5">
+        <div class="placement-year-label"><i class="bi bi-award-fill"></i> Year 2024</div>
+        <div class="gallery-grid">
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/up1.jpeg" alt="Placement 2024" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/up2.jpeg" alt="Placement 2024" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/up3.jpeg" alt="Placement 2024" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/up4.jpeg" alt="Placement 2024" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/up5.jpeg" alt="Placement 2024" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/up6.jpeg" alt="Placement 2024" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+        </div>
+      </div>
+
+      <!-- 2023 -->
+      <div class="reveal">
+        <div class="placement-year-label"><i class="bi bi-award-fill"></i> Year 2023</div>
+        <div class="gallery-grid">
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/AHMEDIMRAN.jpg" alt="Ahmed Imran 2023" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/poster3[1].jpg" alt="Placement 2023" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/talal.jpg" alt="Talal 2023" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/huzaifa.jpg" alt="Huzaifa 2023" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+          <div class="gallery-item" onclick="openLightbox(this)"><img src="https://www.myers.edu.pk/img/educare/nausherwan.jpeg" alt="Nausherwan 2023" loading="lazy" /><div class="gallery-item-overlay"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PLACEMENT RECORDS (2022 – 2005) ═══ -->
+  <section class="section-padding section-maroon position-relative" style="border-top:1px solid rgba(255,255,255,0.05);">
+    <div class="container">
+      <div class="reveal text-center mb-4">
+        <p class="gold-text fw-semibold text-uppercase mb-2" style="letter-spacing:0.2em;font-size:0.82rem;">Full Archive</p>
+        <h2 class="fw-bold text-white" style="font-family:var(--font-heading);font-size:2.2rem;">Placement Records</h2>
+        <div class="gold-line mx-auto mt-3 mb-4"></div>
+        <p style="color:rgba(255,255,255,0.50);font-size:0.88rem;max-width:520px;margin:0 auto;">Select a year to explore the complete placement details — international universities, national institutions and medical colleges.</p>
+      </div>
+
+      <!-- Year tabs -->
+      <div class="reveal year-tabs-wrap justify-content-center mb-5">
+        <button class="year-tab active" data-year="2022">2022</button>
+        <button class="year-tab" data-year="2021">2021</button>
+        <button class="year-tab" data-year="2020">2020</button>
+        <button class="year-tab" data-year="2019">2019</button>
+        <button class="year-tab" data-year="2018">2018</button>
+        <button class="year-tab" data-year="2017">2017</button>
+        <button class="year-tab" data-year="2016">2016</button>
+        <button class="year-tab" data-year="2015">2015</button>
+        <button class="year-tab" data-year="2014">2014</button>
+        <button class="year-tab" data-year="2013">2013</button>
+        <button class="year-tab" data-year="2012">2012</button>
+        <button class="year-tab" data-year="2011">2011</button>
+        <button class="year-tab" data-year="2010">2010</button>
+        <button class="year-tab" data-year="2009">2009</button>
+        <button class="year-tab" data-year="2008">2008</button>
+        <button class="year-tab" data-year="2007">2007</button>
+        <button class="year-tab" data-year="2006">2006</button>
+      </div>
+
+      <!-- Panels -->
+      <div style="max-width:860px;margin:0 auto;">
+
+        <!-- 2022 -->
+        <div class="placement-panel active" data-panel="2022">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Talal Hussain</div><div class="p-meta">A Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">Western Sydney University</div><div class="p-uni-country">Australia</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Shaheer Bin Nouman</div><div class="p-meta">A Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">UTS</div><div class="p-uni-country">Australia</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Manal Shabbir</div><div class="p-meta">A Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">University of Western Australia</div><div class="p-uni-country">Australia</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Alizay Abbas</div><div class="p-meta">A Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">New Castle University</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Haris Ali</div><div class="p-meta">O Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">University of Central Lancashire</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Mutaal Aleem</div><div class="p-meta">O Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">Grayson College</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Johar Reza Haider</div><div class="p-meta">O Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">Ernest Bevin College</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Uswa Zara</div><div class="p-meta">O Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Qurat Ul Ain</div><div class="p-meta">O Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">Derby College</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Anum Mahrosh Hussain</div><div class="p-meta">O Level · Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">UK</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Arooj Fatima</div><div class="p-meta">Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">NUST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Ali Salman Muhammadi</div><div class="p-meta">Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">NUST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Muhammad Tanzil Aamir</div><div class="p-meta">Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">Shalamar Medical College</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Farwa Iftikhar</div><div class="p-meta">Batch 2022</div></div><div class="p-uni"><div class="p-uni-name">Akhter Saeed's Medical College</div><div class="p-uni-country">Islamabad</div></div></div>
+        </div>
+
+        <!-- 2021 -->
+        <div class="placement-panel" data-panel="2021">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Muhammad Huzaifa Junaid</div><div class="p-meta">A Level · Batch 2021</div></div><div class="p-uni"><div class="p-uni-name">Wisconsin-Madison</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Anas Shahzad</div><div class="p-meta">A Level · Batch 2021</div></div><div class="p-uni"><div class="p-uni-name">University of Glasgow</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Inam Ul Haq</div><div class="p-meta">A Level · Batch 2021</div></div><div class="p-uni"><div class="p-uni-name">Polytechnic University</div><div class="p-uni-country">Hong Kong</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Momina Ishfaq</div><div class="p-meta">Batch 2021</div></div><div class="p-uni"><div class="p-uni-name">Islamabad Medical and Dental College</div><div class="p-uni-country">Pakistan</div></div></div>
+        </div>
+
+        <!-- 2020 -->
+        <div class="placement-panel" data-panel="2020">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Faizan Husnain</div><div class="p-meta">O Level · Batch 2020</div></div><div class="p-uni"><div class="p-uni-name">Maryland University</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Ahmed Murad</div><div class="p-meta">O Level · Batch 2020</div></div><div class="p-uni"><div class="p-uni-name">University of Nottingham</div><div class="p-uni-country">UK</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Muhammad Hassan Babar</div><div class="p-meta">O Level · Batch 2020</div></div><div class="p-uni"><div class="p-uni-name">FAST</div><div class="p-uni-country">Pakistan</div></div></div>
+        </div>
+
+        <!-- 2019 -->
+        <div class="placement-panel" data-panel="2019">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Noor Ul Ain Zahra</div><div class="p-meta">O Level · Batch 2019</div></div><div class="p-uni"><div class="p-uni-name">Derby University</div><div class="p-uni-country">UK</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Areej Hussain</div><div class="p-meta">Batch 2019</div></div><div class="p-uni"><div class="p-uni-name">Wah Medical College</div><div class="p-uni-country">Pakistan</div></div></div>
+        </div>
+
+        <!-- 2018 -->
+        <div class="placement-panel" data-panel="2018">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Nawwal Nasir</div><div class="p-meta">O Level · Batch 2018</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">Hong Kong</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Sara Jabeen Ashraf</div><div class="p-meta">O Level · Batch 2018</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">Hong Kong</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Zartashia Israr</div><div class="p-meta">O Level · Batch 2018</div></div><div class="p-uni"><div class="p-uni-name">NUST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Ushna Zainab</div><div class="p-meta">O Level · Batch 2018</div></div><div class="p-uni"><div class="p-uni-name">COMSAT</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Alishba Naeem</div><div class="p-meta">O Level · Batch 2018</div></div><div class="p-uni"><div class="p-uni-name">Riphah University</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Sawera Shaheen</div><div class="p-meta">Batch 2018</div></div><div class="p-uni"><div class="p-uni-name">HBS Medical College</div><div class="p-uni-country">Islamabad</div></div></div>
+        </div>
+
+        <!-- 2017 -->
+        <div class="placement-panel" data-panel="2017">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Nausherwan Khan</div><div class="p-meta">A Level · Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">Queen Mary University</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Ali Raza Khan</div><div class="p-meta">A Level · Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">University of Nottingham</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Tahleel Rubab</div><div class="p-meta">A Level · Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">Coventry University</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Farah Jabeen Ashraf</div><div class="p-meta">O Level · Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">The Oxford School of Drama</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Muhammad Jahanzaib Kamran</div><div class="p-meta">O Level · Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">Anglia Ruskin University</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Muhammad Roshan Haider</div><div class="p-meta">O Level · Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">Brunel University</div><div class="p-uni-country">UK</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Asma Ul Husna</div><div class="p-meta">Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">NUST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Warisha Idrees</div><div class="p-meta">Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">FAST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Faryal Khalid</div><div class="p-meta">Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">COMSAT</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Areeba Nasir</div><div class="p-meta">Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">COMSAT</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Iqra Iqbal</div><div class="p-meta">Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">COMSAT</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Tasmia Kashaf</div><div class="p-meta">Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">Quaid-e-Azam University</div><div class="p-uni-country">Islamabad</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Khadija Farooqi</div><div class="p-meta">Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">Sharif Medical College</div><div class="p-uni-country">Lahore</div></div></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Neha Nayyar</div><div class="p-meta">Batch 2017</div></div><div class="p-uni"><div class="p-uni-name">Rawalpindi Medical College</div><div class="p-uni-country">Rawalpindi</div></div></div>
+        </div>
+
+        <!-- 2016 -->
+        <div class="placement-panel" data-panel="2016">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Haider Ali Hussain</div><div class="p-meta">O Level · Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">University of Nottingham</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Wajahat Mirza</div><div class="p-meta">O Level · Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">New York University</div><div class="p-uni-country">Abu Dhabi</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Hamna Ishaq</div><div class="p-meta">Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">NUST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Shiza Maham</div><div class="p-meta">Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">COMSAT</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Sana Batool</div><div class="p-meta">Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">COMSAT</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Fatima Tu Zahra</div><div class="p-meta">Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">NIUMUL</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">M. Aqib Ikhlaq</div><div class="p-meta">Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">Bahria University</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Pakeeza Ashraf</div><div class="p-meta">Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">Riphah University</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Fareeha Farooqi</div><div class="p-meta">Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">Iqra University</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Fatima Zainab</div><div class="p-meta">Batch 2016</div></div><div class="p-uni"><div class="p-uni-name">CMH Kharian Medical College</div><div class="p-uni-country">Kharian</div></div></div>
+        </div>
+
+        <!-- 2015 -->
+        <div class="placement-panel" data-panel="2015">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Ahmed Najeeb</div><div class="p-meta">A Level · Batch 2015</div></div><div class="p-uni"><div class="p-uni-name">Howard University</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Madiha Mahnoor Hussain</div><div class="p-meta">O Level · Batch 2015</div></div><div class="p-uni"><div class="p-uni-name">University of Nottingham</div><div class="p-uni-country">UK</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Umal Baneen</div><div class="p-meta">Batch 2015</div></div><div class="p-uni"><div class="p-uni-name">COMSAT</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Zara Azhar</div><div class="p-meta">Batch 2015</div></div><div class="p-uni"><div class="p-uni-name">WAH Medical College</div><div class="p-uni-country">WAH</div></div></div>
+        </div>
+
+        <!-- 2014 -->
+        <div class="placement-panel" data-panel="2014">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Muhammad Turab Ali Khan</div><div class="p-meta">A Level · Batch 2014</div></div><div class="p-uni"><div class="p-uni-name">Max Planck Institute</div><div class="p-uni-country">Germany</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Zaid Gul</div><div class="p-meta">A Level · Batch 2014</div></div><div class="p-uni"><div class="p-uni-name">Rosenheim Technical University</div><div class="p-uni-country">Germany</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Arsalan Naeem</div><div class="p-meta">O Level · Batch 2014</div></div><div class="p-uni"><div class="p-uni-name">La Trobe University</div><div class="p-uni-country">Australia</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Amna Danial Khawaja</div><div class="p-meta">Batch 2014</div></div><div class="p-uni"><div class="p-uni-name">Bahria University</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Talal Haider</div><div class="p-meta">Batch 2014</div></div><div class="p-uni"><div class="p-uni-name">Islamabad Medical and Dental College</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Iqra Akhtar</div><div class="p-meta">Batch 2014</div></div><div class="p-uni"><div class="p-uni-name">University of Lahore</div><div class="p-uni-country">Sihala Campus</div></div></div>
+        </div>
+
+        <!-- 2013 -->
+        <div class="placement-panel" data-panel="2013">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Hajra Nasir</div><div class="p-meta">O Level · Batch 2013</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Bilal Rizwan</div><div class="p-meta">O Level · Batch 2013</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Hamid Reza</div><div class="p-meta">O Level · Batch 2013</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">USA</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Syed Monis Abbas</div><div class="p-meta">Batch 2013</div></div><div class="p-uni"><div class="p-uni-name">FAST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Haris Shehroze Khan</div><div class="p-meta">Batch 2013</div></div><div class="p-uni"><div class="p-uni-name">FAST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Talha Butt</div><div class="p-meta">Batch 2013</div></div><div class="p-uni"><div class="p-uni-name">COMSAT</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Hina Batool</div><div class="p-meta">Batch 2013</div></div><div class="p-uni"><div class="p-uni-name">Quaid-e-Azam University</div><div class="p-uni-country">Pakistan</div></div></div>
+        </div>
+
+        <!-- 2012 -->
+        <div class="placement-panel" data-panel="2012">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Muhammad Shujaat Mirza</div><div class="p-meta">O Level · Batch 2012</div></div><div class="p-uni"><div class="p-uni-name">New York University</div><div class="p-uni-country">Abu Dhabi</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Ali Haider Adeeb</div><div class="p-meta">O Level · Batch 2012</div></div><div class="p-uni"><div class="p-uni-name">Bilkent University Ankara</div><div class="p-uni-country">Turkey</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Abdul Wahab</div><div class="p-meta">O Level · Batch 2012</div></div><div class="p-uni"><div class="p-uni-name">University of Tartu &amp; Tech Estonia</div><div class="p-uni-country">Netherlands</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Fatima Noor</div><div class="p-meta">Batch 2012</div></div><div class="p-uni"><div class="p-uni-name">Peshawar Medical College</div><div class="p-uni-country">Peshawar</div></div></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Syed M. Ammer Hamza</div><div class="p-meta">Batch 2012</div></div><div class="p-uni"><div class="p-uni-name">Army Medical College</div><div class="p-uni-country">Rawalpindi</div></div></div>
+        </div>
+
+        <!-- 2011 -->
+        <div class="placement-panel" data-panel="2011">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Mehak Rizwan</div><div class="p-meta">O Level · Batch 2011</div></div><div class="p-uni"><div class="p-uni-name">George Mason University</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Aneeq Akram</div><div class="p-meta">O Level · Batch 2011</div></div><div class="p-uni"><div class="p-uni-name">Virginia Tech University</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Jahanzab Munir</div><div class="p-meta">O Level · Batch 2011</div></div><div class="p-uni"><div class="p-uni-name">Barkly International College Melbourne</div><div class="p-uni-country">Australia</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Ahmaad Athar</div><div class="p-meta">O Level · Batch 2011</div></div><div class="p-uni"><div class="p-uni-name">University of Calgary</div><div class="p-uni-country">Canada</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Komal Zahra</div><div class="p-meta">Batch 2011</div></div><div class="p-uni"><div class="p-uni-name">Quaid-e-Azam University</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Hassan Sarfaraz Khan</div><div class="p-meta">Batch 2011</div></div><div class="p-uni"><div class="p-uni-name">LUMS</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Tariq Ishaq Butt</div><div class="p-meta">Batch 2011</div></div><div class="p-uni"><div class="p-uni-name">Hamdard University</div><div class="p-uni-country">Karachi</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Muhammad Shahnawaz Khan</div><div class="p-meta">Batch 2011</div></div><div class="p-uni"><div class="p-uni-name">Skans School of Accountancy</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Mavra Ali Minhas</div><div class="p-meta">Batch 2011</div></div><div class="p-uni"><div class="p-uni-name">Alnafees Medical College</div><div class="p-uni-country">Islamabad</div></div></div>
+        </div>
+
+        <!-- 2010 -->
+        <div class="placement-panel" data-panel="2010">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Aimen Farzeen</div><div class="p-meta">O Level · Batch 2010</div></div><div class="p-uni"><div class="p-uni-name">Technical University of Munich</div><div class="p-uni-country">Germany</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Fahad Ishaq</div><div class="p-meta">O Level · Batch 2010</div></div><div class="p-uni"><div class="p-uni-name">Technical University of Munich</div><div class="p-uni-country">Germany</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Mateen Mehmood</div><div class="p-meta">O Level · Batch 2010</div></div><div class="p-uni"><div class="p-uni-name">National University of Ireland</div><div class="p-uni-country">Ireland</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Aleeza Anum</div><div class="p-meta">O Level · Batch 2010</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">UK</div></div></div>
+        </div>
+
+        <!-- 2009 -->
+        <div class="placement-panel" data-panel="2009">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Shafaq Rizwan</div><div class="p-meta">O Level · Batch 2009</div></div><div class="p-uni"><div class="p-uni-name">Southern New Hampshire University</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Muhammad Walleed Bin Khalid</div><div class="p-meta">O Level · Batch 2009</div></div><div class="p-uni"><div class="p-uni-name">National University of Ireland</div><div class="p-uni-country">Ireland</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Basit Muhammad Raza</div><div class="p-meta">O Level · Batch 2009</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">USA</div></div></div>
+        </div>
+
+        <!-- 2008 -->
+        <div class="placement-panel" data-panel="2008">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Memoona Fatima Khan</div><div class="p-meta">O Level · Batch 2008</div></div><div class="p-uni"><div class="p-uni-name">Kogod Business School</div><div class="p-uni-country">USA</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Muhammad Madiha Anwar</div><div class="p-meta">O Level · Batch 2008</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Bilawal Ali</div><div class="p-meta">O Level · Batch 2008</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">UK</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Muhammad Mehdi Khan</div><div class="p-meta">O Level · Batch 2008</div></div><div class="p-uni"><div class="p-uni-name">University Placement</div><div class="p-uni-country">UK</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Zain Ul Abedin</div><div class="p-meta">Batch 2008</div></div><div class="p-uni"><div class="p-uni-name">NUST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Beenish Fatima</div><div class="p-meta">Batch 2008</div></div><div class="p-uni"><div class="p-uni-name">NUST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Amber Hussain</div><div class="p-meta">Batch 2008</div></div><div class="p-uni"><div class="p-uni-name">King Edward Medical University</div><div class="p-uni-country">Pakistan</div></div></div>
+        </div>
+
+        <!-- 2007 -->
+        <div class="placement-panel" data-panel="2007">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Syed Ali Hussain</div><div class="p-meta">O Level · Batch 2007</div></div><div class="p-uni"><div class="p-uni-name">Australian National University</div><div class="p-uni-country">Australia</div></div></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Taimour Haider</div><div class="p-meta">O Level · Batch 2007</div></div><div class="p-uni"><div class="p-uni-name">Australian Institute of Higher Education</div><div class="p-uni-country">Australia</div></div></div>
+          <div class="cat-header"><div class="cat-dot national"></div><h4>National Universities</h4></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Syed Ali Hussain</div><div class="p-meta">Batch 2007</div></div><div class="p-uni"><div class="p-uni-name">NUST</div><div class="p-uni-country">Pakistan</div></div></div>
+          <div class="p-item"><div class="p-avatar national"><i class="bi bi-building"></i></div><div><div class="p-name">Hassan Sarfaraz Khan</div><div class="p-meta">Batch 2007</div></div><div class="p-uni"><div class="p-uni-name">NUST</div><div class="p-uni-country">Pakistan</div></div></div>
+        </div>
+
+        <!-- 2006 -->
+        <div class="placement-panel" data-panel="2006">
+          <div class="cat-header"><div class="cat-dot intl"></div><h4>International Placements</h4></div>
+          <div class="p-item"><div class="p-avatar intl"><i class="bi bi-globe2"></i></div><div><div class="p-name">Habiba Ahmed</div><div class="p-meta">O Level · Batch 2006</div></div><div class="p-uni"><div class="p-uni-name">Manchester University</div><div class="p-uni-country">UK</div></div></div>
+          <div class="cat-header"><div class="cat-dot medical"></div><h4>Medical Colleges</h4></div>
+          <div class="p-item"><div class="p-avatar medical"><i class="bi bi-heart-pulse-fill"></i></div><div><div class="p-name">Palwasha Babar</div><div class="p-meta">Batch 2006</div></div><div class="p-uni"><div class="p-uni-name">Lahore Medical &amp; Dental College</div><div class="p-uni-country">Pakistan</div></div></div>
+        </div>
+
+      </div><!-- /panels container -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer pt-5 pb-0">
+    <div class="container py-4">
+      <div class="row g-5">
+        <div class="col-md-6 col-lg-3"><div class="d-flex align-items-center gap-2 mb-3"><img src="assets/images/myers-logo.png" alt="Myer's College" height="44" width="44" style="object-fit:contain;" /><div><span class="gradient-text" style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;">Myer's</span><span style="color:rgba(255,255,255,0.95);font-family:var(--font-heading);font-size:1.1rem;font-weight:700;"> College</span></div></div><p style="font-size:0.85rem;line-height:1.8;color:rgba(255,255,255,0.52);">A university-preparatory school affiliated with Cambridge International Examinations, providing quality education since 1999.</p><div class="d-flex gap-2 mt-3"><a href="#" class="footer-social"><i class="bi bi-facebook"></i></a><a href="#" class="footer-social"><i class="bi bi-instagram"></i></a><a href="#" class="footer-social"><i class="bi bi-youtube"></i></a></div></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Quick Links</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:10px;"><li><a href="index.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Home</a></li><li><a href="about.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> About Us</a></li><li><a href="academics.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Academics</a></li><li><a href="admissions.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Admissions</a></li><li><a href="life.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Life at Myers</a></li><li><a href="contact.html" class="footer-link"><i class="bi bi-chevron-right" style="font-size:0.7rem;"></i> Contact Us</a></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Contact Info</h4><ul class="list-unstyled mb-0" style="display:flex;flex-direction:column;gap:16px;font-size:0.85rem;color:rgba(255,255,255,0.52);"><li class="d-flex align-items-start gap-3"><i class="bi bi-geo-alt-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Myers College, Kot Sarfraz Khan, Chakwal-48800, Punjab, Pakistan</li><li class="d-flex align-items-start gap-3"><i class="bi bi-telephone-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">+92-543-541610</p><p class="mb-0">+92-321-2960044</p></div></li><li class="d-flex align-items-start gap-3"><i class="bi bi-envelope-fill" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i><div><p class="mb-1">principal@myers.edu.pk</p><p class="mb-0">counselor@myers.edu.pk</p></div></li></ul></div>
+        <div class="col-md-6 col-lg-3"><h4 class="footer-heading mb-4">Stay Connected</h4><p style="font-size:0.85rem;color:rgba(255,255,255,0.52);">Subscribe to get updates on admissions, events and more.</p><form class="newsletter-form d-flex mt-3" onsubmit="return false;"><input type="email" class="form-control footer-input" placeholder="Your email" required /><button type="submit" class="btn-gold" style="border-radius:0 10px 10px 0;padding:10px 16px;">Subscribe</button></form></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2"><p class="mb-0">&copy; <span id="year"></span> Myer's College. All rights reserved.</p><p class="mb-0">Cambridge International Examinations — PK 035</p></div></div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <button id="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img id="lightbox-img" src="" alt="Placement" />
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/chatbot.js"></script>
+  <script>
+    // Year tabs
+    document.querySelectorAll('.year-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.placement-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const panel = document.querySelector('.placement-panel[data-panel="' + tab.dataset.year + '"]');
+        if (panel) {
+          panel.classList.add('active');
+          panel.closest('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Lightbox
+    function openLightbox(el) {
+      const img = el.querySelector('img');
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>
