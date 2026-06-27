@@ -223,28 +223,30 @@
     }
     .school-ac-item { 
       margin: 16px 0; 
-      position: relative;
-    }
-    .school-ac-header {
-      display: flex; align-items: center; gap: 20px; padding: 10px 24px 10px 10px;
-      border-radius: 50px;
       background: linear-gradient(180deg, #ffffff 0%, #f7f3f1 100%);
-      cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      user-select: none; text-decoration: none; 
+      border-radius: 24px;
       border: 1px solid rgba(196, 151, 58, 0.15);
       box-shadow: 
         0 8px 16px -4px rgba(139, 26, 26, 0.08), 
-        inset -4px -4px 10px rgba(139, 26, 26, 0.04), 
         inset 4px 4px 10px rgba(255, 255, 255, 1);
-      position: relative; z-index: 2;
+      overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
-    .school-ac-header:hover {
-      transform: translateY(-2px);
+    .school-ac-item:hover {
+      border-color: rgba(196, 151, 58, 0.35);
       box-shadow: 
         0 12px 24px -6px rgba(139, 26, 26, 0.12),
-        inset -4px -4px 10px rgba(139, 26, 26, 0.04),
         inset 4px 4px 10px rgba(255, 255, 255, 1);
-      border-color: rgba(196, 151, 58, 0.35);
+    }
+    .school-ac-header {
+      display: flex; align-items: center; gap: 20px; padding: 10px 24px 10px 10px;
+      cursor: pointer; transition: background 0.25s ease;
+      user-select: none; text-decoration: none; 
+      position: relative;
+      background: transparent;
+    }
+    .school-ac-header:hover {
+      background: rgba(139, 26, 26, 0.02);
     }
     .school-ac-icon {
       width: 60px; height: 60px; border-radius: 50%;
@@ -260,23 +262,27 @@
     .school-ac-info p { color: rgba(139, 26, 26, 0.7); font-size: 0.72rem; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
     .school-ac-chevron { 
       color: rgba(139, 26, 26, 0.4); font-size: 1rem; 
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s; flex-shrink: 0; 
+      transition: transform 0.3s ease, color 0.25s; flex-shrink: 0; 
       background: rgba(139, 26, 26, 0.05); width: 34px; height: 34px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
     }
     .school-ac-header:hover .school-ac-chevron { background: rgba(139, 26, 26, 0.1); color: rgba(139, 26, 26, 0.7); }
     .school-ac-header:not(.collapsed) .school-ac-chevron { transform: rotate(180deg); color: #fff; background: var(--maroon); }
     .school-ac-body {
-      padding: 36px 30px 24px 94px; background: #fff; 
-      border-radius: 0 0 24px 24px; margin-top: -24px; position: relative; z-index: 1;
-      border: 1px solid rgba(139, 26, 26, 0.08); border-top: none;
-      box-shadow: 0 8px 24px rgba(139, 26, 26, 0.05);
+      padding: 8px 30px 28px 94px;
+      border-top: 1px solid rgba(139, 26, 26, 0.08);
       color: rgba(30, 8, 10, 0.65); font-size: 0.92rem; line-height: 1.8;
+      background: rgba(252, 248, 246, 0.5);
+    }
+    /* Speed up Bootstrap collapse animation */
+    .school-ac-item .collapse,
+    .school-ac-item .collapsing {
+      transition-duration: 0.2s !important;
     }
     @media (max-width: 576px) { 
-      .school-ac-header { padding: 8px 16px 8px 8px; border-radius: 40px; }
+      .school-ac-header { padding: 8px 16px 8px 8px; }
       .school-ac-icon { width: 48px; height: 48px; font-size: 1.15rem; } 
-      .school-ac-body { padding: 40px 20px 24px 20px; margin-top: -24px; }
+      .school-ac-body { padding: 16px 20px 24px 20px; }
       .school-ac-info h4 { font-size: 1rem; }
     }
 

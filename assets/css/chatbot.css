@@ -10,7 +10,7 @@
   right: 105px; /* positioned to the left of the button */
   background: #fff;
   color: var(--black-rich);
-  padding: 12px 18px;
+  padding: 12px 32px 12px 18px; /* extra right padding for the × button */
   border-radius: 16px 16px 4px 16px;
   box-shadow: 0 10px 40px -10px rgba(0,0,0,0.3);
   font-family: var(--font-body);
@@ -22,6 +22,7 @@
   pointer-events: none;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   border: 1px solid rgba(196, 151, 58, 0.3);
+  position: fixed; /* keep fixed, but also needs relative for child abs positioning — handled via padding */
 }
 #chatbot-tooltip.show {
   opacity: 1;
@@ -45,13 +46,15 @@
 }
 .tooltip-close {
   position: absolute;
-  top: 4px;
-  right: 6px;
-  font-size: 1.2rem;
-  color: rgba(0,0,0,0.4);
+  top: 6px;
+  right: 8px;
+  font-size: 1rem;
+  color: rgba(0,0,0,0.35);
   cursor: pointer;
   line-height: 1;
-  padding: 0 4px;
+  padding: 2px 5px;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
 }
 .tooltip-close:hover {
   color: var(--maroon);
